@@ -22,8 +22,8 @@ const services = [
 
 const projects = [
   {
-    title: "feiticeiros-homebrew",
-    description: "Plataforma autoral em desenvolvimento para organizar experiências e fluxos de produto. Minha contribuição está na interface e na estrutura web.",
+    title: "Infinite Worlds",
+    description: "Plataforma autoral para organizar ideias, experiências e estrutura de produto em uma base moderna.",
     stack: ["React", "TypeScript", "Express"],
     github: "https://github.com/otavio2019/feiticeiros-homebrew",
     site: "https://feiticeiros-homebrew.vercel.app",
@@ -32,42 +32,25 @@ const projects = [
   },
   {
     title: "CITI-DE",
-    description: "Projeto de repaginação voltado a melhorar a organização visual e a experiência de navegação. Trabalhei na apresentação frontend e no refinamento da interface.",
+    description: "Projeto de repaginação com foco em visual, organização e melhor experiência do usuário.",
     stack: ["Frontend", "UI", "Design System"],
-    github: "https://github.com/otavio2019/CITI-DE",
-    site: "https://seusite.com",
-    status: "Estudo",
-    type: "Interface web",
+    href: "https://github.com/otavio2019/CITI-DE",
   },
   {
-    title: "Estágio",
-    description: "Repositório de estudo e prática em Python para aplicar fundamentos de programação e transformar aprendizado em código organizado.",
+    title: "Estagio",
+    description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
     stack: ["Python", "Open Source", "Aprendizado"],
-    github: "https://github.com/otavio2019/Estagio/tree/main",
-    site: "https://seusite.com",
-    status: "Estudo",
-    type: "Prática de programação",
+    href: "https://github.com/otavio2019/Estagio",
   },
 ];
 
 const stats = [
   { value: "+3", label: "anos de estudo e prática" },
-  { value: "14+", label: "repositórios públicos" },
-  { value: "React", label: "principal stack de frontend" },
+  { value: "14", label: "repositórios públicos" },
+  { value: "100%", label: "foco em qualidade e clareza" },
 ];
 
-const techCategories = [
-  { name: "Frontend", items: ["React", "TypeScript", "Vite", "Tailwind CSS"] },
-  { name: "Backend", items: ["Node.js", "Express", "Python"] },
-  { name: "Dados e ferramentas", items: ["MySQL", "Git", "GitHub"] },
-];
-
-const workflow = [
-  ["01", "Entendimento", "Alinho o objetivo, o público e as principais necessidades do projeto."],
-  ["02", "Estrutura", "Organizo páginas, fluxos e prioridades para criar uma experiência clara."],
-  ["03", "Desenvolvimento", "Construo a solução com código organizado, responsivo e fácil de evoluir."],
-  ["04", "Refinamento", "Testo, ajusto detalhes e melhoro a experiência em diferentes dispositivos."],
-];
+const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
 
 const pricing = [
   {
@@ -93,24 +76,17 @@ const pricing = [
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\nForma de contratação: ${data.get("billing")}\n\n${data.get("message")}`;
-    const whatsappUrl = `https://wa.me/5583999645357?text=${encodeURIComponent(message)}`;
-    const whatsappWindow = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    navigator.clipboard?.writeText(message);
+    setCopied(true);
+    toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
+    window.setTimeout(() => setCopied(false), 2500);
     event.currentTarget.reset();
-
-    if (!whatsappWindow) {
-      toast.error("Não foi possível abrir o WhatsApp", { description: "Permita pop-ups para continuar a conversa." });
-      return;
-    }
-
-    setSubmitted(true);
-    toast.success("Conversa preparada", { description: "O WhatsApp foi aberto com os dados do projeto." });
-    window.setTimeout(() => setSubmitted(false), 2500);
   }
 
   return (
@@ -121,13 +97,11 @@ export default function Home() {
           <span className="brand-name">Otávio Augusto</span>
         </a>
 
-        <nav id="primary-navigation" className={open ? "nav open" : "nav"} aria-label="Navegação principal">
+        <nav className={open ? "nav open" : "nav"}>
           {[
             ["Início", "top"],
             ["Sobre", "sobre"],
             ["Serviços", "servicos"],
-            ["Como eu trabalho", "como-trabalho"],
-            ["Tecnologias", "tecnologias"],
             ["Preços", "precos"],
             ["Projetos", "projetos"],
             ["Contato", "contato"],
@@ -148,8 +122,6 @@ export default function Home() {
           onClick={() => setOpen(!open)}
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
-          aria-controls="primary-navigation"
-          type="button"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -163,7 +135,7 @@ export default function Home() {
             </p>
 
             <h1>
-              Desenvolvedor frontend em formação, criando interfaces que <span>resolvem problemas reais.</span>
+              Desenvolvimento web <span>sob medida</span>
             </h1>
 
             <p className="lede">
@@ -199,9 +171,9 @@ export default function Home() {
             </div>
             <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" loading="lazy" decoding="async" />
             <div className="panel-card top-card">
-              <div className="mini-label">Stack</div>
+              <div className="mini-label">Frontend Stack</div>
               <div className="tag-list">
-                {techCategories[0].items.map((item) => (
+                {tech.map((item) => (
                   <span key={item}>{item}</span>
                 ))}
               </div>
@@ -272,39 +244,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="como-trabalho" className="content-section section workflow-section">
-          <div className="section-header">
-            <span className="section-kicker">03 / Como eu trabalho</span>
-            <h2>Como eu transformo uma ideia em produto</h2>
-          </div>
-          <div className="workflow-grid">
-            {workflow.map(([number, title, text]) => (
-              <article key={number} className="workflow-card">
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="tecnologias" className="content-section dark-section section technology-section">
-          <div className="section-header">
-            <span className="section-kicker">04 / Tecnologias</span>
-            <h2>Ferramentas que uso para construir e evoluir.</h2>
-          </div>
-          <div className="technology-grid">
-            {techCategories.map((category) => (
-              <article key={category.name} className="technology-card">
-                <h3>{category.name}</h3>
-                <div className="tag-list">
-                  {category.items.map((item) => <span key={item}>{item}</span>)}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
         <section id="precos" className="content-section pricing-section section">
           <div className="section-header">
             <span className="section-kicker">05 / Preços</span>
@@ -355,52 +294,23 @@ export default function Home() {
             </a>
           </div>
 
-         ```tsx
-<div className="projects-grid">
-  {projects.map((project) => (
-    <div key={project.title} className="project-card">
-      <div className="project-topline">
-        <span>
-          {project.type} · {project.status}
-        </span>
-      </div>
-
-      <h3>{project.title}</h3>
-
-      <p>{project.description}</p>
-
-      <div className="project-tags">
-        {project.stack.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-      </div>
-
-      <div className="project-links">
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noreferrer"
-          className="project-link-label"
-        >
-          Ver código no GitHub
-          <ArrowRight size={14} />
-        </a>
-
-        <a
-          href={project.site}
-          target="_blank"
-          rel="noreferrer"
-          className="project-link-label"
-        >
-          Ver site
-          <ArrowRight size={14} />
-        </a>
-      </div>
-    </div>
-  ))}
-</div>
-```
-
+          <div className="projects-grid">
+            {projects.map((project) => (
+              <a key={project.title} href={project.href} target="_blank" rel="noreferrer" className="project-card">
+                <div className="project-topline">
+                  <span>Projeto</span>
+                  <ArrowRight size={16} />
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-tags">
+                  {project.stack.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
         </section>
 
         <section id="contato" className="contact-section section">
@@ -468,7 +378,7 @@ export default function Home() {
               </label>
 
               <button type="submit" className="button primary submit-button">
-                {submitted ? "WhatsApp aberto" : "Enviar pelo WhatsApp"}
+                {copied ? "Mensagem copiada" : "Preparar mensagem"}
               </button>
             </form>
           </div>
