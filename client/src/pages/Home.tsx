@@ -78,7 +78,7 @@ export default function Home() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\n\n${data.get("message")}`;
+    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\nForma de contratação: ${data.get("billing")}\n\n${data.get("message")}`;
     navigator.clipboard?.writeText(message);
     setCopied(true);
     toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
@@ -354,10 +354,15 @@ export default function Home() {
                   <option>Landing page</option>
                   <option>Portfólio</option>
                   <option>Sistema web</option>
-                  <option>Pacote Essencial — R$ 600</option>
-                  <option>Pacote Profissional — R$ 1.200</option>
-                  <option>Pacote Completo — R$ 2.000</option>
-                  <option>Projeto avulso — R$ 900</option>
+                </select>
+              </label>
+
+              <label>
+                Forma de contratação
+                <select required name="billing">
+                  <option value="">Selecione</option>
+                  <option>Pacote fechado</option>
+                  <option>Por hora — R$ 25 a R$ 50</option>
                 </select>
               </label>
 
