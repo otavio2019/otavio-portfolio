@@ -109,6 +109,13 @@ select:focus-visible {
   font-weight: 700;
 }
 
+.brand-logo {
+  width: 52px;
+  height: 34px;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .brand-mark {
   display: inline-flex;
   align-items: center;
@@ -287,6 +294,61 @@ h2 span {
   border: 1px solid var(--line);
   border-radius: 24px;
   box-shadow: 0 20px 35px rgba(8, 11, 19, 0.38);
+}
+
+.hero-photo-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  border: 1px solid var(--accent);
+  border-radius: 24px;
+  background: #05070c;
+  box-shadow: 10px 10px 0 rgba(110, 231, 255, 0.14);
+}
+
+.hero-photo-card::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(8, 17, 31, 0.05), rgba(139, 92, 246, 0.34));
+  content: "";
+  pointer-events: none;
+}
+
+.hero-photo-card img {
+  width: 100%;
+  height: 390px;
+  object-fit: cover;
+  object-position: center 35%;
+  filter: saturate(0.78) contrast(1.08);
+}
+
+.hero-photo-caption {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  z-index: 1;
+  display: grid;
+  gap: 5px;
+  padding: 14px 16px;
+  border: 1px solid rgba(110, 231, 255, 0.4);
+  border-radius: 14px;
+  background: rgba(5, 7, 12, 0.78);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.hero-photo-caption span {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.hero-photo-caption small {
+  color: var(--primary);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .panel-card {
@@ -750,5 +812,9 @@ h2 span {
   .site-footer {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .brand-logo {
+    width: 46px;
   }
 }

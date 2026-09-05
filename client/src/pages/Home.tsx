@@ -68,7 +68,7 @@ export default function Home() {
     <div className="site-shell">
       <header className="site-header">
         <a href="#top" className="brand" aria-label="Voltar ao início">
-          <span className="brand-mark">O</span>
+          <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" />
           <span className="brand-name">Otávio Augusto</span>
         </a>
 
@@ -136,6 +136,13 @@ export default function Home() {
           </div>
 
           <div className="hero-panel">
+            <div className="hero-photo-card">
+              <img src="/images/Foto.jpeg" alt="Otávio Augusto" />
+              <div className="hero-photo-caption">
+                <span>Otávio Augusto</span>
+                <small>desenvolvedor web em formação</small>
+              </div>
+            </div>
             <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" />
             <div className="panel-card top-card">
               <div className="mini-label">Stack</div>
@@ -300,7 +307,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="brand footer-brand">
-          <span className="brand-mark">O</span>
+          <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" />
           <span className="brand-name">Otávio Augusto</span>
         </div>
         <p>Desenvolvedor web em formação</p>
