@@ -2,8 +2,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   --bg: #08111f;
   --bg-strong: #0d172a;
@@ -100,6 +98,7 @@ select:focus-visible {
   border: 1px solid var(--line);
   border-radius: 18px;
   background: rgba(9, 15, 24, 0.76);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow: 0 20px 35px rgba(3, 7, 18, 0.28);
 }

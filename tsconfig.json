@@ -13,7 +13,7 @@
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "moduleResolution": "bundler",
-    "baseUrl": "./",
+    "forceConsistentCasingInFileNames": true,
     "paths": {
       "@/*": ["./client/src/*"],
       "@shared/*": ["./shared/*"]

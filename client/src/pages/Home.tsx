@@ -136,7 +136,7 @@ export default function Home() {
           </div>
 
           <div className="hero-panel">
-            <img className="hero-art" src="/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" />
+            <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" />
             <div className="panel-card top-card">
               <div className="mini-label">Stack</div>
               <div className="tag-list">
