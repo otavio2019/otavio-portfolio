@@ -22,32 +22,52 @@ const services = [
 
 const projects = [
   {
-    title: "Infinite Worlds",
-    description: "Plataforma autoral para organizar ideias, experiências e estrutura de produto em uma base moderna.",
+    title: "feiticeiros-homebrew",
+    description: "Plataforma autoral em desenvolvimento para organizar experiências e fluxos de produto. Minha contribuição está na interface e na estrutura web.",
     stack: ["React", "TypeScript", "Express"],
-    href: "https://github.com/otavio2019/infinite-worlds-platform",
+    github: "https://github.com/otavio2019/feiticeiros-homebrew",
+    site: "https://feiticeiros-homebrew.vercel.app",
+    status: "Em desenvolvimento",
+    type: "Plataforma web",
   },
   {
     title: "CITI-DE",
-    description: "Projeto de repaginação com foco em visual, organização e melhor experiência do usuário.",
+    description: "Projeto de repaginação voltado a melhorar a organização visual e a experiência de navegação. Trabalhei na apresentação frontend e no refinamento da interface.",
     stack: ["Frontend", "UI", "Design System"],
-    href: "https://github.com/otavio2019/CITI-DE",
+    github: "https://github.com/otavio2019/CITI-DE",
+    site: "https://seusite.com",
+    status: "Estudo",
+    type: "Interface web",
   },
   {
-    title: "Estagio",
-    description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
+    title: "Estágio",
+    description: "Repositório de estudo e prática em Python para aplicar fundamentos de programação e transformar aprendizado em código organizado.",
     stack: ["Python", "Open Source", "Aprendizado"],
-    href: "https://github.com/otavio2019/Estagio",
+    github: "https://github.com/otavio2019/Estagio/tree/main",
+    site: "https://seusite.com",
+    status: "Estudo",
+    type: "Prática de programação",
   },
 ];
 
 const stats = [
   { value: "+3", label: "anos de estudo e prática" },
-  { value: "14", label: "repositórios públicos" },
-  { value: "100%", label: "foco em qualidade e clareza" },
+  { value: "14+", label: "repositórios públicos" },
+  { value: "React", label: "principal stack de frontend" },
 ];
 
-const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
+const techCategories = [
+  { name: "Frontend", items: ["React", "TypeScript", "Vite", "Tailwind CSS"] },
+  { name: "Backend", items: ["Node.js", "Express", "Python"] },
+  { name: "Dados e ferramentas", items: ["MySQL", "Git", "GitHub"] },
+];
+
+const workflow = [
+  ["01", "Entendimento", "Alinho o objetivo, o público e as principais necessidades do projeto."],
+  ["02", "Estrutura", "Organizo páginas, fluxos e prioridades para criar uma experiência clara."],
+  ["03", "Desenvolvimento", "Construo a solução com código organizado, responsivo e fácil de evoluir."],
+  ["04", "Refinamento", "Testo, ajusto detalhes e melhoro a experiência em diferentes dispositivos."],
+];
 
 const pricing = [
   {
@@ -73,32 +93,41 @@ const pricing = [
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\nForma de contratação: ${data.get("billing")}\n\n${data.get("message")}`;
-    navigator.clipboard?.writeText(message);
-    setCopied(true);
-    toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
-    window.setTimeout(() => setCopied(false), 2500);
+    const whatsappUrl = `https://wa.me/5583999645357?text=${encodeURIComponent(message)}`;
+    const whatsappWindow = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     event.currentTarget.reset();
+
+    if (!whatsappWindow) {
+      toast.error("Não foi possível abrir o WhatsApp", { description: "Permita pop-ups para continuar a conversa." });
+      return;
+    }
+
+    setSubmitted(true);
+    toast.success("Conversa preparada", { description: "O WhatsApp foi aberto com os dados do projeto." });
+    window.setTimeout(() => setSubmitted(false), 2500);
   }
 
   return (
     <div className="site-shell">
       <header className="site-header">
         <a href="#top" className="brand" aria-label="Voltar ao início">
-          <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" />
+          <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" loading="eager" decoding="async" />
           <span className="brand-name">Otávio Augusto</span>
         </a>
 
-        <nav className={open ? "nav open" : "nav"}>
+        <nav id="primary-navigation" className={open ? "nav open" : "nav"} aria-label="Navegação principal">
           {[
             ["Início", "top"],
             ["Sobre", "sobre"],
             ["Serviços", "servicos"],
+            ["Como eu trabalho", "como-trabalho"],
+            ["Tecnologias", "tecnologias"],
             ["Preços", "precos"],
             ["Projetos", "projetos"],
             ["Contato", "contato"],
@@ -119,6 +148,8 @@ export default function Home() {
           onClick={() => setOpen(!open)}
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
+          aria-controls="primary-navigation"
+          type="button"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -132,11 +163,11 @@ export default function Home() {
             </p>
 
             <h1>
-              Desenvolvimento web <span>sob medida</span>
+              Desenvolvedor frontend em formação, criando interfaces que <span>resolvem problemas reais.</span>
             </h1>
 
             <p className="lede">
-              Eu crio experiências digitais que unem clareza, funcionalidade e visual profissional para transformar ideias em produtos reais.
+              Desenvolvo sites, interfaces e aplicações web com React, TypeScript e foco em clareza, responsividade e boa experiência de uso.
             </p>
 
             <div className="hero-actions">
@@ -160,17 +191,17 @@ export default function Home() {
 
           <div className="hero-panel">
             <div className="hero-photo-card">
-              <img src="/images/Foto.jpeg" alt="Otávio Augusto" />
+              <img src="/images/Foto.jpeg" alt="Otávio Augusto, desenvolvedor web" loading="eager" decoding="async" />
               <div className="hero-photo-caption">
                 <span>Otávio Augusto</span>
                 <small>desenvolvedor web em formação</small>
               </div>
             </div>
-            <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" />
+            <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" loading="lazy" decoding="async" />
             <div className="panel-card top-card">
               <div className="mini-label">Stack</div>
               <div className="tag-list">
-                {tech.map((item) => (
+                {techCategories[0].items.map((item) => (
                   <span key={item}>{item}</span>
                 ))}
               </div>
@@ -241,9 +272,42 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="como-trabalho" className="content-section section workflow-section">
+          <div className="section-header">
+            <span className="section-kicker">03 / Como eu trabalho</span>
+            <h2>Como eu transformo uma ideia em produto</h2>
+          </div>
+          <div className="workflow-grid">
+            {workflow.map(([number, title, text]) => (
+              <article key={number} className="workflow-card">
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="tecnologias" className="content-section dark-section section technology-section">
+          <div className="section-header">
+            <span className="section-kicker">04 / Tecnologias</span>
+            <h2>Ferramentas que uso para construir e evoluir.</h2>
+          </div>
+          <div className="technology-grid">
+            {techCategories.map((category) => (
+              <article key={category.name} className="technology-card">
+                <h3>{category.name}</h3>
+                <div className="tag-list">
+                  {category.items.map((item) => <span key={item}>{item}</span>)}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section id="precos" className="content-section pricing-section section">
           <div className="section-header">
-            <span className="section-kicker">03 / Preços</span>
+            <span className="section-kicker">05 / Preços</span>
             <h2>Opções claras para cada momento do seu negócio.</h2>
           </div>
 
@@ -283,7 +347,7 @@ export default function Home() {
         <section id="projetos" className="content-section section">
           <div className="section-header projects-header">
             <div>
-              <span className="section-kicker">03 / Projetos</span>
+              <span className="section-kicker">06 / Projetos</span>
               <h2>Trabalho real, com foco em aprendizado e execução.</h2>
             </div>
             <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer" className="github-link">
@@ -292,28 +356,54 @@ export default function Home() {
           </div>
 
           <div className="projects-grid">
-            {projects.map((project) => (
-              <a key={project.title} href={project.href} target="_blank" rel="noreferrer" className="project-card">
-                <div className="project-topline">
-                  <span>Projeto</span>
-                  <ArrowRight size={16} />
-                </div>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <div className="project-tags">
-                  {project.stack.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
-                </div>
-              </a>
-            ))}
-          </div>
+  {projects.map((project) => (
+    <div key={project.title} className="project-card">
+      <div className="project-topline">
+        <span>
+          {project.type} · {project.status}
+        </span>
+      </div>
+
+      <h3>{project.title}</h3>
+
+      <p>{project.description}</p>
+
+      <div className="project-tags">
+        {project.stack.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
+
+      <div className="project-links">
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noreferrer"
+          className="project-link-label"
+        >
+          Ver código no GitHub
+          <ArrowRight size={14} />
+        </a>
+
+        <a
+          href={project.site}
+          target="_blank"
+          rel="noreferrer"
+          className="project-link-label"
+        >
+          Ver site
+          <ArrowRight size={14} />
+        </a>
+      </div>
+    </div>
+  ))}
+  </div>
         </section>
 
         <section id="contato" className="contact-section section">
           <div className="contact-grid">
             <div className="contact-copy">
-              <span className="section-kicker">04 / Contato</span>
+              <span className="section-kicker">07 / Contato</span>
               <h2>Vamos criar algo bom juntos?</h2>
               <p>
                 Se você precisa de um site, uma interface mais profissional ou uma melhoria na presença online do seu negócio, pode me chamar.
@@ -361,7 +451,10 @@ export default function Home() {
                 Forma de contratação
                 <select required name="billing">
                   <option value="">Selecione</option>
-                  <option>Pacote fechado</option>
+                  <option>Pacote Essencial - R$ 600</option>
+                  <option>Pacote Profissional - R$ 1200</option>
+                  <option>Pacote Completo - R$ 2000</option>
+                  <option>Projeto avulso - R$ 900</option>
                   <option>Por hora — R$ 25 a R$ 50</option>
                 </select>
               </label>
@@ -372,7 +465,7 @@ export default function Home() {
               </label>
 
               <button type="submit" className="button primary submit-button">
-                {copied ? "Mensagem copiada" : "Preparar mensagem"}
+                {submitted ? "WhatsApp aberto" : "Enviar pelo WhatsApp"}
               </button>
             </form>
           </div>
@@ -381,7 +474,7 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="brand footer-brand">
-          <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" />
+          <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" loading="lazy" decoding="async" />
           <span className="brand-name">Otávio Augusto</span>
         </div>
         <p>Desenvolvedor web em formação</p>
