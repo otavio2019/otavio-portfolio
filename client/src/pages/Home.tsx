@@ -23,31 +23,38 @@ const services = [
 const projects = [
   {
     title: "Infinite Worlds",
-    description: "Plataforma autoral para organizar ideias, experiências e estrutura de produto em uma base moderna.",
+    description: "Plataforma para organizar ideias, experiências e estrutura de produtos. Desenvolvida com React, TypeScript e Express para criar uma base moderna e escalável.",
+    status: "Em desenvolvimento",
     stack: ["React", "TypeScript", "Express"],
     href: "https://github.com/otavio2019/infinite-worlds-platform",
   },
   {
     title: "CITI-DE",
-    description: "Projeto de repaginação com foco em visual, organização e melhor experiência do usuário.",
-    stack: ["Frontend", "UI", "Design System"],
+    description: "Projeto de interface e design system com foco em organização visual, componentes reutilizáveis e melhor experiência do usuário.",
+    status: "Concluído",
+    stack: ["React", "Design System", "UI"],
     href: "https://github.com/otavio2019/CITI-DE",
   },
   {
-    title: "Estagio",
-    description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
-    stack: ["Python", "Open Source", "Aprendizado"],
+    title: "Estágio",
+    description: "Repositório dedicado ao estudo e prática de conceitos de desenvolvimento. Inclui exercícios, projetos de aprendizado e experimentações com diferentes tecnologias.",
+    status: "Estudo",
+    stack: ["Python", "Aprendizado", "Open Source"],
     href: "https://github.com/otavio2019/Estagio",
   },
 ];
 
 const stats = [
   { value: "+3", label: "anos de estudo e prática" },
-  { value: "14", label: "repositórios públicos" },
-  { value: "100%", label: "foco em qualidade e clareza" },
+  { value: "14+", label: "repositórios públicos" },
+  { value: "React", label: "principal stack" },
 ];
 
-const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
+const techStack = {
+  frontend: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+  backend: ["Node.js", "Express", "Python"],
+  tools: ["MySQL", "Git", "GitHub"],
+};
 
 const pricing = [
   {
@@ -73,17 +80,21 @@ const pricing = [
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\nForma de contratação: ${data.get("billing")}\n\n${data.get("message")}`;
-    navigator.clipboard?.writeText(message);
-    setCopied(true);
-    toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
-    window.setTimeout(() => setCopied(false), 2500);
-    event.currentTarget.reset();
+    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nTipo de projeto: ${data.get("type")}\nForma de contratação: ${data.get("billing")}\n\nMensagem:\n${data.get("message")}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/5583999645357?text=${encodedMessage}`;
+    
+    try {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      toast.success("Conversa preparada", { description: "WhatsApp aberto em uma nova aba." });
+      event.currentTarget.reset();
+    } catch (error) {
+      toast.error("Erro", { description: "Não foi possível abrir o WhatsApp. Tente novamente." });
+    }
   }
 
   return (
@@ -94,11 +105,12 @@ export default function Home() {
           <span className="brand-name">Otávio Augusto</span>
         </a>
 
-        <nav className={open ? "nav open" : "nav"}>
+        <nav className={open ? "nav open" : "nav"} id="nav-menu">
           {[
             ["Início", "top"],
             ["Sobre", "sobre"],
             ["Serviços", "servicos"],
+            ["Processo", "processo"],
             ["Preços", "precos"],
             ["Projetos", "projetos"],
             ["Contato", "contato"],
@@ -119,6 +131,7 @@ export default function Home() {
           onClick={() => setOpen(!open)}
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
+          aria-controls="nav-menu"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -132,11 +145,11 @@ export default function Home() {
             </p>
 
             <h1>
-              Desenvolvimento web <span>sob medida</span>
+              Desenvolvedor frontend <span>em formação</span>
             </h1>
 
             <p className="lede">
-              Eu crio experiências digitais que unem clareza, funcionalidade e visual profissional para transformar ideias em produtos reais.
+              Desenvolvo sites, interfaces e aplicações web com React, TypeScript e foco em clareza, responsividade e boa experiência de uso.
             </p>
 
             <div className="hero-actions">
@@ -168,9 +181,9 @@ export default function Home() {
             </div>
             <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" />
             <div className="panel-card top-card">
-              <div className="mini-label">Stack</div>
+              <div className="mini-label">Frontend Stack</div>
               <div className="tag-list">
-                {tech.map((item) => (
+                {techStack.frontend.map((item) => (
                   <span key={item}>{item}</span>
                 ))}
               </div>
@@ -241,6 +254,39 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="processo" className="content-section section">
+          <div className="section-header">
+            <span className="section-kicker">02.5 / Processo</span>
+            <h2>Como eu transformo uma ideia em produto.</h2>
+          </div>
+
+          <div className="workflow-grid">
+            <article className="workflow-card">
+              <span className="workflow-number">01</span>
+              <h3>Entendimento</h3>
+              <p>Alinho o objetivo, o público e as principais necessidades do projeto.</p>
+            </article>
+
+            <article className="workflow-card">
+              <span className="workflow-number">02</span>
+              <h3>Estrutura</h3>
+              <p>Organizo páginas, fluxos e prioridades para criar uma experiência clara.</p>
+            </article>
+
+            <article className="workflow-card">
+              <span className="workflow-number">03</span>
+              <h3>Desenvolvimento</h3>
+              <p>Construo a solução com código organizado, responsivo e fácil de evoluir.</p>
+            </article>
+
+            <article className="workflow-card">
+              <span className="workflow-number">04</span>
+              <h3>Refinamento</h3>
+              <p>Testo, ajusto detalhes e melhoro a experiência em diferentes dispositivos.</p>
+            </article>
+          </div>
+        </section>
+
         <section id="precos" className="content-section pricing-section section">
           <div className="section-header">
             <span className="section-kicker">03 / Preços</span>
@@ -299,6 +345,7 @@ export default function Home() {
                   <ArrowRight size={16} />
                 </div>
                 <h3>{project.title}</h3>
+                {project.status && <span className="project-status">{project.status}</span>}
                 <p>{project.description}</p>
                 <div className="project-tags">
                   {project.stack.map((item) => (
@@ -372,7 +419,7 @@ export default function Home() {
               </label>
 
               <button type="submit" className="button primary submit-button">
-                {copied ? "Mensagem copiada" : "Preparar mensagem"}
+                Enviar pelo WhatsApp
               </button>
             </form>
           </div>
