@@ -355,7 +355,8 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="projects-grid">
+         ```tsx
+<div className="projects-grid">
   {projects.map((project) => (
     <div key={project.title} className="project-card">
       <div className="project-topline">
@@ -397,7 +398,9 @@ export default function Home() {
       </div>
     </div>
   ))}
-  </div>
+</div>
+```
+
         </section>
 
         <section id="contato" className="contact-section section">

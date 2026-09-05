@@ -570,11 +570,19 @@ h2 span {
   margin-top: 18px;
 }
 
+/* Links do projeto */
+.project-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 24px;
+}
+
 .project-link-label {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  margin-top: 24px;
   color: var(--primary);
   font-family: "Press Start 2P", monospace;
   font-size: 0.52rem;
