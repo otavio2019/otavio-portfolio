@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -816,5 +816,346 @@ h2 span {
 
   .brand-logo {
     width: 46px;
+  }
+}
+
+/* Pixel identity: hard edges, technical grid and the black/purple/cyan palette. */
+:root {
+  --bg: #050509;
+  --bg-strong: #090812;
+  --panel: #0c0b14;
+  --panel-strong: #141022;
+  --line: rgba(247, 247, 251, 0.18);
+  --text: #f7f7fb;
+  --muted: #a5a2b5;
+  --primary: #39d8ff;
+  --primary-strong: #09aee8;
+  --accent: #9b45ff;
+  --shadow: rgba(155, 69, 255, 0.45);
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(155, 69, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 216, 255, 0.07) 1px, transparent 1px),
+    radial-gradient(circle at 80% 10%, rgba(155, 69, 255, 0.18), transparent 25%),
+    var(--bg);
+  background-size: 32px 32px, 32px 32px, auto, auto;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+body::after {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255, 255, 255, 0.025) 3px 4px);
+  content: "";
+  pointer-events: none;
+}
+
+.site-shell {
+  position: relative;
+}
+
+.site-header {
+  width: min(1240px, calc(100% - 40px));
+  min-height: 78px;
+  margin-top: 18px;
+  padding: 12px 18px;
+  border: 1px solid var(--primary);
+  border-radius: 0;
+  background: rgba(5, 5, 9, 0.94);
+  box-shadow: 6px 6px 0 var(--accent);
+}
+
+.brand-logo {
+  width: 150px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.brand-name {
+  display: none;
+}
+
+.nav a,
+.header-cta,
+.button,
+.eyebrow,
+.section-kicker,
+.mini-label,
+.project-topline,
+.contact-form label,
+.hero-photo-caption small {
+  font-family: "Press Start 2P", monospace;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.nav a {
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+.nav a:hover {
+  color: var(--primary);
+  text-shadow: 3px 0 var(--accent);
+}
+
+.header-cta,
+.button,
+.github-link,
+.contact-links a {
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--accent);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+}
+
+.header-cta:hover,
+.button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--primary);
+}
+
+.button.primary {
+  background: var(--accent);
+  color: var(--text);
+}
+
+.button.secondary {
+  border-color: var(--primary);
+  background: transparent;
+}
+
+.hero {
+  width: min(1240px, calc(100% - 40px));
+  min-height: 760px;
+  padding: 110px 0 100px;
+}
+
+.eyebrow,
+.section-kicker {
+  color: var(--primary);
+  font-size: 0.62rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 0;
+  box-shadow: 5px 5px 0 var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0;
+}
+
+h1 {
+  max-width: 780px;
+  margin-top: 24px;
+  font-size: clamp(3.4rem, 8vw, 7rem);
+  line-height: 0.91;
+  text-transform: uppercase;
+}
+
+h1 span,
+h2 span {
+  color: var(--accent);
+  text-shadow: 4px 4px 0 rgba(57, 216, 255, 0.25);
+}
+
+.lede,
+.about-grid p,
+.service-card p,
+.project-card p,
+.contact-copy p {
+  color: #c1becd;
+}
+
+.hero-panel {
+  gap: 24px;
+}
+
+.hero-photo-card,
+.hero-art,
+.panel-card,
+.stat-item,
+.service-card,
+.project-card,
+.info-box,
+.contact-form,
+.error-content,
+.not-found-content {
+  border-radius: 0;
+  box-shadow: 6px 6px 0 rgba(57, 216, 255, 0.24);
+}
+
+.hero-photo-card {
+  border-color: var(--accent);
+  box-shadow: 8px 8px 0 var(--primary);
+}
+
+.hero-photo-card img {
+  height: 340px;
+  filter: saturate(0.55) contrast(1.2) sepia(0.12);
+}
+
+.hero-photo-caption {
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  border-radius: 0;
+  border-color: var(--primary);
+  background: rgba(5, 5, 9, 0.92);
+}
+
+.hero-photo-caption span {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.hero-art {
+  border-color: var(--accent);
+  box-shadow: 6px 6px 0 var(--accent);
+}
+
+.panel-card,
+.stat-item,
+.service-card,
+.project-card,
+.info-box,
+.contact-form {
+  border-color: var(--line);
+  background: rgba(12, 11, 20, 0.92);
+}
+
+.tag-list span,
+.project-tags span {
+  border-radius: 0;
+  border-color: rgba(57, 216, 255, 0.45);
+  background: rgba(57, 216, 255, 0.06);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.5rem;
+}
+
+.content-section {
+  width: min(1240px, calc(100% - 40px));
+  padding: 110px 0;
+  border-top: 1px solid var(--line);
+}
+
+.dark-section {
+  width: 100%;
+  padding-right: max(20px, calc((100% - 1240px) / 2));
+  padding-left: max(20px, calc((100% - 1240px) / 2));
+  background: rgba(12, 11, 20, 0.86);
+}
+
+.section-header h2,
+.contact-copy h2 {
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.service-icon {
+  border-radius: 0;
+  background: var(--accent);
+  color: var(--text);
+  box-shadow: 4px 4px 0 var(--primary);
+}
+
+.service-card h3,
+.project-card h3 {
+  text-transform: uppercase;
+}
+
+.project-card:hover {
+  border-color: var(--primary);
+  box-shadow: 8px 8px 0 var(--accent);
+}
+
+.github-link,
+.contact-links a {
+  border-color: var(--primary);
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  border-radius: 0;
+  border-color: rgba(57, 216, 255, 0.42);
+  background: #050509;
+}
+
+.site-footer {
+  width: min(1240px, calc(100% - 40px));
+  margin-bottom: 0;
+  padding: 34px 0 44px;
+  border-top: 1px solid var(--primary);
+}
+
+.footer-brand .brand-logo {
+  width: 150px;
+}
+
+@media (max-width: 880px) {
+  .site-header,
+  .hero,
+  .content-section,
+  .site-footer {
+    width: min(100% - 28px, 1240px);
+  }
+
+  .nav {
+    top: calc(100% + 10px);
+    border-radius: 0;
+    border-color: var(--primary);
+    background: #050509;
+    box-shadow: 5px 5px 0 var(--accent);
+  }
+
+  .nav a {
+    padding: 10px 0;
+    font-size: 0.58rem;
+  }
+
+  .dark-section {
+    width: 100%;
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header,
+  .hero,
+  .content-section,
+  .site-footer {
+    width: calc(100% - 24px);
+  }
+
+  .site-header {
+    box-shadow: 4px 4px 0 var(--accent);
+  }
+
+  .brand-logo,
+  .footer-brand .brand-logo {
+    width: 122px;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 14vw, 4.4rem);
+  }
+
+  .section-header h2,
+  .contact-copy h2 {
+    font-size: clamp(2rem, 11vw, 3.2rem);
   }
 }
