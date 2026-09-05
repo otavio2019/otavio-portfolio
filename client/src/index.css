@@ -997,12 +997,16 @@ h2 span {
 
 .hero-photo-card {
   border-color: var(--accent);
+  aspect-ratio: 4 / 5;
+  min-height: 0;
   box-shadow: 8px 8px 0 var(--primary);
 }
 
 .hero-photo-card img {
-  height: 340px;
-  filter: saturate(0.55) contrast(1.2) sepia(0.12);
+  height: 100%;
+  min-height: 440px;
+  object-position: 58% 38%;
+  filter: brightness(0.92) saturate(0.68) contrast(1.12) sepia(0.08);
 }
 
 .hero-photo-caption {
@@ -1157,5 +1161,9 @@ h2 span {
   .section-header h2,
   .contact-copy h2 {
     font-size: clamp(2rem, 11vw, 3.2rem);
+  }
+
+  .hero-photo-card img {
+    min-height: 360px;
   }
 }
