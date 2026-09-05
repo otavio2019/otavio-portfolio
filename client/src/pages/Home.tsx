@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Code2, Github, Globe, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
+import { ArrowRight, Check, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
 import { toast } from "sonner";
 
 const services = [
@@ -49,6 +49,28 @@ const stats = [
 
 const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
 
+const pricing = [
+  {
+    name: "Essencial",
+    price: "R$ 600",
+    description: "Para profissionais autônomos e pequenos negócios que precisam começar com uma presença digital objetiva.",
+    items: ["Landing page ou página única", "Design responsivo", "Botão para WhatsApp", "Formulário simples", "1 rodada de alterações", "Prazo de até 7 dias úteis"],
+  },
+  {
+    name: "Profissional",
+    price: "R$ 1.200",
+    description: "Para negócios que precisam apresentar seus serviços com mais espaço, credibilidade e organização.",
+    featured: true,
+    items: ["Site com até 5 páginas", "Design responsivo", "WhatsApp e redes sociais", "Formulário de contato", "SEO básico", "Publicação do site", "2 rodadas de alterações"],
+  },
+  {
+    name: "Completo",
+    price: "R$ 2.000",
+    description: "Para projetos que pedem uma experiência personalizada e suporte próximo após a entrega.",
+    items: ["Site com até 8 páginas", "Design personalizado", "Animações leves", "SEO básico", "Integrações externas", "Domínio e hospedagem", "Até 3 rodadas de alterações", "30 dias de suporte"],
+  },
+];
+
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -77,6 +99,7 @@ export default function Home() {
             ["Início", "top"],
             ["Sobre", "sobre"],
             ["Serviços", "servicos"],
+            ["Preços", "precos"],
             ["Projetos", "projetos"],
             ["Contato", "contato"],
           ].map(([label, id]) => (
@@ -218,6 +241,45 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="precos" className="content-section pricing-section section">
+          <div className="section-header">
+            <span className="section-kicker">03 / Preços</span>
+            <h2>Opções claras para cada momento do seu negócio.</h2>
+          </div>
+
+          <p className="pricing-intro">Valores iniciais para projetos web pequenos e médios. O orçamento final depende do escopo, dos materiais disponíveis e das funcionalidades necessárias.</p>
+
+          <div className="pricing-grid">
+            {pricing.map((plan) => (
+              <article key={plan.name} className={plan.featured ? "price-card featured" : "price-card"}>
+                {plan.featured && <span className="price-badge">Mais escolhido</span>}
+                <span className="price-label">Pacote {plan.name}</span>
+                <strong className="price-value">{plan.price}</strong>
+                <p>{plan.description}</p>
+                <ul>
+                  {plan.items.map((item) => <li key={item}><Check size={15} /> {item}</li>)}
+                </ul>
+                <a href="#contato" className="button secondary">Escolher pacote <ArrowRight size={15} /></a>
+              </article>
+            ))}
+          </div>
+
+          <div className="fixed-project">
+            <div>
+              <span className="price-label">Projeto avulso</span>
+              <h3>Site sob medida por <strong>R$ 900</strong></h3>
+              <p>Até 5 páginas, layout responsivo, formulário, WhatsApp, publicação, 2 rodadas de alterações e prazo de até 15 dias úteis.</p>
+            </div>
+            <a href="#contato" className="button primary">Solicitar projeto <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="pricing-details">
+            <div><h3>Não está incluído</h3><p>Domínio, hospedagem, criação de textos, banco de imagens, funcionalidades não previstas e alterações extras após o limite contratado.</p></div>
+            <div><h3>Condições de pagamento</h3><p>50% antes do início e 50% na entrega. O prazo começa após o recebimento da entrada e dos materiais necessários. Itens fora do escopo são cobrados à parte.</p></div>
+            <div><h3>Outras referências</h3><p>Manutenção mensal entre R$ 200 e R$ 300. Hora de trabalho entre R$ 25 e R$ 50, conforme a complexidade da demanda.</p></div>
+          </div>
+        </section>
+
         <section id="projetos" className="content-section section">
           <div className="section-header projects-header">
             <div>
@@ -267,6 +329,9 @@ export default function Home() {
                 <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer">
                   <Github size={16} /> GitHub
                 </a>
+                <a href="https://www.instagram.com/otavio_cjiii/" target="_blank" rel="noreferrer">
+                  <Instagram size={16} /> Instagram
+                </a>
               </div>
             </div>
 
@@ -289,6 +354,10 @@ export default function Home() {
                   <option>Landing page</option>
                   <option>Portfólio</option>
                   <option>Sistema web</option>
+                  <option>Pacote Essencial — R$ 600</option>
+                  <option>Pacote Profissional — R$ 1.200</option>
+                  <option>Pacote Completo — R$ 2.000</option>
+                  <option>Projeto avulso — R$ 900</option>
                 </select>
               </label>
 
