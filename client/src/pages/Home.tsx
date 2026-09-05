@@ -1,41 +1,57 @@
-// Design: Pixel Interface Profissional — preto, Pixel Violet, Sky Signal, grid bitmap, bordas quadradas e conteúdo orientado a desenvolvimento web.
-import { useEffect, useState } from "react";
-import { ArrowDown, ArrowUpRight, Check, Code2, ExternalLink, Github, Instagram, Menu, Terminal, X } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Code2, Github, Globe, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
 import { toast } from "sonner";
 
-const logo = "/manus-storage/logo_otavio_augusto_pixel_01_bd22781b.webp";
-const portrait = "/manus-storage/otavio-profile_75d6c3c1.jpg";
+const services = [
+  {
+    title: "Sites e landing pages",
+    text: "Estruturas modernas, claras e feitas para converter visitas em oportunidades reais.",
+    icon: Globe,
+  },
+  {
+    title: "Interfaces de produtos",
+    text: "Fluxos intuitivos, dashboards e telas pensadas para facilitar uso e acelerar decisões.",
+    icon: Smartphone,
+  },
+  {
+    title: "Desenvolvimento web",
+    text: "Implementação com React, TypeScript e arquitetura organizada para crescer com o projeto.",
+    icon: Code2,
+  },
+];
 
 const projects = [
-  { id: "01", title: "Infinite Worlds Platform", description: "Plataforma autoral em TypeScript para organizar experiências, dados e fluxos de produto em uma aplicação web em evolução.", tags: ["TypeScript", "React", "Express", "Drizzle"], href: "https://github.com/otavio2019/infinite-worlds-platform", tone: "violet" },
-  { id: "02", title: "CITI-DE", description: "Projeto público de repaginação que demonstra interesse em arquitetura de interface, clareza visual e evolução de produtos existentes.", tags: ["TypeScript", "CSS", "Frontend"], href: "https://github.com/otavio2019/CITI-DE", tone: "blue" },
-  { id: "03", title: "Estagio", description: "Repositório público em Python, parte da trajetória de experimentação e aprendizado prático do desenvolvedor.", tags: ["Python", "Open source"], href: "https://github.com/otavio2019/Estagio", tone: "slate" },
+  {
+    title: "Infinite Worlds",
+    description: "Plataforma autoral para organizar ideias, experiências e estrutura de produto em uma base moderna.",
+    stack: ["React", "TypeScript", "Express"],
+    href: "https://github.com/otavio2019/infinite-worlds-platform",
+  },
+  {
+    title: "CITI-DE",
+    description: "Projeto de repaginação com foco em visual, organização e melhor experiência do usuário.",
+    stack: ["Frontend", "UI", "Design System"],
+    href: "https://github.com/otavio2019/CITI-DE",
+  },
+  {
+    title: "Estagio",
+    description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
+    stack: ["Python", "Open Source", "Aprendizado"],
+    href: "https://github.com/otavio2019/Estagio",
+  },
 ];
 
-const services = [
-  ["01", "Sites e landing pages", "Páginas com identidade, estrutura clara e boa experiência em celular."],
-  ["02", "Interfaces e sistemas web", "Telas e fluxos para produtos que precisam organizar dados e tarefas."],
-  ["03", "Evolução de projetos", "Melhorias de interface, manutenção e implementação de novas partes."],
+const stats = [
+  { value: "+3", label: "anos de estudo e prática" },
+  { value: "14", label: "repositórios públicos" },
+  { value: "100%", label: "foco em qualidade e clareza" },
 ];
 
-const stack = ["TypeScript", "React", "Vite", "Tailwind CSS", "Express", "Drizzle ORM", "MySQL", "Socket.IO", "Zod", "Python", "GitHub"];
-
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  return <div className={`pixel-reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
-}
-
-function PixelMark() {
-  return <div className="pixel-mark" aria-hidden="true"><span /><span /><span /><span /></div>;
-}
+const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
 
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
-    document.querySelectorAll(".pixel-reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -43,27 +59,253 @@ export default function Home() {
     const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\n\n${data.get("message")}`;
     navigator.clipboard?.writeText(message);
     setCopied(true);
-    toast.success("Mensagem preparada", { description: "Agora você pode colar o conteúdo ao falar com Otávio." });
+    toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
     window.setTimeout(() => setCopied(false), 2500);
+    event.currentTarget.reset();
   }
 
-  return <div className="site-shell">
-    <header className="site-header"><a href="#top" className="brand" aria-label="Otávio Augusto, início"><img src={logo} alt="Logo Otávio Augusto" /></a><nav className={open ? "nav-links open" : "nav-links"}>{[["Sobre", "sobre"], ["Serviços", "servicos"], ["Projetos", "projetos"], ["Contato", "contato"]].map(([label, id]) => <a href={`#${id}`} key={id} onClick={() => setOpen(false)}>{label}</a>)}</nav><a href="#contato" className="header-cta">Falar sobre um projeto <ArrowUpRight size={14} /></a><button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open}>{open ? <X /> : <Menu />}</button></header>
+  return (
+    <div className="site-shell">
+      <header className="site-header">
+        <a href="#top" className="brand" aria-label="Voltar ao início">
+          <span className="brand-mark">O</span>
+          <span className="brand-name">Otávio Augusto</span>
+        </a>
 
-    <main id="top">
-      <section className="hero section-grid"><div className="hero-copy"><Reveal><p className="eyebrow"><span className="status-dot" /> disponível para construir</p><p className="hero-kicker">// desenvolvedor web em formação</p><h1>Otávio<br /><span>Augusto</span><b>.</b></h1><p className="hero-lede">Crio interfaces e sistemas web com atenção ao detalhe, vontade de aprender e foco em transformar ideias em experiências reais.</p><div className="hero-actions"><a className="button button-primary" href="#projetos">Ver projetos <ArrowDown size={15} /></a><a className="button button-ghost" href="#contato">Entrar em contato <ArrowUpRight size={15} /></a></div></Reveal></div><Reveal className="hero-visual" delay={120}><div className="hero-logo-lockup"><span className="hero-logo-line" /><img src={logo} alt="Logo pixel art Otávio Augusto" /><span className="hero-logo-line" /></div><div className="portrait-frame"><div className="portrait-topline"><span>OTV.EXE</span><span>ONLINE</span></div><img src={portrait} alt="Foto de perfil de Otávio Augusto" /><div className="portrait-overlay"><PixelMark /><span>construindo desde o rascunho</span></div></div><div className="code-window"><span className="code-dot violet" /><span className="code-dot blue" /><span className="code-dot white" /><code><em>const</em> developer = <strong>"otavio"</strong>;</code></div></Reveal></section>
+        <nav className={open ? "nav open" : "nav"}>
+          {[
+            ["Início", "top"],
+            ["Sobre", "sobre"],
+            ["Serviços", "servicos"],
+            ["Projetos", "projetos"],
+            ["Contato", "contato"],
+          ].map(([label, id]) => (
+            <a href={`#${id}`} key={id} onClick={() => setOpen(false)}>
+              {label}
+            </a>
+          ))}
+        </nav>
 
-      <section id="sobre" className="content-section section-grid"><div className="section-label"><span>01</span><p>sobre mim</p></div><Reveal className="section-body"><h2>Profissional em<br /><span>construção.</span></h2><div className="split-text"><p>Sou Otávio Augusto, estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor em formação. Meu ponto de partida é prático: estudar, experimentar e transformar cada aprendizado em algo que funciona.</p><p>Tenho interesse por tecnologia, interfaces e projetos open source. No GitHub, mantenho projetos públicos que mostram minha evolução com TypeScript, React, Python e ferramentas do ecossistema web.</p></div><div className="stats"><div><strong>14</strong><span>repositórios públicos</span></div><div><strong>PB</strong><span>Patos, Paraíba</span></div><div><strong>2026</strong><span>em constante evolução</span></div></div></Reveal></section>
+        <a href="#contato" className="header-cta">
+          Solicitar orçamento
+          <ArrowRight size={16} />
+        </a>
 
-      <section id="servicos" className="content-section dark-section"><div className="section-grid"><div className="section-label"><span>02</span><p>o que eu faço</p></div><Reveal className="section-body"><h2>Ideias boas precisam<br /><span>de uma interface.</span></h2><div className="service-list">{services.map(([id, title, text], index) => <article key={id} className="service-item"><span className="service-id">[{id}]</span><div><h3>{title}</h3><p>{text}</p></div><ArrowUpRight className="service-arrow" size={21} /></article>)}</div></Reveal></div></section>
+        <button
+          className="menu-toggle"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
+        >
+          {open ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      </header>
 
-      <section id="stack" className="content-section stack-section"><div className="section-grid"><div className="section-label"><span>03</span><p>stack real</p></div><Reveal className="section-body"><h2>Ferramentas que<br /><span>eu uso de verdade.</span></h2><div className="stack-board">{stack.map((item, i) => <span key={item} className={i % 3 === 0 ? "stack-chip active" : "stack-chip"}>{item}</span>)}</div></Reveal></div></section>
+      <main>
+        <section id="top" className="hero section">
+          <div className="hero-copy">
+            <p className="eyebrow">
+              <span className="dot" /> disponível para projetos
+            </p>
 
-      <section id="projetos" className="content-section project-section"><div className="section-grid"><div className="section-label"><span>04</span><p>projetos públicos</p></div><Reveal className="section-body"><div className="projects-heading"><div><h2>O código é a<br /><span>melhor apresentação.</span></h2><p>Uma seleção de projetos reais disponíveis no GitHub.</p></div><a href="https://github.com/otavio2019" target="_blank" rel="noreferrer" className="github-link"><Github size={16} /> ver perfil</a></div><div className="project-list">{projects.map((project) => <a className={`project-card ${project.tone}`} key={project.id} href={project.href} target="_blank" rel="noreferrer"><div className="project-meta"><span>{project.id}</span><ExternalLink size={15} /></div><div className="project-art"><PixelMark /><div className="pixel-lines" /><span className="artifact-status">status: público</span><span className="artifact-corner" /></div><h3>{project.title}</h3><p>{project.description}</p><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></a>)}</div></Reveal></div></section>
+            <h1>
+              Desenvolvimento web <span>sob medida</span>
+            </h1>
 
-      <section id="contato" className="contact-section"><div className="section-grid"><div className="section-label"><span>05</span><p>contato</p></div><Reveal className="section-body contact-layout"><div><p className="eyebrow">// seu próximo projeto</p><h2>Vamos transformar<br /><span>sua ideia em código?</span></h2><p className="contact-copy">Se você tem uma ideia, um projeto em andamento ou uma interface que precisa evoluir, vamos conversar sobre o próximo passo.</p><div className="social-links"><a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20portf%C3%B3lio." target="_blank" rel="noreferrer" aria-label="Conversar com Otávio pelo WhatsApp"><span aria-hidden="true">◉</span> WhatsApp</a><a href="https://github.com/otavio2019" target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a><a href="https://www.instagram.com/otavio_cjiii/" target="_blank" rel="noreferrer"><Instagram size={16} /> Instagram</a></div><p className="whatsapp-number">WhatsApp: <a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20portf%C3%B3lio." target="_blank" rel="noreferrer">(83) 9 9964-5357</a></p></div><form onSubmit={handleSubmit}><label>seu nome<input required name="name" placeholder="Como posso te chamar?" /></label><label>e-mail<input required type="email" name="email" placeholder="voce@email.com" /></label><label>tipo de projeto<select required name="type"><option value="">Selecione</option><option>Site ou landing page</option><option>Portfólio</option><option>Sistema web</option><option>Manutenção ou melhoria</option></select></label><label>mensagem<textarea required name="message" rows={4} placeholder="Conte um pouco sobre o que você quer construir." /></label><button className="button button-primary" type="submit"><Terminal size={15} /> {copied ? "mensagem copiada" : "preparar mensagem"}</button></form></Reveal></div></section>
-    </main>
+            <p className="lede">
+              Eu crio experiências digitais que unem clareza, funcionalidade e visual profissional para transformar ideias em produtos reais.
+            </p>
 
-    <footer className="site-footer"><img src={logo} alt="Logo Otávio Augusto" /><div><span>desenvolvedor web em formação</span><span>WhatsApp: (83) 9 9964-5357</span><span>© 2026 Otávio Augusto</span></div><a href="#top">voltar ao topo <ArrowUpRight size={14} /></a></footer>
-  </div>;
+            <div className="hero-actions">
+              <a href="#projetos" className="button primary">
+                Ver projetos
+              </a>
+              <a href="#contato" className="button secondary">
+                Falar comigo
+              </a>
+            </div>
+
+            <div className="stats-row">
+              {stats.map((item) => (
+                <div key={item.label} className="stat-item">
+                  <strong>{item.value}</strong>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="hero-panel">
+            <img className="hero-art" src="/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" />
+            <div className="panel-card top-card">
+              <div className="mini-label">Stack</div>
+              <div className="tag-list">
+                {tech.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="panel-card code-card">
+              <div className="window-bar">
+                <span className="circle red" />
+                <span className="circle yellow" />
+                <span className="circle green" />
+              </div>
+              <pre>
+                <code>{`const developer = {\n  name: "Otávio",\n  focus: ["sites", "interfaces", "produtos"],\n  goal: "resolver problemas com código"\n}`}</code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="sobre" className="content-section section">
+          <div className="section-header">
+            <span className="section-kicker">01 / Sobre</span>
+            <h2>Um profissional em evolução, com visão para produto e código.</h2>
+          </div>
+
+          <div className="about-grid">
+            <div>
+              <p>
+                Sou Otávio Augusto, desenvolvedor web em formação e estudante de Análise e Desenvolvimento de Sistemas. Minha rotina é baseada em estudo, execução e melhoria contínua.
+              </p>
+              <p>
+                Gosto de criar soluções que unem boa experiência visual com arquitetura simples, legível e escalável. A cada projeto, meu objetivo é transformar ideias em experiências que funcionem bem e tenham sentido para quem usa.
+              </p>
+            </div>
+
+            <div className="info-box">
+              <div>
+                <span>Local</span>
+                <strong>Patos, Paraíba</strong>
+              </div>
+              <div>
+                <span>Especialidade</span>
+                <strong>Frontend e interfaces digitais</strong>
+              </div>
+              <div>
+                <span>Perfil</span>
+                <strong>Curioso, organizado e focado em resultado</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="servicos" className="content-section dark-section section">
+          <div className="section-header">
+            <span className="section-kicker">02 / Serviços</span>
+            <h2>Atendimento para quem precisa de presença digital com qualidade.</h2>
+          </div>
+
+          <div className="services-grid">
+            {services.map(({ title, text, icon: Icon }) => (
+              <article key={title} className="service-card">
+                <div className="service-icon">
+                  <Icon size={20} />
+                </div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="projetos" className="content-section section">
+          <div className="section-header projects-header">
+            <div>
+              <span className="section-kicker">03 / Projetos</span>
+              <h2>Trabalho real, com foco em aprendizado e execução.</h2>
+            </div>
+            <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer" className="github-link">
+              <Github size={16} /> GitHub
+            </a>
+          </div>
+
+          <div className="projects-grid">
+            {projects.map((project) => (
+              <a key={project.title} href={project.href} target="_blank" rel="noreferrer" className="project-card">
+                <div className="project-topline">
+                  <span>Projeto</span>
+                  <ArrowRight size={16} />
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div className="project-tags">
+                  {project.stack.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="contato" className="contact-section section">
+          <div className="contact-grid">
+            <div className="contact-copy">
+              <span className="section-kicker">04 / Contato</span>
+              <h2>Vamos criar algo bom juntos?</h2>
+              <p>
+                Se você precisa de um site, uma interface mais profissional ou uma melhoria na presença online do seu negócio, pode me chamar.
+              </p>
+
+              <div className="contact-links">
+                <a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20site." target="_blank" rel="noreferrer">
+                  <MessageSquare size={16} /> WhatsApp
+                </a>
+                <a href="mailto:otavioaugusto.contato@gmail.com">
+                  <Mail size={16} /> E-mail
+                </a>
+                <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer">
+                  <Github size={16} /> GitHub
+                </a>
+              </div>
+            </div>
+
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <label>
+                Nome
+                <input required name="name" placeholder="Seu nome" />
+              </label>
+
+              <label>
+                E-mail
+                <input required type="email" name="email" placeholder="seu@email.com" />
+              </label>
+
+              <label>
+                Tipo de projeto
+                <select required name="type">
+                  <option value="">Selecione</option>
+                  <option>Site institucional</option>
+                  <option>Landing page</option>
+                  <option>Portfólio</option>
+                  <option>Sistema web</option>
+                </select>
+              </label>
+
+              <label>
+                Mensagem
+                <textarea required name="message" rows={4} placeholder="Conte um pouco do que você precisa" />
+              </label>
+
+              <button type="submit" className="button primary submit-button">
+                {copied ? "Mensagem copiada" : "Preparar mensagem"}
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="brand footer-brand">
+          <span className="brand-mark">O</span>
+          <span className="brand-name">Otávio Augusto</span>
+        </div>
+        <p>Desenvolvedor web em formação</p>
+        <a href="#top">Voltar ao topo</a>
+      </footer>
+    </div>
+  );
 }
