@@ -34,13 +34,13 @@ const projects = [
     title: "CITI-DE",
     description: "Projeto de repaginação com foco em visual, organização e melhor experiência do usuário.",
     stack: ["Frontend", "UI", "Design System"],
-    href: "https://github.com/otavio2019/CITI-DE",
+    github: "https://github.com/otavio2019/CITI-DE",
   },
   {
     title: "Estagio",
     description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
     stack: ["Python", "Open Source", "Aprendizado"],
-    href: "https://github.com/otavio2019/Estagio",
+    github: "https://github.com/otavio2019/Estagio",
   },
 ];
 
@@ -296,10 +296,10 @@ export default function Home() {
 
           <div className="projects-grid">
             {projects.map((project) => (
-              <a key={project.title} href={project.href} target="_blank" rel="noreferrer" className="project-card">
+              <article key={project.title} className="project-card">
                 <div className="project-topline">
                   <span>Projeto</span>
-                  <ArrowRight size={16} />
+                  <Code2 size={16} />
                 </div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
@@ -308,7 +308,19 @@ export default function Home() {
                     <span key={item}>{item}</span>
                   ))}
                 </div>
-              </a>
+                <div className="project-links">
+                  {project.site && (
+                    <a href={project.site} target="_blank" rel="noreferrer" className="project-link-label">
+                      <Globe size={14} /> Ver site <ArrowRight size={13} />
+                    </a>
+                  )}
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noreferrer" className="project-link-label">
+                      <Github size={14} /> Ver GitHub <ArrowRight size={13} />
+                    </a>
+                  )}
+                </div>
+              </article>
             ))}
           </div>
         </section>
