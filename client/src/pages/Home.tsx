@@ -101,7 +101,6 @@ export default function Home() {
           {[
             ["Início", "top"],
             ["Sobre", "sobre"],
-            ["Serviços", "servicos"],
             ["Preços", "precos"],
             ["Projetos", "projetos"],
             ["Contato", "contato"],
@@ -110,10 +109,13 @@ export default function Home() {
               {label}
             </a>
           ))}
+          <a href="/servicos" className="nav-service-link" onClick={() => setOpen(false)}>
+            Contrate meus serviços
+          </a>
         </nav>
 
-        <a href="#contato" className="header-cta">
-          Solicitar orçamento
+        <a href="/servicos" className="header-cta">
+          Contrate meus serviços
           <ArrowRight size={16} />
         </a>
 
@@ -145,6 +147,9 @@ export default function Home() {
             <div className="hero-actions">
               <a href="#projetos" className="button primary">
                 Ver projetos
+              </a>
+              <a href="/servicos" className="button service-button">
+                Contrate meus serviços <ArrowRight size={16} />
               </a>
               <a href="#contato" className="button secondary">
                 Falar comigo
