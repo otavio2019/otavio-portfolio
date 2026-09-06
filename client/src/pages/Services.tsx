@@ -1,5 +1,6 @@
 import { ArrowRight, Check, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles } from "lucide-react";
 
+// Serviços apresentados para quem está conhecendo a página comercial.
 const services = [
   {
     title: "Landing pages",
@@ -18,6 +19,7 @@ const services = [
   },
 ];
 
+// Pacotes comerciais exibidos na seção de contratação.
 const plans = [
   {
     name: "Essencial",
@@ -40,6 +42,7 @@ const plans = [
   },
 ];
 
+// Etapas que explicam o fluxo de desenvolvimento do projeto.
 const steps = [
   ["01", "Conversa inicial", "Entendo seu negócio, objetivo e o que você precisa comunicar."],
   ["02", "Planejamento", "Organizo a estrutura, referências visuais e o escopo do projeto."],
@@ -47,6 +50,7 @@ const steps = [
   ["04", "Entrega", "Publico o site, apresento o resultado e faço os ajustes combinados."],
 ];
 
+// Dúvidas frequentes sobre escopo, responsividade e pagamento.
 const faqs = [
   ["Você cria o conteúdo do site?", "Posso orientar a estrutura e a organização das informações. Textos, fotos e materiais finais são fornecidos pelo cliente, salvo contratação específica."],
   ["O site funciona no celular?", "Sim. Todos os projetos são construídos para funcionar bem em celulares, tablets e computadores."],
@@ -58,6 +62,7 @@ const whatsappUrl = "https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%
 export default function Services() {
   return (
     <div className="site-shell services-page">
+      {/* Navegação da página comercial e acesso direto ao WhatsApp. */}
       <header className="site-header">
         <a href="/" className="brand" aria-label="Voltar ao portfólio">
           <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" />
@@ -74,6 +79,7 @@ export default function Services() {
       </header>
 
       <main>
+        {/* Apresentação da proposta comercial e do público atendido. */}
         <section className="services-hero section">
           <div>
             <p className="eyebrow"><span className="dot" /> sites que trabalham por você</p>
@@ -91,6 +97,7 @@ export default function Services() {
           </div>
         </section>
 
+        {/* Tipos de solução oferecidos. */}
         <section id="servicos" className="content-section section">
           <div className="section-header services-section-header">
             <div>
@@ -109,6 +116,7 @@ export default function Services() {
           </div>
         </section>
 
+        {/* Pacotes, valores e itens incluídos em cada opção. */}
         <section id="pacotes" className="content-section dark-section section services-pricing">
           <div className="section-header">
             <div>
@@ -130,6 +138,7 @@ export default function Services() {
           </div>
         </section>
 
+        {/* Etapas do trabalho, do primeiro contato à entrega. */}
         <section id="processo" className="content-section section">
           <div className="section-header">
             <div>
@@ -148,6 +157,7 @@ export default function Services() {
           </div>
         </section>
 
+        {/* Respostas rápidas para as principais dúvidas. */}
         <section className="services-faq content-section dark-section section">
           <div className="section-header">
             <div>
@@ -165,6 +175,7 @@ export default function Services() {
           </div>
         </section>
 
+        {/* Chamada final para iniciar uma conversa pelo WhatsApp. */}
         <section className="services-final-cta section">
           <span className="section-kicker">05 / Vamos conversar</span>
           <h2>Tem uma ideia ou precisa de um site?</h2>

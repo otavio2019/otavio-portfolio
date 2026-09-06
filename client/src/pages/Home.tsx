@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
 import { toast } from "sonner";
 
+// Conteúdo dos serviços apresentados no portfólio técnico.
 const services = [
   {
     title: "Sites e landing pages",
@@ -20,6 +21,7 @@ const services = [
   },
 ];
 
+// Projetos em destaque, com links para demonstração e código-fonte.
 const projects = [
   {
     title: "Infinite Worlds",
@@ -44,18 +46,21 @@ const projects = [
   },
 ];
 
+// Indicadores rápidos exibidos na apresentação inicial.
 const stats = [
   { value: "+3", label: "anos de estudo e prática" },
   { value: "14", label: "repositórios públicos" },
   { value: "100%", label: "foco em qualidade e clareza" },
 ];
 
+// Tecnologias utilizadas nos projetos e estudos atuais.
 const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
 
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // Prepara os dados do formulário para serem enviados por qualquer canal de contato.
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -69,6 +74,7 @@ export default function Home() {
 
   return (
     <div className="site-shell">
+      {/* Navegação principal e acesso rápido ao contato. */}
       <header className="site-header">
         <a href="#top" className="brand" aria-label="Voltar ao início">
           <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" loading="eager" decoding="async" />
@@ -106,6 +112,7 @@ export default function Home() {
       </header>
 
       <main>
+        {/* Apresentação, proposta profissional e resumo de experiência. */}
         <section id="top" className="hero section">
           <div className="hero-copy">
             <p className="eyebrow">
@@ -170,6 +177,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Contexto pessoal, formação e forma de trabalhar. */}
         <section id="sobre" className="content-section section">
           <div className="section-header">
             <span className="section-kicker">01 / Sobre</span>
@@ -203,6 +211,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Áreas de desenvolvimento e tipos de solução que domino. */}
         <section id="servicos" className="content-section dark-section section">
           <div className="section-header">
             <span className="section-kicker">02 / O que eu desenvolvo</span>
@@ -222,6 +231,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Projetos selecionados com acesso ao site e ao GitHub. */}
         <section id="projetos" className="content-section section">
           <div className="section-header projects-header">
             <div>
@@ -264,6 +274,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Canais e formulário para oportunidades, colaborações e projetos. */}
         <section id="contato" className="contact-section section">
           <div className="contact-grid">
             <div className="contact-copy">
@@ -323,11 +334,17 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="home-services-link section">
-          <a href="/servicos">Conheça meus serviços <ArrowRight size={14} /></a>
-        </div>
+        {/* Entrada discreta para a página comercial, sem alterar o foco da Home. */}
+        <aside className="home-services-link section">
+          <div>
+            <span>Para quem busca uma solução digital</span>
+            <strong>Conheça meus serviços</strong>
+          </div>
+          <a href="/servicos">Ver página de serviços <ArrowRight size={14} /></a>
+        </aside>
       </main>
 
+      {/* Encerramento da página e retorno ao topo. */}
       <footer className="site-footer">
         <div className="brand footer-brand">
           <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" loading="lazy" decoding="async" />
