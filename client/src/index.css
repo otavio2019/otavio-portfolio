@@ -1202,13 +1202,23 @@ h2 span {
     width: calc(100% - 24px);
   }
 
+  body {
+    overflow-x: hidden;
+  }
+
   .site-header {
+    margin-top: 10px;
     box-shadow: 4px 4px 0 var(--accent);
   }
 
   .brand-logo,
   .footer-brand .brand-logo {
     width: 122px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 72px 0 64px;
   }
 
   h1 {
@@ -1222,6 +1232,61 @@ h2 span {
 
   .hero-photo-card img {
     min-height: 360px;
+  }
+
+  .hero-actions,
+  .contact-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .button,
+  .contact-links a,
+  .fixed-project .button,
+  .submit-button {
+    width: 100%;
+  }
+
+  .content-section {
+    padding: 72px 0;
+  }
+
+  .section-header {
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  .section-header h2,
+  .contact-copy h2 {
+    overflow-wrap: anywhere;
+  }
+
+  .project-card,
+  .service-card,
+  .price-card,
+  .contact-form {
+    padding: 18px;
+  }
+
+  .project-card h3 {
+    font-size: 1.65rem;
+  }
+
+  .project-link-label {
+    width: 100%;
+  }
+
+  .fixed-project {
+    padding: 18px;
+  }
+
+  .fixed-project h3 {
+    font-size: 1.35rem;
+  }
+
+  .code-card pre {
+    padding: 12px;
+    font-size: 0.72rem;
   }
 }
 
