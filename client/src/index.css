@@ -1526,9 +1526,25 @@ h2 span {
 }
 
 /* Commercial page */
-.nav-service-link,
-.service-button {
-  color: var(--primary) !important;
+.home-services-link {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0;
+  padding-bottom: 28px;
+}
+
+.home-services-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+}
+
+.home-services-link a:hover {
+  color: var(--primary);
 }
 
 .services-page .site-header {

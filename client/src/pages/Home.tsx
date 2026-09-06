@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ArrowRight, Check, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
+import { ArrowRight, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
 import { toast } from "sonner";
 
 const services = [
   {
     title: "Sites e landing pages",
-    text: "Estruturas modernas, claras e feitas para converter visitas em oportunidades reais.",
+    text: "Estruturas modernas e claras para apresentar ideias, produtos e experiências digitais.",
     icon: Globe,
   },
   {
@@ -37,7 +37,7 @@ const projects = [
     github: "https://github.com/otavio2019/CITI-DE",
   },
   {
-    title: "Estagio",
+    title: "Estágio",
     description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
     stack: ["Python", "Open Source", "Aprendizado"],
     github: "https://github.com/otavio2019/Estagio",
@@ -52,28 +52,6 @@ const stats = [
 
 const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
 
-const pricing = [
-  {
-    name: "Essencial",
-    price: "R$ 600",
-    description: "Para profissionais autônomos e pequenos negócios que precisam começar com uma presença digital objetiva.",
-    items: ["Landing page ou página única", "Design responsivo", "Botão para WhatsApp", "Formulário simples", "1 rodada de alterações", "Prazo de até 7 dias úteis"],
-  },
-  {
-    name: "Profissional",
-    price: "R$ 1.200",
-    description: "Para negócios que precisam apresentar seus serviços com mais espaço, credibilidade e organização.",
-    featured: true,
-    items: ["Site com até 5 páginas", "Design responsivo", "WhatsApp e redes sociais", "Formulário de contato", "SEO básico", "Publicação do site", "2 rodadas de alterações"],
-  },
-  {
-    name: "Completo",
-    price: "R$ 2.000",
-    description: "Para projetos que pedem uma experiência personalizada e suporte próximo após a entrega.",
-    items: ["Site com até 8 páginas", "Design personalizado", "Animações leves", "SEO básico", "Integrações externas", "Domínio e hospedagem", "Até 3 rodadas de alterações", "30 dias de suporte"],
-  },
-];
-
 export default function Home() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -81,7 +59,7 @@ export default function Home() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\nForma de contratação: ${data.get("billing")}\n\n${data.get("message")}`;
+    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\n\n${data.get("message")}`;
     navigator.clipboard?.writeText(message);
     setCopied(true);
     toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
@@ -100,8 +78,9 @@ export default function Home() {
         <nav className={open ? "nav open" : "nav"}>
           {[
             ["Início", "top"],
-            ["Sobre", "sobre"],
-            ["Preços", "precos"],
+            ["Sobre mim", "sobre"],
+            ["O que eu desenvolvo", "servicos"],
+            ["Tecnologias", "tecnologias"],
             ["Projetos", "projetos"],
             ["Contato", "contato"],
           ].map(([label, id]) => (
@@ -109,13 +88,10 @@ export default function Home() {
               {label}
             </a>
           ))}
-          <a href="/servicos" className="nav-service-link" onClick={() => setOpen(false)}>
-            Contrate meus serviços
-          </a>
         </nav>
 
-        <a href="/servicos" className="header-cta">
-          Contrate meus serviços
+        <a href="#contato" className="header-cta">
+          Vamos conversar
           <ArrowRight size={16} />
         </a>
 
@@ -148,9 +124,6 @@ export default function Home() {
               <a href="#projetos" className="button primary">
                 Ver projetos
               </a>
-              <a href="/servicos" className="button service-button">
-                Contrate meus serviços <ArrowRight size={16} />
-              </a>
               <a href="#contato" className="button secondary">
                 Falar comigo
               </a>
@@ -175,7 +148,7 @@ export default function Home() {
               </div>
             </div>
             <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" loading="lazy" decoding="async" />
-            <div className="panel-card top-card">
+            <div id="tecnologias" className="panel-card top-card">
               <div className="mini-label">Frontend Stack</div>
               <div className="tag-list">
                 {tech.map((item) => (
@@ -232,8 +205,8 @@ export default function Home() {
 
         <section id="servicos" className="content-section dark-section section">
           <div className="section-header">
-            <span className="section-kicker">02 / Serviços</span>
-            <h2>Atendimento para quem precisa de presença digital com qualidade.</h2>
+            <span className="section-kicker">02 / O que eu desenvolvo</span>
+            <h2>Interfaces e experiências digitais com clareza.</h2>
           </div>
 
           <div className="services-grid">
@@ -249,49 +222,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="precos" className="content-section pricing-section section">
-          <div className="section-header">
-            <span className="section-kicker">05 / Preços</span>
-            <h2>Opções claras para cada momento do seu negócio.</h2>
-          </div>
-
-          <p className="pricing-intro">Valores iniciais para projetos web pequenos e médios. O orçamento final depende do escopo, dos materiais disponíveis e das funcionalidades necessárias.</p>
-
-          <div className="pricing-grid">
-            {pricing.map((plan) => (
-              <article key={plan.name} className={plan.featured ? "price-card featured" : "price-card"}>
-                {plan.featured && <span className="price-badge">Mais escolhido</span>}
-                <span className="price-label">Pacote {plan.name}</span>
-                <strong className="price-value">{plan.price}</strong>
-                <p>{plan.description}</p>
-                <ul>
-                  {plan.items.map((item) => <li key={item}><Check size={15} /> {item}</li>)}
-                </ul>
-                <a href="#contato" className="button secondary">Escolher pacote <ArrowRight size={15} /></a>
-              </article>
-            ))}
-          </div>
-
-          <div className="fixed-project">
-            <div>
-              <span className="price-label">Projeto avulso</span>
-              <h3>Site sob medida por <strong>R$ 900</strong></h3>
-              <p>Até 5 páginas, layout responsivo, formulário, WhatsApp, publicação, 2 rodadas de alterações e prazo de até 15 dias úteis.</p>
-            </div>
-            <a href="#contato" className="button primary">Solicitar projeto <ArrowRight size={15} /></a>
-          </div>
-
-          <div className="pricing-details">
-            <div><h3>Não está incluído</h3><p>Domínio, hospedagem, criação de textos, banco de imagens, funcionalidades não previstas e alterações extras após o limite contratado.</p></div>
-            <div><h3>Condições de pagamento</h3><p>50% antes do início e 50% na entrega. O prazo começa após o recebimento da entrada e dos materiais necessários. Itens fora do escopo são cobrados à parte.</p></div>
-            <div><h3>Outras referências</h3><p>Manutenção mensal entre R$ 200 e R$ 300. Hora de trabalho entre R$ 25 e R$ 50, conforme a complexidade da demanda.</p></div>
-          </div>
-        </section>
-
         <section id="projetos" className="content-section section">
           <div className="section-header projects-header">
             <div>
-              <span className="section-kicker">06 / Projetos</span>
+              <span className="section-kicker">03 / Projetos</span>
               <h2>Trabalho real, com foco em aprendizado e execução.</h2>
             </div>
             <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer" className="github-link">
@@ -333,10 +267,10 @@ export default function Home() {
         <section id="contato" className="contact-section section">
           <div className="contact-grid">
             <div className="contact-copy">
-              <span className="section-kicker">07 / Contato</span>
+              <span className="section-kicker">04 / Contato</span>
               <h2>Vamos criar algo bom juntos?</h2>
               <p>
-                Se você precisa de um site, uma interface mais profissional ou uma melhoria na presença online do seu negócio, pode me chamar.
+                Se quiser conversar sobre um projeto, uma oportunidade profissional ou conhecer melhor meu trabalho, entre em contato.
               </p>
 
               <div className="contact-links">
@@ -378,18 +312,6 @@ export default function Home() {
               </label>
 
               <label>
-                Forma de contratação
-                <select required name="billing">
-                  <option value="">Selecione</option>
-                  <option>Pacote Essencial - R$ 600</option>
-                  <option>Pacote Profissional - R$ 1200</option>
-                  <option>Pacote Completo - R$ 2000</option>
-                  <option>Projeto avulso - R$ 900</option>
-                  <option>Por hora — R$ 25 a R$ 50</option>
-                </select>
-              </label>
-
-              <label>
                 Mensagem
                 <textarea required name="message" rows={4} placeholder="Conte um pouco do que você precisa" />
               </label>
@@ -400,6 +322,10 @@ export default function Home() {
             </form>
           </div>
         </section>
+
+        <div className="home-services-link section">
+          <a href="/servicos">Conheça meus serviços <ArrowRight size={14} /></a>
+        </div>
       </main>
 
       <footer className="site-footer">
