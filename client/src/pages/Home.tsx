@@ -283,7 +283,7 @@ export default function Home() {
                   <Instagram size={16} /> Instagram
                 </a>
               </div>
-              <a href="mailto:otavioaugusto.contato@gmail.com" className="button secondary portfolio-contact-button">
+              <a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20site." className="button secondary portfolio-contact-button">
                 Falar comigo <Mail size={16} />
               </a>
           </div>
