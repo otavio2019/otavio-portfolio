@@ -186,6 +186,11 @@ select:focus-visible {
   padding: 94px 0 70px;
 }
 
+.hero-copy,
+.hero-panel {
+  min-width: 0;
+}
+
 .eyebrow,
 .section-kicker {
   display: inline-flex;
@@ -1223,6 +1228,8 @@ h2 span {
 
   h1 {
     font-size: clamp(2.6rem, 14vw, 4.4rem);
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .section-header h2,
