@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { ArrowRight, Check, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles } from "lucide-react";
+import { toast } from "sonner";
 
 // Serviços apresentados para quem está conhecendo a página comercial.
 const services = [
@@ -17,6 +19,34 @@ const services = [
     description: "Telas e experiências digitais organizadas para produtos, sistemas e negócios em crescimento.",
     icon: Smartphone,
   },
+];
+
+// Formas de contratação para diferentes níveis de escopo e previsibilidade.
+const engagementOptions = [
+  {
+    title: "Preço fixo",
+    description: "Projetos com escopo definido, entregas claras e prazo combinado antes do início.",
+    price: "A partir de R$ 900.",
+  },
+  {
+    title: "Por hora",
+    description: "Para manutenção, correções e melhorias pontuais.",
+    price: "R$ 50/h, com mínimo de 2 horas por solicitação.",
+  },
+  {
+    title: "Personalizado",
+    description: "Para sistemas, integrações e soluções sob medida que precisam de análise e orçamento próprio.",
+    price: "A partir de R$ 1.800.",
+    featured: true,
+  },
+];
+
+// Faixas de referência para orientar o primeiro escopo de projetos maiores.
+const customProjectReferences = [
+  ["Landing page personalizada", "A partir de R$ 1.800", "Uma página estratégica com estrutura, conteúdo e visual sob medida."],
+  ["Site institucional personalizado", "A partir de R$ 2.500", "Site com mais páginas, seções e necessidades específicas do negócio."],
+  ["Sistema web ou painel", "A partir de R$ 3.500", "Interfaces, fluxos e funcionalidades planejadas conforme o escopo."],
+  ["Integrações e soluções maiores", "Sob orçamento", "Projetos com login, banco de dados, APIs ou regras de negócio complexas."],
 ];
 
 // Pacotes comerciais exibidos na seção de contratação.
@@ -60,6 +90,20 @@ const faqs = [
 const whatsappUrl = "https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20quero%20conhecer%20seus%20servi%C3%A7os.";
 
 export default function Services() {
+  const [copied, setCopied] = useState(false);
+
+  // Prepara os dados comerciais para serem enviados por qualquer canal de contato.
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\n\n${data.get("message")}`;
+    navigator.clipboard?.writeText(message);
+    setCopied(true);
+    toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
+    window.setTimeout(() => setCopied(false), 2500);
+    event.currentTarget.reset();
+  }
+
   return (
     <div className="site-shell services-page">
       {/* Navegação da página comercial e acesso direto ao WhatsApp. */}
@@ -69,6 +113,7 @@ export default function Services() {
         </a>
         <nav className="nav services-nav">
           <a href="#servicos">Serviços</a>
+          <a href="#contratacao">Contratação</a>
           <a href="#pacotes">Pacotes</a>
           <a href="#processo">Processo</a>
           <a href="/">Portfólio</a>
@@ -86,8 +131,8 @@ export default function Services() {
             <h1>Seu negócio merece uma presença <span>profissional.</span></h1>
             <p className="services-hero-copy">Crio sites claros, responsivos e sob medida para você apresentar seu trabalho, conquistar confiança e transformar visitas em oportunidades.</p>
             <div className="hero-actions">
-              <a href="#pacotes" className="button primary">Ver pacotes <ArrowRight size={16} /></a>
-              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="button secondary">Tirar uma dúvida <MessageSquare size={16} /></a>
+              <a href="#contratacao" className="button primary">Ver formas de contratação <ArrowRight size={16} /></a>
+              <a href="#pacotes" className="button secondary">Conhecer os pacotes <ArrowRight size={16} /></a>
             </div>
           </div>
           <div className="services-hero-note">
@@ -116,11 +161,57 @@ export default function Services() {
           </div>
         </section>
 
+        {/* Formas de contratação e referências para escopos personalizados. */}
+        <section id="contratacao" className="content-section section engagement-section">
+          <div className="section-header">
+            <div>
+              <span className="section-kicker">02 / Formas de contratação</span>
+              <h2>Um formato adequado para cada tipo de projeto.</h2>
+            </div>
+          </div>
+
+          <div className="engagement-grid">
+            {engagementOptions.map((option) => (
+              <article key={option.title} className={option.featured ? "engagement-card featured" : "engagement-card"}>
+                {option.featured && <span className="price-badge">Mais flexível</span>}
+                <span className="price-label">{option.title}</span>
+                <p>{option.description}</p>
+                <strong>{option.price}</strong>
+              </article>
+            ))}
+          </div>
+
+          <div className="custom-reference-block">
+            <p className="custom-reference-note">Os valores abaixo são pontos de partida. O orçamento final depende do escopo, prazo, conteúdo e funcionalidades necessárias.</p>
+            <h3>Referências para projetos personalizados</h3>
+            <div className="custom-table-wrapper">
+              <table className="custom-reference-table">
+                <thead>
+                  <tr>
+                    <th>Projeto</th>
+                    <th>Referência</th>
+                    <th>Inclui</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {customProjectReferences.map(([project, price, description]) => (
+                    <tr key={project}>
+                      <th scope="row">{project}</th>
+                      <td>{price}</td>
+                      <td>{description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         {/* Pacotes, valores e itens incluídos em cada opção. */}
         <section id="pacotes" className="content-section dark-section section services-pricing">
           <div className="section-header">
             <div>
-              <span className="section-kicker">02 / Pacotes</span>
+              <span className="section-kicker">03 / Pacotes</span>
               <h2>Escolha o ponto de partida.</h2>
             </div>
           </div>
@@ -142,7 +233,7 @@ export default function Services() {
         <section id="processo" className="content-section section">
           <div className="section-header">
             <div>
-              <span className="section-kicker">03 / Como funciona</span>
+              <span className="section-kicker">04 / Como funciona</span>
               <h2>Do primeiro papo até o site no ar.</h2>
             </div>
           </div>
@@ -161,7 +252,7 @@ export default function Services() {
         <section className="services-faq content-section dark-section section">
           <div className="section-header">
             <div>
-              <span className="section-kicker">04 / Dúvidas</span>
+              <span className="section-kicker">05 / Dúvidas</span>
               <h2>Antes de começar.</h2>
             </div>
           </div>
@@ -175,13 +266,49 @@ export default function Services() {
           </div>
         </section>
 
-        {/* Chamada final para iniciar uma conversa pelo WhatsApp. */}
-        <section className="services-final-cta section">
-          <span className="section-kicker">05 / Vamos conversar</span>
-          <h2>Tem uma ideia ou precisa de um site?</h2>
-          <p>Me conte o que você precisa. A gente transforma sua necessidade em uma solução web clara, responsiva e profissional.</p>
-          <a href={whatsappUrl} target="_blank" rel="noreferrer" className="button primary">Chamar no WhatsApp <MessageSquare size={16} /></a>
+        {/* Formulário comercial para entender o projeto e preparar o próximo contato. */}
+        <section className="contact-section section services-contact-section">
+          <div className="contact-grid">
+            <div className="contact-copy">
+              <span className="section-kicker">06 / Fale comigo</span>
+              <h2>Conte o que você precisa.</h2>
+              <p>Preencha o formulário com as informações iniciais do projeto. A partir disso, posso entender o contexto e indicar o melhor caminho.</p>
+            </div>
+
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <label>
+                Nome
+                <input required name="name" placeholder="Seu nome" />
+              </label>
+
+              <label>
+                E-mail
+                <input required type="email" name="email" placeholder="seu@email.com" />
+              </label>
+
+              <label>
+                Tipo de projeto
+                <select required name="type">
+                  <option value="">Selecione</option>
+                  <option>Site institucional</option>
+                  <option>Landing page</option>
+                  <option>Portfólio</option>
+                  <option>Sistema web</option>
+                </select>
+              </label>
+
+              <label>
+                Mensagem
+                <textarea required name="message" rows={4} placeholder="Conte um pouco do que você precisa" />
+              </label>
+
+              <button type="submit" className="button primary submit-button">
+                {copied ? "Mensagem copiada" : "Preparar mensagem"}
+              </button>
+            </form>
+          </div>
         </section>
+
       </main>
     </div>
   );

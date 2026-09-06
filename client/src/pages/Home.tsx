@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ArrowRight, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
-import { toast } from "sonner";
 
 // Conteúdo dos serviços apresentados no portfólio técnico.
 const services = [
@@ -58,19 +57,6 @@ const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "P
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  // Prepara os dados do formulário para serem enviados por qualquer canal de contato.
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\n\n${data.get("message")}`;
-    navigator.clipboard?.writeText(message);
-    setCopied(true);
-    toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
-    window.setTimeout(() => setCopied(false), 2500);
-    event.currentTarget.reset();
-  }
 
   return (
     <div className="site-shell">
@@ -274,10 +260,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Canais e formulário para oportunidades, colaborações e projetos. */}
+        {/* Canais para oportunidades, colaborações e conversas profissionais. */}
         <section id="contato" className="contact-section section">
-          <div className="contact-grid">
-            <div className="contact-copy">
+          <div className="contact-copy portfolio-contact-copy">
               <span className="section-kicker">04 / Contato</span>
               <h2>Vamos criar algo bom juntos?</h2>
               <p>
@@ -298,39 +283,9 @@ export default function Home() {
                   <Instagram size={16} /> Instagram
                 </a>
               </div>
-            </div>
-
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <label>
-                Nome
-                <input required name="name" placeholder="Seu nome" />
-              </label>
-
-              <label>
-                E-mail
-                <input required type="email" name="email" placeholder="seu@email.com" />
-              </label>
-
-              <label>
-                Tipo de projeto
-                <select required name="type">
-                  <option value="">Selecione</option>
-                  <option>Site institucional</option>
-                  <option>Landing page</option>
-                  <option>Portfólio</option>
-                  <option>Sistema web</option>
-                </select>
-              </label>
-
-              <label>
-                Mensagem
-                <textarea required name="message" rows={4} placeholder="Conte um pouco do que você precisa" />
-              </label>
-
-              <button type="submit" className="button primary submit-button">
-                {copied ? "Mensagem copiada" : "Preparar mensagem"}
-              </button>
-            </form>
+              <a href="mailto:otavioaugusto.contato@gmail.com" className="button secondary portfolio-contact-button">
+                Falar comigo <Mail size={16} />
+              </a>
           </div>
         </section>
 
