@@ -131,8 +131,10 @@ const faqs = [
 const whatsappUrl = "https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20quero%20conhecer%20seus%20servi%C3%A7os.";
 
 export default function Services() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeEngagement, setActiveEngagement] = useState<string | null>(null);
   const [selectedFeatureIds, setSelectedFeatureIds] = useState<string[]>([]);
+  const [openCategories, setOpenCategories] = useState<string[]>(customFeatureCategories);
 
   const hourlyRate = 50;
   const safetyMargin = 20;
@@ -169,6 +171,10 @@ export default function Services() {
 
   function toggleFeature(featureId: string) {
     setSelectedFeatureIds((current) => current.includes(featureId) ? current.filter((item) => item !== featureId) : [...current, featureId]);
+  }
+
+  function toggleCategory(category: string) {
+    setOpenCategories((current) => current.includes(category) ? current.filter((item) => item !== category) : [...current, category]);
   }
 
   const selectedFeatures = customFeatures.filter((feature) => selectedFeatureIds.includes(feature.id));
@@ -236,10 +242,12 @@ Gostaria de explicar melhor o que preciso.`;
             <li>Análise de problemas específicos.</li>
           </ul>
           <p className="hourly-minimum">Mínimo de contratação: 2 horas por solicitação.</p>
-          <table className="hourly-table">
-            <thead><tr><th>Tempo</th><th>Referência</th></tr></thead>
-            <tbody><tr><td>2 horas</td><td>R$ 100</td></tr><tr><td>4 horas</td><td>R$ 200</td></tr><tr><td>8 horas</td><td>R$ 400</td></tr></tbody>
-          </table>
+          <div className="hourly-table-wrapper">
+            <table className="hourly-table">
+              <thead><tr><th>Tempo</th><th>Referência</th></tr></thead>
+              <tbody><tr><td>2 horas</td><td>R$ 100</td></tr><tr><td>4 horas</td><td>R$ 200</td></tr><tr><td>8 horas</td><td>R$ 400</td></tr></tbody>
+            </table>
+          </div>
           <button type="button" className="button primary" onClick={() => openWhatsapp("Olá, Otávio! Tenho interesse em contratar seu trabalho por hora. Preciso de ajuda com:")}>
             Solicitar atendimento por hora <MessageSquare size={15} />
           </button>
@@ -257,8 +265,10 @@ Gostaria de explicar melhor o que preciso.`;
         <div className="custom-feature-groups">
           {customFeatureCategories.map((category) => (
             <fieldset key={category}>
-              <legend>{category}</legend>
-              <div className="custom-feature-options">
+              <button type="button" className="custom-category-toggle" aria-expanded={openCategories.includes(category)} aria-controls={`features-${category}`} onClick={() => toggleCategory(category)}>
+                <span>{category}</span><ChevronDown size={17} aria-hidden="true" />
+              </button>
+              {openCategories.includes(category) && <div id={`features-${category}`} className="custom-feature-options">
                 {customFeatures.filter((feature) => feature.category === category).map((feature) => (
                   <label key={feature.id} className={selectedFeatureIds.includes(feature.id) ? "custom-feature-option selected" : "custom-feature-option"}>
                     <input type="checkbox" checked={selectedFeatureIds.includes(feature.id)} onChange={() => toggleFeature(feature.id)} />
@@ -269,7 +279,7 @@ Gostaria de explicar melhor o que preciso.`;
                     {selectedFeatureIds.includes(feature.id) && <CheckCircle2 className="custom-feature-check" size={19} aria-hidden="true" />}
                   </label>
                 ))}
-              </div>
+              </div>}
               {category === "Pagamentos e transações" && <p className="custom-category-note">As taxas cobradas por gateways de pagamento, plataformas externas e serviços de terceiros não estão incluídas no valor do desenvolvimento.</p>}
             </fieldset>
           ))}
@@ -289,15 +299,24 @@ Gostaria de explicar melhor o que preciso.`;
         <a href="/" className="brand" aria-label="Voltar ao portfólio">
           <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" />
         </a>
-        <nav className="nav services-nav">
-          <a href="#servicos">Serviços</a>
-          <a href="#contratacao">Contratação</a>
-          <a href="#processo">Processo</a>
-          <a href="/">Portfólio</a>
+        <nav id="services-navigation" className={menuOpen ? "nav services-nav open" : "nav services-nav"}>
+          <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a>
+          <a href="#contratacao" onClick={() => setMenuOpen(false)}>Contratação</a>
+          <a href="#processo" onClick={() => setMenuOpen(false)}>Processo</a>
+          <a href="/" onClick={() => setMenuOpen(false)}>Portfólio</a>
         </nav>
         <a href={whatsappUrl} target="_blank" rel="noreferrer" className="header-cta services-cta">
           Falar no WhatsApp <MessageSquare size={15} />
         </a>
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen((current) => !current)}
+          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={menuOpen}
+          aria-controls="services-navigation"
+        >
+          {menuOpen ? <ChevronDown size={18} /> : <span aria-hidden="true">+</span>}
+        </button>
       </header>
 
       <main>
@@ -373,6 +392,7 @@ Gostaria de explicar melhor o que preciso.`;
             <p className="custom-reference-note">Os valores abaixo são pontos de partida. O orçamento final depende do escopo, prazo, conteúdo e funcionalidades necessárias.</p>
             <h3>Referências para projetos personalizados</h3>
             <div className="custom-table-wrapper">
+              <p className="table-scroll-hint">Deslize para ver a tabela completa.</p>
               <table className="custom-reference-table">
                 <thead>
                   <tr>

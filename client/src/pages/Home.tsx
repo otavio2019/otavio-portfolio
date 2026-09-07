@@ -100,7 +100,7 @@ export default function Home() {
           <span className="brand-name">Otávio Augusto</span>
         </a>
 
-        <nav className={open ? "nav open" : "nav"}>
+        <nav id="main-navigation" className={open ? "nav open" : "nav"}>
           {[
             ["Início", "top"],
             ["Sobre mim", "sobre"],
@@ -125,6 +125,7 @@ export default function Home() {
           onClick={() => setOpen(!open)}
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
+          aria-controls="main-navigation"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -167,7 +168,7 @@ export default function Home() {
 
           <div className="hero-panel">
             <div className="hero-photo-card">
-              <img src="/images/Foto.jpeg" alt="Otávio Augusto, desenvolvedor web" loading="eager" decoding="async" />
+              <img src="/images/Foto.jpeg" alt="Otávio Augusto, desenvolvedor web" width="640" height="800" loading="eager" decoding="async" />
               <div className="hero-photo-caption">
                 <span>Otávio Augusto</span>
                 <small>desenvolvedor web em formação</small>
@@ -266,7 +267,7 @@ export default function Home() {
           <div className="projects-grid">
             {projects.map((project) => (
               <article key={project.title} className="project-card">
-                <div className="project-preview"><img src={project.preview} alt={`Preview visual do projeto ${project.title}`} loading="lazy" /></div>
+                <div className="project-preview"><img src={project.preview} alt={`Preview visual do projeto ${project.title}`} width="640" height="360" loading="lazy" /></div>
                 <div className="project-topline">
                   <span>{project.type}</span>
                   <Code2 size={16} />
