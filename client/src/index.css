@@ -1559,6 +1559,10 @@ h2 span {
   gap: 18px;
 }
 
+.engagement-item {
+  display: contents;
+}
+
 .engagement-card {
   position: relative;
   display: flex;
@@ -1644,6 +1648,7 @@ h2 span {
 }
 
 .engagement-panel {
+  grid-column: 1 / -1;
   margin-top: 28px;
   padding: 28px;
   border: 1px solid var(--primary);
@@ -1971,6 +1976,10 @@ h2 span {
 }
 
 @media (max-width: 560px) {
+  .engagement-item {
+    display: block;
+  }
+
   .engagement-card {
     min-height: 0;
     padding: 20px;
@@ -1982,6 +1991,7 @@ h2 span {
   }
 
   .engagement-panel {
+    margin-top: 12px;
     padding: 20px;
   }
 

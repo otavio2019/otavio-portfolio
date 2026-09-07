@@ -192,6 +192,96 @@ A partir de R$ ${finalEstimate.toLocaleString("pt-BR")}
 
 Gostaria de explicar melhor o que preciso.`;
 
+  function renderEngagementPanel(title: string) {
+    if (title === "Preço fixo") {
+      return (
+        <div id="engagement-fixed-panel" className="engagement-panel">
+          <div className="engagement-panel-heading">
+            <span className="section-kicker">Escolha um pacote</span>
+            <h3>Uma opção pronta para cada momento.</h3>
+          </div>
+          <div className="pricing-grid">
+            {plans.map((plan) => (
+              <article key={plan.name} className={plan.featured ? "price-card featured" : "price-card"}>
+                {plan.featured && <span className="price-badge">Mais escolhido</span>}
+                <span className="price-label">{plan.name}</span>
+                <strong className="price-value">{plan.price}</strong>
+                <p>{plan.description}</p>
+                <ul>{plan.items.map((item) => <li key={item}><Check size={15} /> {item}</li>)}</ul>
+                <button type="button" className="button secondary" onClick={() => openWhatsapp(`Olá, Otávio! Tenho interesse no ${plan.name}, no valor de ${plan.price}. Gostaria de conversar sobre os detalhes.`)}>
+                  Escolher Pacote {plan.name} <ArrowRight size={15} />
+                </button>
+              </article>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (title === "Por hora") {
+      return (
+        <div id="engagement-hourly-panel" className="engagement-panel hourly-panel">
+          <div className="engagement-panel-heading">
+            <span className="section-kicker">Como funciona</span>
+            <h3>Como funciona a cobrança por hora</h3>
+          </div>
+          <strong className="hourly-price">R$ 50 por hora</strong>
+          <p>Indicado para manutenção, correções, ajustes visuais e pequenas melhorias em projetos existentes.</p>
+          <ul className="hourly-list">
+            <li>Correções em sites existentes.</li>
+            <li>Ajustes de layout e responsividade.</li>
+            <li>Manutenção.</li>
+            <li>Pequenas melhorias.</li>
+            <li>Alterações em funcionalidades.</li>
+            <li>Análise de problemas específicos.</li>
+          </ul>
+          <p className="hourly-minimum">Mínimo de contratação: 2 horas por solicitação.</p>
+          <table className="hourly-table">
+            <thead><tr><th>Tempo</th><th>Referência</th></tr></thead>
+            <tbody><tr><td>2 horas</td><td>R$ 100</td></tr><tr><td>4 horas</td><td>R$ 200</td></tr><tr><td>8 horas</td><td>R$ 400</td></tr></tbody>
+          </table>
+          <button type="button" className="button primary" onClick={() => openWhatsapp("Olá, Otávio! Tenho interesse em contratar seu trabalho por hora. Preciso de ajuda com:")}>
+            Solicitar atendimento por hora <MessageSquare size={15} />
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div id="engagement-custom-panel" className="engagement-panel custom-builder-panel">
+        <div className="engagement-panel-heading">
+          <span className="section-kicker">Estimativa inicial</span>
+          <h3>Monte uma ideia do seu projeto</h3>
+          <p>Selecione as funcionalidades que você imagina precisar. O resultado é apenas uma estimativa inicial. O orçamento final depende do escopo, prazo e detalhes do projeto.</p>
+        </div>
+        <div className="custom-feature-groups">
+          {customFeatureCategories.map((category) => (
+            <fieldset key={category}>
+              <legend>{category}</legend>
+              <div className="custom-feature-options">
+                {customFeatures.filter((feature) => feature.category === category).map((feature) => (
+                  <label key={feature.id} className={selectedFeatureIds.includes(feature.id) ? "custom-feature-option selected" : "custom-feature-option"}>
+                    <input type="checkbox" checked={selectedFeatureIds.includes(feature.id)} onChange={() => toggleFeature(feature.id)} />
+                    <span className="custom-feature-copy">
+                      <strong>{feature.title}</strong>
+                      <small>{feature.description}</small>
+                    </span>
+                    {selectedFeatureIds.includes(feature.id) && <CheckCircle2 className="custom-feature-check" size={19} aria-hidden="true" />}
+                  </label>
+                ))}
+              </div>
+              {category === "Pagamentos e transações" && <p className="custom-category-note">As taxas cobradas por gateways de pagamento, plataformas externas e serviços de terceiros não estão incluídas no valor do desenvolvimento.</p>}
+            </fieldset>
+          ))}
+        </div>
+        <div className={`custom-estimate ${hasSelectedFeatures ? "has-selection" : "empty"}`}>
+          <span>Estimativa inicial</span>
+          {!hasSelectedFeatures ? <><strong>Nenhum recurso selecionado</strong><p>Selecione as funcionalidades que você imagina precisar para visualizar uma referência de valor.</p></> : <><strong>{selectedFeatures.length} {selectedFeatures.length === 1 ? "recurso selecionado" : "recursos selecionados"}</strong><b>A partir de R$ {finalEstimate.toLocaleString("pt-BR")}</b><p>Essa é uma referência inicial. O orçamento final será definido depois de entender o escopo, prazo e detalhes do projeto.</p><button type="button" className="button primary custom-whatsapp-button" onClick={() => openWhatsapp(customWhatsappMessage)}>Conversar sobre este projeto <MessageSquare size={15} /></button></>}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="site-shell services-page">
       {/* Navegação da página comercial e acesso direto ao WhatsApp. */}
@@ -259,107 +349,25 @@ Gostaria de explicar melhor o que preciso.`;
 
           <div className="engagement-grid">
             {engagementOptions.map((option) => (
-              <button
-                type="button"
-                key={option.title}
-                className={`${option.featured ? "engagement-card featured" : "engagement-card"} ${activeEngagement === option.title ? "active" : ""}`}
-                onClick={() => setActiveEngagement((current) => current === option.title ? null : option.title)}
-                aria-expanded={activeEngagement === option.title}
-                aria-controls={option.title === "Preço fixo" ? "engagement-fixed-panel" : option.title === "Por hora" ? "engagement-hourly-panel" : "engagement-custom-panel"}
-              >
-                {option.featured && <span className="price-badge">Mais flexível</span>}
-                <span className="price-label">{option.title}</span>
-                <p>{option.description}</p>
-                <strong>{option.price}</strong>
-                <small>{option.note}</small>
-                <span className="engagement-card-action">{activeEngagement === option.title ? "Fechar detalhes" : "Ver detalhes"} <ChevronDown size={15} /></span>
-              </button>
+              <div key={option.title} className="engagement-item">
+                <button
+                  type="button"
+                  className={`${option.featured ? "engagement-card featured" : "engagement-card"} ${activeEngagement === option.title ? "active" : ""}`}
+                  onClick={() => setActiveEngagement((current) => current === option.title ? null : option.title)}
+                  aria-expanded={activeEngagement === option.title}
+                  aria-controls={option.title === "Preço fixo" ? "engagement-fixed-panel" : option.title === "Por hora" ? "engagement-hourly-panel" : "engagement-custom-panel"}
+                >
+                  {option.featured && <span className="price-badge">Mais flexível</span>}
+                  <span className="price-label">{option.title}</span>
+                  <p>{option.description}</p>
+                  <strong>{option.price}</strong>
+                  <small>{option.note}</small>
+                  <span className="engagement-card-action">{activeEngagement === option.title ? "Fechar detalhes" : "Ver detalhes"} <ChevronDown size={15} /></span>
+                </button>
+                {activeEngagement === option.title && renderEngagementPanel(option.title)}
+              </div>
             ))}
           </div>
-
-          {activeEngagement === "Preço fixo" && (
-            <div id="engagement-fixed-panel" className="engagement-panel">
-              <div className="engagement-panel-heading">
-                <span className="section-kicker">Escolha um pacote</span>
-                <h3>Uma opção pronta para cada momento.</h3>
-              </div>
-              <div className="pricing-grid">
-                {plans.map((plan) => (
-                  <article key={plan.name} className={plan.featured ? "price-card featured" : "price-card"}>
-                    {plan.featured && <span className="price-badge">Mais escolhido</span>}
-                    <span className="price-label">{plan.name}</span>
-                    <strong className="price-value">{plan.price}</strong>
-                    <p>{plan.description}</p>
-                    <ul>{plan.items.map((item) => <li key={item}><Check size={15} /> {item}</li>)}</ul>
-                    <button type="button" className="button secondary" onClick={() => openWhatsapp(`Olá, Otávio! Tenho interesse no ${plan.name}, no valor de ${plan.price}. Gostaria de conversar sobre os detalhes.`)}>
-                      Escolher Pacote {plan.name} <ArrowRight size={15} />
-                    </button>
-                  </article>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeEngagement === "Por hora" && (
-            <div id="engagement-hourly-panel" className="engagement-panel hourly-panel">
-              <div className="engagement-panel-heading">
-                <span className="section-kicker">Como funciona</span>
-                <h3>Como funciona a cobrança por hora</h3>
-              </div>
-              <strong className="hourly-price">R$ 50 por hora</strong>
-              <p>Indicado para manutenção, correções, ajustes visuais e pequenas melhorias em projetos existentes.</p>
-              <ul className="hourly-list">
-                <li>Correções em sites existentes.</li>
-                <li>Ajustes de layout e responsividade.</li>
-                <li>Manutenção.</li>
-                <li>Pequenas melhorias.</li>
-                <li>Alterações em funcionalidades.</li>
-                <li>Análise de problemas específicos.</li>
-              </ul>
-              <p className="hourly-minimum">Mínimo de contratação: 2 horas por solicitação.</p>
-              <table className="hourly-table">
-                <thead><tr><th>Tempo</th><th>Referência</th></tr></thead>
-                <tbody><tr><td>2 horas</td><td>R$ 100</td></tr><tr><td>4 horas</td><td>R$ 200</td></tr><tr><td>8 horas</td><td>R$ 400</td></tr></tbody>
-              </table>
-              <button type="button" className="button primary" onClick={() => openWhatsapp("Olá, Otávio! Tenho interesse em contratar seu trabalho por hora. Preciso de ajuda com:")}>
-                Solicitar atendimento por hora <MessageSquare size={15} />
-              </button>
-            </div>
-          )}
-
-          {activeEngagement === "Personalizado" && (
-            <div id="engagement-custom-panel" className="engagement-panel custom-builder-panel">
-              <div className="engagement-panel-heading">
-                <span className="section-kicker">Estimativa inicial</span>
-                <h3>Monte uma ideia do seu projeto</h3>
-                <p>Selecione as funcionalidades que você imagina precisar. O resultado é apenas uma estimativa inicial. O orçamento final depende do escopo, prazo e detalhes do projeto.</p>
-              </div>
-              <div className="custom-feature-groups">
-                {customFeatureCategories.map((category) => (
-                  <fieldset key={category}>
-                    <legend>{category}</legend>
-                    <div className="custom-feature-options">
-                      {customFeatures.filter((feature) => feature.category === category).map((feature) => (
-                        <label key={feature.id} className={selectedFeatureIds.includes(feature.id) ? "custom-feature-option selected" : "custom-feature-option"}>
-                          <input type="checkbox" checked={selectedFeatureIds.includes(feature.id)} onChange={() => toggleFeature(feature.id)} />
-                          <span className="custom-feature-copy">
-                            <strong>{feature.title}</strong>
-                            <small>{feature.description}</small>
-                          </span>
-                          {selectedFeatureIds.includes(feature.id) && <CheckCircle2 className="custom-feature-check" size={19} aria-hidden="true" />}
-                        </label>
-                      ))}
-                    </div>
-                    {category === "Pagamentos e transações" && <p className="custom-category-note">As taxas cobradas por gateways de pagamento, plataformas externas e serviços de terceiros não estão incluídas no valor do desenvolvimento.</p>}
-                  </fieldset>
-                ))}
-              </div>
-              <div className={`custom-estimate ${hasSelectedFeatures ? "has-selection" : "empty"}`}>
-                <span>Estimativa inicial</span>
-                {!hasSelectedFeatures ? <><strong>Nenhum recurso selecionado</strong><p>Selecione as funcionalidades que você imagina precisar para visualizar uma referência de valor.</p></> : <><strong>{selectedFeatures.length} {selectedFeatures.length === 1 ? "recurso selecionado" : "recursos selecionados"}</strong><b>A partir de R$ {finalEstimate.toLocaleString("pt-BR")}</b><p>Essa é uma referência inicial. O orçamento final será definido depois de entender o escopo, prazo e detalhes do projeto.</p><button type="button" className="button primary custom-whatsapp-button" onClick={() => openWhatsapp(customWhatsappMessage)}>Conversar sobre este projeto <MessageSquare size={15} /></button></>}
-              </div>
-            </div>
-          )}
 
           <div className="custom-reference-block">
             <p className="custom-reference-note">Os valores abaixo são pontos de partida. O orçamento final depende do escopo, prazo, conteúdo e funcionalidades necessárias.</p>
