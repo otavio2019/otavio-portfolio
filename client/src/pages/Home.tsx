@@ -187,7 +187,7 @@ export default function Home() {
               </div>
               <div>
                 <span>Especialidade</span>
-                <strong>Frontend e interfaces digitais</strong>
+                <strong>Back-end e interfaces digitais</strong>
               </div>
               <div>
                 <span>Perfil</span>
@@ -283,8 +283,8 @@ export default function Home() {
                   <Instagram size={16} /> Instagram
                 </a>
               </div>
-              <a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20site." className="button secondary portfolio-contact-button">
-                Falar comigo <Mail size={16} />
+              <a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20site." target="_blank" rel="noreferrer" className="button secondary portfolio-contact-button">
+                Falar comigo <MessageSquare size={16} />
               </a>
           </div>
         </section>

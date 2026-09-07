@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ArrowRight, Check, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
@@ -25,28 +24,31 @@ const services = [
 const engagementOptions = [
   {
     title: "Preço fixo",
-    description: "Projetos com escopo definido, entregas claras e prazo combinado antes do início.",
-    price: "A partir de R$ 900.",
+    description: "Pacotes e projetos com escopo definido, entregas claras e prazo combinado antes do início.",
+    price: "A partir de R$ 600",
+    note: "Projetos sob medida com escopo específico podem começar em R$ 900.",
   },
   {
     title: "Por hora",
     description: "Para manutenção, correções e melhorias pontuais.",
-    price: "R$ 50/h, com mínimo de 2 horas por solicitação.",
+    price: "R$ 50 por hora",
+    note: "Mínimo de 2 horas por solicitação.",
   },
   {
     title: "Personalizado",
     description: "Para sistemas, integrações e soluções sob medida que precisam de análise e orçamento próprio.",
-    price: "A partir de R$ 1.800.",
+    price: "A partir de R$ 1.800",
+    note: "O valor final depende do escopo, prazo, conteúdo e funcionalidades necessárias.",
     featured: true,
   },
 ];
 
 // Faixas de referência para orientar o primeiro escopo de projetos maiores.
 const customProjectReferences = [
-  ["Landing page personalizada", "A partir de R$ 1.800", "Uma página estratégica com estrutura, conteúdo e visual sob medida."],
-  ["Site institucional personalizado", "A partir de R$ 2.500", "Site com mais páginas, seções e necessidades específicas do negócio."],
-  ["Sistema web ou painel", "A partir de R$ 3.500", "Interfaces, fluxos e funcionalidades planejadas conforme o escopo."],
-  ["Integrações e soluções maiores", "Sob orçamento", "Projetos com login, banco de dados, APIs ou regras de negócio complexas."],
+  ["Landing page personalizada", "A partir de R$ 1.800", "Página estratégica com estrutura e visual sob medida"],
+  ["Site institucional personalizado", "A partir de R$ 2.500", "Negócios com várias páginas e informações"],
+  ["Sistema web ou painel", "A partir de R$ 3.500", "Interfaces, fluxos e funcionalidades próprias"],
+  ["Integrações e soluções maiores", "Sob orçamento", "Login, banco de dados, APIs e regras complexas"],
 ];
 
 // Pacotes comerciais exibidos na seção de contratação.
@@ -68,7 +70,7 @@ const plans = [
     name: "Completo",
     price: "R$ 2.000",
     description: "Para projetos que pedem uma experiência mais completa e suporte próximo.",
-    items: ["Site com até 8 páginas", "Animações leves", "Integrações externas", "Domínio e hospedagem", "Até 3 rodadas de alterações", "30 dias de suporte"],
+    items: ["Site com até 8 páginas", "Animações leves", "Integrações externas", "Configuração de domínio e hospedagem", "Até 3 rodadas de alterações", "30 dias de suporte"],
   },
 ];
 
@@ -90,18 +92,24 @@ const faqs = [
 const whatsappUrl = "https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20quero%20conhecer%20seus%20servi%C3%A7os.";
 
 export default function Services() {
-  const [copied, setCopied] = useState(false);
-
-  // Prepara os dados comerciais para serem enviados por qualquer canal de contato.
+  // Monta os dados do formulário e abre uma conversa comercial no WhatsApp.
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const message = `Olá, Otávio!\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nProjeto: ${data.get("type")}\n\n${data.get("message")}`;
-    navigator.clipboard?.writeText(message);
-    setCopied(true);
-    toast.success("Mensagem preparada", { description: "Você pode colar o conteúdo em qualquer conversa." });
-    window.setTimeout(() => setCopied(false), 2500);
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const message = `Olá, Otávio! Vim pela sua página de serviços.\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nTipo de projeto: ${data.get("type")}\n\nMensagem:\n${data.get("message")}`;
+    const whatsappLink = `https://wa.me/5583999645357?text=${encodeURIComponent(message)}`;
+    const whatsappWindow = window.open(whatsappLink, "_blank", "noopener,noreferrer");
+
+    if (!whatsappWindow) {
+      toast.error("Não foi possível abrir o WhatsApp", {
+        description: "Verifique se o navegador bloqueou a nova aba.",
+      });
+      return;
+    }
+
+    toast.success("Conversa preparada no WhatsApp");
+    form.reset();
   }
 
   return (
@@ -177,6 +185,7 @@ export default function Services() {
                 <span className="price-label">{option.title}</span>
                 <p>{option.description}</p>
                 <strong>{option.price}</strong>
+                <small>{option.note}</small>
               </article>
             ))}
           </div>
@@ -190,7 +199,7 @@ export default function Services() {
                   <tr>
                     <th>Projeto</th>
                     <th>Referência</th>
-                    <th>Inclui</th>
+                    <th>Indicado para</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -205,6 +214,7 @@ export default function Services() {
               </table>
             </div>
           </div>
+          <p className="services-cost-note">Custos de domínio, hospedagem, serviços externos e ferramentas de terceiros são pagos separadamente pelo cliente.</p>
         </section>
 
         {/* Pacotes, valores e itens incluídos em cada opção. */}
@@ -303,7 +313,7 @@ export default function Services() {
               </label>
 
               <button type="submit" className="button primary submit-button">
-                {copied ? "Mensagem copiada" : "Preparar mensagem"}
+                Enviar pelo WhatsApp
               </button>
             </form>
           </div>
