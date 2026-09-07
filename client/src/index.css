@@ -898,12 +898,15 @@ h2 span {
 
 body {
   background-color: var(--bg);
+  /* Degradê da marca sob a grade técnica, compartilhado pela Home e serviços. */
   background-image:
     linear-gradient(rgba(155, 69, 255, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(57, 216, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(57, 216, 255, 0.12), transparent 38%, rgba(155, 69, 255, 0.15) 82%, transparent),
     radial-gradient(circle at 80% 10%, rgba(155, 69, 255, 0.18), transparent 25%),
-    var(--bg);
-  background-size: 32px 32px, 32px 32px, auto, auto;
+    linear-gradient(135deg, var(--bg) 0%, var(--bg-strong) 52%, #10091f 100%);
+  background-size: 16px 16px, 16px 16px, auto, auto, auto;
+  background-position: 0 0, 0 0, center, center, center;
   font-family: "Space Grotesk", sans-serif;
 }
 
@@ -1708,6 +1711,7 @@ h2 span {
 }
 
 .hourly-table {
+  width: 100%;
   max-width: 480px;
   margin: 22px 0;
   border-collapse: collapse;
@@ -1789,9 +1793,48 @@ h2 span {
   accent-color: var(--primary);
 }
 
+.custom-feature-copy {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+}
+
+.custom-feature-copy strong {
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.custom-feature-copy small {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.custom-feature-check {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--primary);
+}
+
+.custom-feature-option.selected {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(57, 216, 255, 0.12), rgba(155, 69, 255, 0.16));
+  box-shadow: inset 4px 0 0 var(--primary);
+}
+
+.custom-category-note {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
 .custom-estimate {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: 12px 24px;
   margin-top: 24px;
@@ -1812,10 +1855,30 @@ h2 span {
   font-size: 0.95rem;
 }
 
+.custom-estimate p {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .custom-estimate b {
   color: var(--primary);
   font-size: 1.25rem;
   text-align: right;
+}
+
+.custom-estimate.empty {
+  grid-template-columns: 1fr;
+}
+
+.custom-estimate.empty strong {
+  font-size: 1.05rem;
+}
+
+.custom-whatsapp-button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  cursor: pointer;
 }
 
 .custom-reference-block {
@@ -1932,7 +1995,8 @@ h2 span {
     grid-template-columns: 1fr;
   }
 
-  .custom-estimate b {
+  .custom-estimate b,
+  .custom-whatsapp-button {
     text-align: left;
   }
 
@@ -2180,4 +2244,512 @@ h2 span {
   .faq-item summary {
     font-size: 0.96rem;
   }
+}
+
+/* Refinos compartilhados das duas experiências. */
+.button,
+.header-cta,
+.contact-links a,
+.github-link,
+.project-link-label,
+.engagement-card,
+.service-card,
+.project-card,
+.technology-card,
+.workflow-card,
+.price-card,
+.custom-feature-option {
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.button:focus-visible,
+.header-cta:focus-visible,
+.contact-links a:focus-visible,
+.github-link:focus-visible,
+.project-link-label:focus-visible,
+.engagement-card:focus-visible,
+.service-card:focus-visible,
+.project-card:focus-visible,
+.custom-feature-option:has(input:focus-visible) {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+
+.site-shell:not(.services-page) .hero {
+  min-height: 0;
+  padding-top: 92px;
+  padding-bottom: 82px;
+}
+
+.site-shell:not(.services-page) .hero-copy {
+  align-self: center;
+}
+
+.site-shell:not(.services-page) .hero h1 {
+  max-width: 760px;
+  font-size: clamp(3.2rem, 6.8vw, 6rem);
+}
+
+.site-shell:not(.services-page) .hero-panel {
+  align-self: center;
+}
+
+.hero-panel-title {
+  display: block;
+  margin-top: 16px;
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.hero-panel-copy {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.about-highlight {
+  display: inline-block;
+  margin-bottom: 22px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--primary);
+  background: rgba(57, 216, 255, 0.07);
+  color: var(--primary);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.52rem;
+  line-height: 1.7;
+}
+
+.about-highlight span {
+  color: var(--accent);
+}
+
+.about-points,
+.contact-trust-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.about-points span,
+.contact-trust-list span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.about-points svg,
+.contact-trust-list svg {
+  color: var(--primary);
+  flex: 0 0 auto;
+}
+
+.site-shell:not(.services-page) .services-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.site-shell:not(.services-page) .service-card {
+  min-height: 245px;
+}
+
+.service-card:hover,
+.technology-card:hover,
+.workflow-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 7px 7px 0 var(--accent);
+}
+
+.technology-section {
+  background: rgba(5, 5, 9, 0.38);
+}
+
+.technology-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.technology-list span {
+  padding: 9px 10px;
+  border: 1px solid rgba(57, 216, 255, 0.35);
+  background: rgba(57, 216, 255, 0.06);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.project-preview {
+  height: 150px;
+  margin: -22px -22px 20px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: #080811;
+}
+
+.project-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.82;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.project-card:hover .project-preview img {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.project-status {
+  margin-top: 18px;
+}
+
+.form-intro {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.form-note {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.portfolio-contact-button {
+  display: none;
+}
+
+.services-page .services-hero .hero-actions {
+  margin-top: 30px;
+}
+
+.services-page .services-hero .button {
+  min-height: 50px;
+}
+
+.services-page .services-hero-note {
+  align-self: end;
+}
+
+.services-page .custom-estimate {
+  margin-top: 30px;
+  background: linear-gradient(135deg, rgba(57, 216, 255, 0.1), rgba(155, 69, 255, 0.14));
+}
+
+.services-contact-section {
+  width: 100%;
+  margin: 0;
+  padding-top: 96px;
+  padding-right: max(20px, calc((100% - 1240px) / 2));
+  padding-left: max(20px, calc((100% - 1240px) / 2));
+  background: linear-gradient(90deg, rgba(57, 216, 255, 0.04), transparent 52%);
+}
+
+.services-contact-copy {
+  padding: 12px 0;
+}
+
+.services-contact-copy h2 {
+  max-width: 570px;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+}
+
+.services-contact-copy > p {
+  max-width: 500px;
+  font-size: 1.08rem;
+}
+
+.services-contact-points {
+  display: grid;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.services-contact-points > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.services-contact-points svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--primary);
+}
+
+.services-contact-points span {
+  display: grid;
+  gap: 5px;
+}
+
+.services-contact-points strong {
+  color: var(--text);
+  font-size: 0.96rem;
+}
+
+.services-contact-points small {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.services-direct-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 32px;
+  color: var(--primary);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.52rem;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.services-direct-contact:hover {
+  color: var(--text);
+}
+
+.services-form-heading {
+  display: grid;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.services-form-heading h3 {
+  font-size: 1.45rem;
+  text-transform: uppercase;
+}
+
+.services-form-heading p {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.services-contact-section .contact-form {
+  gap: 16px;
+  padding: 28px;
+  border-color: rgba(57, 216, 255, 0.55);
+  box-shadow: 8px 8px 0 var(--accent);
+}
+
+.services-contact-section .contact-form label {
+  gap: 8px;
+}
+
+.services-contact-section .contact-form input,
+.services-contact-section .contact-form textarea,
+.services-contact-section .contact-form select {
+  min-height: 48px;
+}
+
+.services-contact-section .contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.services-contact-section .submit-button {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 6px;
+}
+
+/* As duas seções usam o mesmo fundo da marca, mas com uma intensidade própria. */
+.site-shell:not(.services-page) #servicos {
+  position: relative;
+  background: linear-gradient(180deg, rgba(12, 11, 20, 0.96), rgba(18, 8, 34, 0.9));
+  border-top-color: rgba(57, 216, 255, 0.55);
+  border-bottom-color: rgba(155, 69, 255, 0.55);
+}
+
+.site-shell:not(.services-page) #servicos .service-card {
+  background: linear-gradient(145deg, rgba(18, 15, 30, 0.96), rgba(8, 14, 24, 0.96));
+  border-color: rgba(57, 216, 255, 0.32);
+}
+
+.site-shell:not(.services-page) #servicos .service-card:nth-child(even) {
+  border-color: rgba(155, 69, 255, 0.42);
+}
+
+.site-shell:not(.services-page) #servicos .service-icon {
+  background: rgba(57, 216, 255, 0.13);
+  color: var(--primary);
+  box-shadow: 4px 4px 0 var(--accent);
+}
+
+.services-page .services-faq {
+  position: relative;
+  background: linear-gradient(180deg, rgba(12, 11, 20, 0.96), rgba(18, 8, 34, 0.9));
+  border-top-color: rgba(57, 216, 255, 0.55);
+  border-bottom-color: rgba(155, 69, 255, 0.55);
+}
+
+.services-page .services-faq .faq-item {
+  border-bottom-color: rgba(57, 216, 255, 0.28);
+}
+
+.services-page .services-faq .faq-item[open] {
+  border-left: 3px solid var(--accent);
+  padding-left: 14px;
+  background: rgba(155, 69, 255, 0.07);
+}
+
+.services-page .services-faq .faq-item summary:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 560px) {
+  .services-contact-section {
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 72px;
+  }
+
+  .services-contact-copy {
+    padding: 0;
+  }
+
+  .services-contact-points {
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .services-direct-contact {
+    margin-top: 26px;
+  }
+
+  .services-contact-section .contact-form {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 880px) {
+  .site-shell:not(.services-page) .services-grid,
+  .technology-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-shell:not(.services-page) .hero {
+    padding-top: 76px;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-shell:not(.services-page) .hero {
+    padding-top: 62px;
+    padding-bottom: 62px;
+  }
+
+  .site-shell:not(.services-page) .hero h1 {
+    font-size: clamp(2.45rem, 13vw, 4.1rem);
+  }
+
+  .site-shell:not(.services-page) .services-grid,
+  .technology-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-highlight {
+    font-size: 0.46rem;
+  }
+
+  .project-preview {
+    height: 128px;
+    margin: -18px -18px 18px;
+  }
+
+  .services-page .services-hero .hero-actions .button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Pequenos degraus de luz dão textura de pixel sem transformar os blocos em cards comuns. */
+.site-header,
+.header-cta,
+.button,
+.service-card,
+.project-card,
+.technology-card,
+.workflow-card,
+.engagement-card,
+.price-card,
+.contact-form,
+.services-hero-note,
+.engagement-panel,
+.custom-estimate {
+  position: relative;
+  background-image:
+    linear-gradient(var(--primary), var(--primary)),
+    linear-gradient(var(--accent), var(--accent));
+  background-position: top 5px right 0, bottom 0 left 6px;
+  background-size: 9px 2px, 9px 2px;
+  background-repeat: no-repeat;
+}
+
+.service-card::before,
+.project-card::before,
+.technology-card::before,
+.workflow-card::before,
+.engagement-card::before,
+.price-card::before,
+.contact-form::before,
+.services-hero-note::before,
+.engagement-panel::before,
+.custom-estimate::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--primary);
+  content: "";
+  pointer-events: none;
+}
+
+.service-card::after,
+.project-card::after,
+.technology-card::after,
+.workflow-card::after,
+.engagement-card::after,
+.price-card::after,
+.contact-form::after,
+.services-hero-note::after,
+.engagement-panel::after,
+.custom-estimate::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  content: "";
+  pointer-events: none;
+}
+
+.button::before,
+.header-cta::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: var(--primary);
+  content: "";
+  pointer-events: none;
 }

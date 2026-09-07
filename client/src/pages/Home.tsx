@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowRight, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Smartphone, X } from "lucide-react";
+import { ArrowRight, Check, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Server, Smartphone, X } from "lucide-react";
+import { toast } from "sonner";
 
 // Conteúdo dos serviços apresentados no portfólio técnico.
 const services = [
@@ -18,30 +19,42 @@ const services = [
     text: "Implementação com React, TypeScript e arquitetura organizada para crescer com o projeto.",
     icon: Code2,
   },
+  {
+    title: "Sistemas e dashboards",
+    text: "Painéis e aplicações para organizar dados, acompanhar indicadores e apoiar decisões.",
+    icon: Server,
+  },
 ];
 
 // Projetos em destaque, com links para demonstração e código-fonte.
 const projects = [
   {
-    title: "Infinite Worlds",
+    title: "feiticeiros homebrew",
     description: "Plataforma autoral para organizar ideias, experiências e estrutura de produto em uma base moderna.",
     stack: ["React", "TypeScript", "Express"],
     github: "https://github.com/otavio2019/feiticeiros-homebrew",
     site: "https://feiticeiros-homebrew.vercel.app",
     status: "Em desenvolvimento",
     type: "Plataforma web",
+    preview: "/images/homebrew-forge-dashboard-enhanced.png",
   },
   {
     title: "CITI-DE",
     description: "Projeto de repaginação com foco em visual, organização e melhor experiência do usuário.",
     stack: ["Frontend", "UI", "Design System"],
     github: "https://github.com/otavio2019/CITI-DE",
+    status: "Projeto publicado",
+    type: "Interface web",
+    preview: "/images/portfolio-visual.svg",
   },
   {
     title: "Estágio",
     description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
     stack: ["Python", "Open Source", "Aprendizado"],
     github: "https://github.com/otavio2019/Estagio",
+    status: "Projeto de estudo",
+    type: "Prática e aprendizado",
+    preview: "/images/portfolio-visual.svg",
   },
 ];
 
@@ -53,10 +66,30 @@ const stats = [
 ];
 
 // Tecnologias utilizadas nos projetos e estudos atuais.
-const tech = ["TypeScript", "React", "Vite", "Tailwind", "Node.js", "GitHub", "Python", "MySQL"];
+const technologyGroups = [
+  { title: "Frontend", items: ["React", "TypeScript", "Vite", "Tailwind"] },
+  { title: "Backend e dados", items: ["Node.js", "Express", "Python", "MySQL"] },
+  { title: "Ferramentas", items: ["GitHub", "Git", "Vercel"] },
+];
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+
+  function handleContactSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const message = `Olá, Otávio! Vim pelo seu portfólio.\n\nNome: ${data.get("name")}\nE-mail: ${data.get("email")}\nTipo de contato: ${data.get("type")}\n\nMensagem:\n${data.get("message")}`;
+    const whatsappWindow = window.open(`https://wa.me/5583999645357?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+
+    if (!whatsappWindow) {
+      toast.error("Não foi possível abrir o WhatsApp", { description: "Verifique se o navegador bloqueou a nova aba." });
+      return;
+    }
+
+    toast.success("Mensagem preparada no WhatsApp");
+    form.reset();
+  }
 
   return (
     <div className="site-shell">
@@ -140,25 +173,10 @@ export default function Home() {
                 <small>desenvolvedor web em formação</small>
               </div>
             </div>
-            <img className="hero-art" src="/images/portfolio-visual.svg" alt="Composição visual abstrata sobre desenvolvimento web" loading="lazy" decoding="async" />
-            <div id="tecnologias" className="panel-card top-card">
-              <div className="mini-label">Frontend Stack</div>
-              <div className="tag-list">
-                {tech.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="panel-card code-card">
-              <div className="window-bar">
-                <span className="circle red" />
-                <span className="circle yellow" />
-                <span className="circle green" />
-              </div>
-              <pre>
-                <code>{`const developer = {\n  name: "Otávio",\n  focus: ["sites", "interfaces", "produtos"],\n  goal: "resolver problemas com código"\n}`}</code>
-              </pre>
+            <div className="panel-card top-card">
+              <div className="mini-label">Em foco agora</div>
+              <strong className="hero-panel-title">Interfaces que explicam ideias com clareza.</strong>
+              <p className="hero-panel-copy">React, TypeScript e atenção aos detalhes que fazem uma experiência parecer simples.</p>
             </div>
           </div>
         </section>
@@ -172,12 +190,11 @@ export default function Home() {
 
           <div className="about-grid">
             <div>
-              <p>
-                Sou Otávio Augusto, desenvolvedor web em formação e estudante de Análise e Desenvolvimento de Sistemas. Minha rotina é baseada em estudo, execução e melhoria contínua.
-              </p>
-              <p>
-                Gosto de criar soluções que unem boa experiência visual com arquitetura simples, legível e escalável. A cada projeto, meu objetivo é transformar ideias em experiências que funcionem bem e tenham sentido para quem usa.
-              </p>
+              <div className="about-highlight">DESENVOLVIMENTO WEB <span>+</span> APRENDIZADO CONTÍNUO</div>
+              <p>Sou estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor web em formação, com foco em criar interfaces claras, responsivas e funcionais.</p>
+              <div className="about-points">
+                {["React e TypeScript", "Interfaces responsivas", "Código organizado", "Estudo e prática"].map((point) => <span key={point}><Check size={15} /> {point}</span>)}
+              </div>
             </div>
 
             <div className="info-box">
@@ -187,7 +204,7 @@ export default function Home() {
               </div>
               <div>
                 <span>Especialidade</span>
-                <strong>Back-end e interfaces digitais</strong>
+                <strong>Interfaces e aplicações web</strong>
               </div>
               <div>
                 <span>Perfil</span>
@@ -217,11 +234,28 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="tecnologias" className="content-section technology-section section">
+          <div className="section-header">
+            <div>
+              <span className="section-kicker">03 / Tecnologias</span>
+              <h2>Ferramentas para transformar ideia em produto.</h2>
+            </div>
+          </div>
+          <div className="technology-grid">
+            {technologyGroups.map((group) => (
+              <article key={group.title} className="technology-card">
+                <h3>{group.title}</h3>
+                <div className="technology-list">{group.items.map((item) => <span key={item}>{item}</span>)}</div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         {/* Projetos selecionados com acesso ao site e ao GitHub. */}
         <section id="projetos" className="content-section section">
           <div className="section-header projects-header">
             <div>
-              <span className="section-kicker">03 / Projetos</span>
+              <span className="section-kicker">04 / Projetos</span>
               <h2>Trabalho real, com foco em aprendizado e execução.</h2>
             </div>
             <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer" className="github-link">
@@ -232,12 +266,14 @@ export default function Home() {
           <div className="projects-grid">
             {projects.map((project) => (
               <article key={project.title} className="project-card">
+                <div className="project-preview"><img src={project.preview} alt={`Preview visual do projeto ${project.title}`} loading="lazy" /></div>
                 <div className="project-topline">
-                  <span>Projeto</span>
+                  <span>{project.type}</span>
                   <Code2 size={16} />
                 </div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
+                <span className="project-status">{project.status}</span>
                 <div className="project-tags">
                   {project.stack.map((item) => (
                     <span key={item}>{item}</span>
@@ -262,30 +298,29 @@ export default function Home() {
 
         {/* Canais para oportunidades, colaborações e conversas profissionais. */}
         <section id="contato" className="contact-section section">
-          <div className="contact-copy portfolio-contact-copy">
-              <span className="section-kicker">04 / Contato</span>
-              <h2>Vamos criar algo bom juntos?</h2>
-              <p>
-                Se quiser conversar sobre um projeto, uma oportunidade profissional ou conhecer melhor meu trabalho, entre em contato.
-              </p>
-
-              <div className="contact-links">
-                <a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20site." target="_blank" rel="noreferrer">
-                  <MessageSquare size={16} /> WhatsApp
-                </a>
-                <a href="mailto:otavioaugusto.contato@gmail.com">
-                  <Mail size={16} /> E-mail
-                </a>
-                <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer">
-                  <Github size={16} /> GitHub
-                </a>
-                <a href="https://www.instagram.com/otavio_cjiii/" target="_blank" rel="noreferrer">
-                  <Instagram size={16} /> Instagram
-                </a>
+          <div className="contact-grid">
+            <div className="contact-copy portfolio-contact-copy">
+              <span className="section-kicker">05 / Contato</span>
+              <h2>Vamos conversar.</h2>
+              <p>Estou aberto a conversar sobre projetos, oportunidades e colaborações.</p>
+              <div className="contact-trust-list">
+                {["Desenvolvimento responsivo", "Comunicação clara", "Foco em aprendizado e qualidade"].map((item) => <span key={item}><Check size={15} /> {item}</span>)}
               </div>
-              <a href="https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20vim%20pelo%20seu%20site." target="_blank" rel="noreferrer" className="button secondary portfolio-contact-button">
-                Falar comigo <MessageSquare size={16} />
-              </a>
+              <div className="contact-links">
+                <a href="mailto:otavioaugusto.contato@gmail.com"><Mail size={16} /> E-mail</a>
+                <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a>
+                <a href="https://www.instagram.com/otavio_cjiii/" target="_blank" rel="noreferrer"><Instagram size={16} /> Instagram</a>
+              </div>
+            </div>
+            <form className="contact-form" onSubmit={handleContactSubmit}>
+              <p className="form-intro">Conte um pouco do que você precisa. Assim consigo entender melhor a conversa e responder de forma mais útil.</p>
+              <label>Nome<input required name="name" placeholder="Seu nome" /></label>
+              <label>E-mail<input required type="email" name="email" placeholder="seu@email.com" /></label>
+              <label>Tipo de contato<select required name="type"><option value="">Selecione</option><option>Projeto</option><option>Oportunidade profissional</option><option>Colaboração</option></select></label>
+              <label>Mensagem<textarea required name="message" rows={4} placeholder="Conte um pouco do que você precisa" /></label>
+              <button type="submit" className="button primary submit-button">Enviar pelo WhatsApp <MessageSquare size={15} /></button>
+              <small className="form-note">Você será direcionado para o WhatsApp após enviar o formulário.</small>
+            </form>
           </div>
         </section>
 

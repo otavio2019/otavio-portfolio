@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Check, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 // Serviços apresentados para quem está conhecendo a página comercial.
@@ -44,24 +44,43 @@ const engagementOptions = [
   },
 ];
 
-const customFeatureGroups = [
-  {
-    title: "Estrutura e visual",
-    options: ["Página ou tabela básica", "Layout personalizado", "Responsividade", "Pesquisa", "Filtros", "Ordenação", "Paginação"],
-  },
-  {
-    title: "Dados e usuários",
-    options: ["Cadastro e gerenciamento de informações", "Banco de dados", "Login e permissões", "Upload de arquivos e imagens"],
-  },
-  {
-    title: "Relatórios e integrações",
-    options: ["Exportação para Excel ou PDF", "Integração com serviço externo", "Dashboard e gráficos"],
-  },
-  {
-    title: "Qualidade e entrega",
-    options: ["Testes e correções extras"],
-  },
+type CustomFeature = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  weight: number;
+};
+
+// Recursos escritos em linguagem comercial; o peso fica apenas no cálculo interno.
+const customFeatures: CustomFeature[] = [
+  { id: "basic-structure", title: "Página ou tabela básica", description: "Uma estrutura simples para apresentar ou organizar informações.", category: "Estrutura e visual", weight: 1 },
+  { id: "custom-layout", title: "Layout personalizado", description: "Visual criado de acordo com sua marca, objetivo e público.", category: "Estrutura e visual", weight: 1 },
+  { id: "responsive", title: "Versão para celular", description: "Layout adaptado para celular, tablet e computador.", category: "Estrutura e visual", weight: 1 },
+  { id: "search", title: "Pesquisa", description: "Permite que o usuário encontre informações dentro do site ou sistema.", category: "Estrutura e visual", weight: 1 },
+  { id: "filters", title: "Filtros", description: "Permite filtrar produtos, registros ou conteúdos por diferentes critérios.", category: "Estrutura e visual", weight: 1 },
+  { id: "sorting", title: "Ordenação", description: "Permite organizar resultados por nome, data, preço ou outro critério.", category: "Estrutura e visual", weight: 0.5 },
+  { id: "pagination", title: "Paginação", description: "Divide muitos resultados em páginas menores para facilitar a navegação.", category: "Estrutura e visual", weight: 0.5 },
+  { id: "records", title: "Cadastro e gerenciamento de informações", description: "Permite criar, visualizar, editar e remover registros.", category: "Dados e usuários", weight: 2 },
+  { id: "database", title: "Banco de dados", description: "Armazena informações do sistema de forma organizada e segura.", category: "Dados e usuários", weight: 2 },
+  { id: "auth", title: "Login e permissões", description: "Permite controlar quem acessa o sistema e o que cada usuário pode fazer.", category: "Dados e usuários", weight: 2 },
+  { id: "upload", title: "Upload de arquivos e imagens", description: "Permite que usuários enviem fotos, documentos ou outros arquivos.", category: "Dados e usuários", weight: 1 },
+  { id: "user-area", title: "Área exclusiva do usuário", description: "Espaço privado onde cada usuário pode visualizar suas informações e ações.", category: "Dados e usuários", weight: 2 },
+  { id: "notifications", title: "Notificações", description: "Envia avisos sobre atualizações, pedidos, mensagens ou ações importantes.", category: "Dados e usuários", weight: 1 },
+  { id: "payment", title: "Pagamentos online", description: "Permite receber pagamentos pelo site ou sistema.", category: "Pagamentos e transações", weight: 3 },
+  { id: "pix", title: "Integração com Pix", description: "Permite gerar ou receber pagamentos via Pix.", category: "Pagamentos e transações", weight: 2 },
+  { id: "credit-card", title: "Pagamento com cartão", description: "Permite integrar pagamentos com cartão de crédito ou débito.", category: "Pagamentos e transações", weight: 3 },
+  { id: "checkout", title: "Carrinho e checkout", description: "Cria uma etapa para revisar produtos, dados e finalizar a compra.", category: "Pagamentos e transações", weight: 3 },
+  { id: "transactions", title: "Controle de transações", description: "Permite acompanhar pagamentos, status, pedidos e histórico de transações.", category: "Pagamentos e transações", weight: 3 },
+  { id: "subscription", title: "Assinaturas recorrentes", description: "Permite criar cobranças recorrentes, como planos mensais ou anuais.", category: "Pagamentos e transações", weight: 4 },
+  { id: "export", title: "Exportação para Excel ou PDF", description: "Permite gerar relatórios para baixar, imprimir ou compartilhar.", category: "Relatórios e integrações", weight: 1 },
+  { id: "integration", title: "Integração com outro serviço", description: "Conecta o projeto a uma API, plataforma ou ferramenta externa.", category: "Relatórios e integrações", weight: 2 },
+  { id: "dashboard", title: "Painel com números e gráficos", description: "Mostra indicadores e informações importantes de forma visual.", category: "Relatórios e integrações", weight: 2 },
+  { id: "testing", title: "Testes e correções extras", description: "Inclui uma etapa adicional para revisar o projeto, corrigir problemas e fazer ajustes finais.", category: "Qualidade e entrega", weight: 1 },
+  { id: "deployment", title: "Publicação do projeto", description: "Configuração e publicação do site ou sistema em um ambiente online.", category: "Qualidade e entrega", weight: 1 },
 ];
+
+const customFeatureCategories = Array.from(new Set(customFeatures.map((feature) => feature.category)));
 
 // Faixas de referência para orientar o primeiro escopo de projetos maiores.
 const customProjectReferences = [
@@ -75,20 +94,20 @@ const customProjectReferences = [
 const plans = [
   {
     name: "Essencial",
-    price: " partir de R$ 600",
+    price: "A partir de R$ 600",
     description: "Para uma landing page ou página única, com estrutura objetiva e responsiva.",
     items: ["Landing page ou página única", "Design responsivo", "Botão para WhatsApp", "Formulário simples", "1 rodada de alterações"],
   },
   {
     name: "Profissional",
-    price: " partir de R$ 1.200",
+    price: "A partir de R$ 1.200",
     description: "Para negócios que precisam apresentar seus serviços com mais espaço, organização e credibilidade.",
     featured: true,
     items: ["Site com até 5 páginas", "Design personalizado", "WhatsApp e redes sociais", "SEO básico", "Publicação do site", "2 rodadas de alterações"],
   },
   {
     name: "Completo",
-    price: " partir de R$ 2.000",
+    price: "A partir de R$ 2.000",
     description: "Para projetos mais completos, com integrações e suporte próximo.",
     items: ["Site com até 8 páginas", "Animações leves", "Integrações externas", "Configuração de domínio e hospedagem", "Até 3 rodadas de alterações", "30 dias de suporte"],
   },
@@ -113,7 +132,7 @@ const whatsappUrl = "https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%
 
 export default function Services() {
   const [activeEngagement, setActiveEngagement] = useState<string | null>(null);
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [selectedFeatureIds, setSelectedFeatureIds] = useState<string[]>([]);
 
   const hourlyRate = 50;
   const safetyMargin = 20;
@@ -140,14 +159,38 @@ export default function Services() {
   }
 
   function openWhatsapp(message: string) {
-    window.open(`https://wa.me/5583999645357?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    const whatsappWindow = window.open(`https://wa.me/5583999645357?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    if (!whatsappWindow) {
+      toast.error("Não foi possível abrir o WhatsApp", { description: "Verifique se o navegador bloqueou a nova aba." });
+      return;
+    }
+    toast.success("Conversa preparada no WhatsApp");
   }
 
-  function toggleFeature(feature: string) {
-    setSelectedFeatures((current) => current.includes(feature) ? current.filter((item) => item !== feature) : [...current, feature]);
+  function toggleFeature(featureId: string) {
+    setSelectedFeatureIds((current) => current.includes(featureId) ? current.filter((item) => item !== featureId) : [...current, featureId]);
   }
 
-  const customEstimate = Math.max(minimumCustomPrice, Math.ceil((selectedFeatures.length * hourlyRate * (1 + safetyMargin / 100)) / 100) * 100);
+  const selectedFeatures = customFeatures.filter((feature) => selectedFeatureIds.includes(feature.id));
+  const estimatedWeight = selectedFeatures.reduce((total, feature) => total + feature.weight, 0);
+  const basePrice = estimatedWeight * hourlyRate;
+  const suggestedPrice = basePrice * (1 + safetyMargin / 100);
+  const roundedPrice = Math.ceil(suggestedPrice / 100) * 100;
+  const finalEstimate = Math.max(roundedPrice, minimumCustomPrice);
+  const hasSelectedFeatures = selectedFeatures.length > 0;
+
+  // O texto do WhatsApp mostra a referência comercial, sem expor o cálculo interno.
+  const customWhatsappMessage = `Olá, Otávio! Vim pela sua página de serviços.
+
+Quero conversar sobre um projeto personalizado.
+
+Funcionalidades que me interessam:
+${selectedFeatures.map((feature) => `- ${feature.title}`).join("\n")}
+
+Estimativa inicial:
+A partir de R$ ${finalEstimate.toLocaleString("pt-BR")}
+
+Gostaria de explicar melhor o que preciso.`;
 
   return (
     <div className="site-shell services-page">
@@ -176,7 +219,7 @@ export default function Services() {
             <p className="services-hero-copy">Crio sites claros, responsivos e sob medida para você apresentar seu trabalho, conquistar confiança e transformar visitas em oportunidades.</p>
             <div className="hero-actions">
               <a href="#contratacao" className="button primary">Ver formas de contratação <ArrowRight size={16} /></a>
-              <a href="#contratacao" className="button secondary">Conhecer os pacotes <ArrowRight size={16} /></a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer" className="button secondary">Falar no WhatsApp <MessageSquare size={16} /></a>
             </div>
           </div>
           <div className="services-hero-note">
@@ -222,6 +265,7 @@ export default function Services() {
                 className={`${option.featured ? "engagement-card featured" : "engagement-card"} ${activeEngagement === option.title ? "active" : ""}`}
                 onClick={() => setActiveEngagement((current) => current === option.title ? null : option.title)}
                 aria-expanded={activeEngagement === option.title}
+                aria-controls={option.title === "Preço fixo" ? "engagement-fixed-panel" : option.title === "Por hora" ? "engagement-hourly-panel" : "engagement-custom-panel"}
               >
                 {option.featured && <span className="price-badge">Mais flexível</span>}
                 <span className="price-label">{option.title}</span>
@@ -234,7 +278,7 @@ export default function Services() {
           </div>
 
           {activeEngagement === "Preço fixo" && (
-            <div className="engagement-panel">
+            <div id="engagement-fixed-panel" className="engagement-panel">
               <div className="engagement-panel-heading">
                 <span className="section-kicker">Escolha um pacote</span>
                 <h3>Uma opção pronta para cada momento.</h3>
@@ -257,7 +301,7 @@ export default function Services() {
           )}
 
           {activeEngagement === "Por hora" && (
-            <div className="engagement-panel hourly-panel">
+            <div id="engagement-hourly-panel" className="engagement-panel hourly-panel">
               <div className="engagement-panel-heading">
                 <span className="section-kicker">Como funciona</span>
                 <h3>Como funciona a cobrança por hora</h3>
@@ -284,31 +328,35 @@ export default function Services() {
           )}
 
           {activeEngagement === "Personalizado" && (
-            <div className="engagement-panel custom-builder-panel">
+            <div id="engagement-custom-panel" className="engagement-panel custom-builder-panel">
               <div className="engagement-panel-heading">
                 <span className="section-kicker">Estimativa inicial</span>
                 <h3>Monte uma ideia do seu projeto</h3>
-                <p>Selecione os recursos que você imagina precisar. O resultado é apenas uma estimativa inicial. O orçamento final depende do escopo, prazo e detalhes do projeto.</p>
+                <p>Selecione as funcionalidades que você imagina precisar. O resultado é apenas uma estimativa inicial. O orçamento final depende do escopo, prazo e detalhes do projeto.</p>
               </div>
               <div className="custom-feature-groups">
-                {customFeatureGroups.map((group) => (
-                  <fieldset key={group.title}>
-                    <legend>{group.title}</legend>
+                {customFeatureCategories.map((category) => (
+                  <fieldset key={category}>
+                    <legend>{category}</legend>
                     <div className="custom-feature-options">
-                      {group.options.map((feature) => (
-                        <label key={feature} className={selectedFeatures.includes(feature) ? "custom-feature-option selected" : "custom-feature-option"}>
-                          <input type="checkbox" checked={selectedFeatures.includes(feature)} onChange={() => toggleFeature(feature)} />
-                          <span>{feature}</span>
+                      {customFeatures.filter((feature) => feature.category === category).map((feature) => (
+                        <label key={feature.id} className={selectedFeatureIds.includes(feature.id) ? "custom-feature-option selected" : "custom-feature-option"}>
+                          <input type="checkbox" checked={selectedFeatureIds.includes(feature.id)} onChange={() => toggleFeature(feature.id)} />
+                          <span className="custom-feature-copy">
+                            <strong>{feature.title}</strong>
+                            <small>{feature.description}</small>
+                          </span>
+                          {selectedFeatureIds.includes(feature.id) && <CheckCircle2 className="custom-feature-check" size={19} aria-hidden="true" />}
                         </label>
                       ))}
                     </div>
+                    {category === "Pagamentos e transações" && <p className="custom-category-note">As taxas cobradas por gateways de pagamento, plataformas externas e serviços de terceiros não estão incluídas no valor do desenvolvimento.</p>}
                   </fieldset>
                 ))}
               </div>
-              <div className="custom-estimate">
+              <div className={`custom-estimate ${hasSelectedFeatures ? "has-selection" : "empty"}`}>
                 <span>Estimativa inicial</span>
-                <strong>{selectedFeatures.length} recursos selecionados</strong>
-                <b>A partir de R$ {customEstimate.toLocaleString("pt-BR")}</b>
+                {!hasSelectedFeatures ? <><strong>Nenhum recurso selecionado</strong><p>Selecione as funcionalidades que você imagina precisar para visualizar uma referência de valor.</p></> : <><strong>{selectedFeatures.length} {selectedFeatures.length === 1 ? "recurso selecionado" : "recursos selecionados"}</strong><b>A partir de R$ {finalEstimate.toLocaleString("pt-BR")}</b><p>Essa é uma referência inicial. O orçamento final será definido depois de entender o escopo, prazo e detalhes do projeto.</p><button type="button" className="button primary custom-whatsapp-button" onClick={() => openWhatsapp(customWhatsappMessage)}>Conversar sobre este projeto <MessageSquare size={15} /></button></>}
               </div>
             </div>
           )}
@@ -380,13 +428,26 @@ export default function Services() {
         {/* Formulário comercial para entender o projeto e preparar o próximo contato. */}
         <section className="contact-section section services-contact-section">
           <div className="contact-grid">
-            <div className="contact-copy">
+            <div className="contact-copy services-contact-copy">
               <span className="section-kicker">05 / Fale comigo</span>
-              <h2>Conte o que você precisa.</h2>
-              <p>Preencha o formulário com as informações iniciais do projeto. A partir disso, posso entender o contexto e indicar o melhor caminho.</p>
+              <h2>Vamos tirar sua ideia do papel.</h2>
+              <p>Você não precisa saber explicar tudo agora. Conte o que já tem em mente e eu ajudo a organizar o próximo passo.</p>
+              <div className="services-contact-points">
+                <div><CheckCircle2 size={19} /><span><strong>Conversa sem compromisso</strong><small>Entendo seu momento antes de falar em solução.</small></span></div>
+                <div><CheckCircle2 size={19} /><span><strong>Resposta pelo WhatsApp</strong><small>Recebo sua mensagem e retorno com clareza.</small></span></div>
+                <div><CheckCircle2 size={19} /><span><strong>Escopo explicado em linguagem simples</strong><small>Você sabe o que está sendo considerado no projeto.</small></span></div>
+              </div>
+              <a className="services-direct-contact" href={whatsappUrl} target="_blank" rel="noreferrer">
+                <MessageSquare size={17} /> Prefere falar direto? Abrir WhatsApp
+              </a>
             </div>
 
             <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="services-form-heading">
+                <span className="mini-label">Primeiro contato</span>
+                <h3>Conte um pouco do projeto</h3>
+                <p>Com essas informações, consigo entender melhor sua necessidade e responder de forma mais útil.</p>
+              </div>
               <label>
                 Nome
                 <input required name="name" placeholder="Seu nome" />
@@ -405,6 +466,7 @@ export default function Services() {
                   <option>Landing page</option>
                   <option>Portfólio</option>
                   <option>Sistema web</option>
+                  <option>Ainda não sei</option>
                 </select>
               </label>
 
