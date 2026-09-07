@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowRight, Check, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
@@ -43,6 +44,25 @@ const engagementOptions = [
   },
 ];
 
+const customFeatureGroups = [
+  {
+    title: "Estrutura e visual",
+    options: ["Página ou tabela básica", "Layout personalizado", "Responsividade", "Pesquisa", "Filtros", "Ordenação", "Paginação"],
+  },
+  {
+    title: "Dados e usuários",
+    options: ["Cadastro e gerenciamento de informações", "Banco de dados", "Login e permissões", "Upload de arquivos e imagens"],
+  },
+  {
+    title: "Relatórios e integrações",
+    options: ["Exportação para Excel ou PDF", "Integração com serviço externo", "Dashboard e gráficos"],
+  },
+  {
+    title: "Qualidade e entrega",
+    options: ["Testes e correções extras"],
+  },
+];
+
 // Faixas de referência para orientar o primeiro escopo de projetos maiores.
 const customProjectReferences = [
   ["Landing page personalizada", "A partir de R$ 1.800", "Página estratégica com estrutura e visual sob medida"],
@@ -55,21 +75,21 @@ const customProjectReferences = [
 const plans = [
   {
     name: "Essencial",
-    price: "R$ 600",
-    description: "Para começar com uma presença digital objetiva.",
+    price: " partir de R$ 600",
+    description: "Para uma landing page ou página única, com estrutura objetiva e responsiva.",
     items: ["Landing page ou página única", "Design responsivo", "Botão para WhatsApp", "Formulário simples", "1 rodada de alterações"],
   },
   {
     name: "Profissional",
-    price: "R$ 1.200",
-    description: "Para negócios que precisam apresentar seus serviços com mais espaço e credibilidade.",
+    price: " partir de R$ 1.200",
+    description: "Para negócios que precisam apresentar seus serviços com mais espaço, organização e credibilidade.",
     featured: true,
     items: ["Site com até 5 páginas", "Design personalizado", "WhatsApp e redes sociais", "SEO básico", "Publicação do site", "2 rodadas de alterações"],
   },
   {
     name: "Completo",
-    price: "R$ 2.000",
-    description: "Para projetos que pedem uma experiência mais completa e suporte próximo.",
+    price: " partir de R$ 2.000",
+    description: "Para projetos mais completos, com integrações e suporte próximo.",
     items: ["Site com até 8 páginas", "Animações leves", "Integrações externas", "Configuração de domínio e hospedagem", "Até 3 rodadas de alterações", "30 dias de suporte"],
   },
 ];
@@ -92,6 +112,13 @@ const faqs = [
 const whatsappUrl = "https://wa.me/5583999645357?text=Ol%C3%A1%20Ot%C3%A1vio%2C%20quero%20conhecer%20seus%20servi%C3%A7os.";
 
 export default function Services() {
+  const [activeEngagement, setActiveEngagement] = useState<string | null>(null);
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+
+  const hourlyRate = 50;
+  const safetyMargin = 20;
+  const minimumCustomPrice = 1800;
+
   // Monta os dados do formulário e abre uma conversa comercial no WhatsApp.
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -112,6 +139,16 @@ export default function Services() {
     form.reset();
   }
 
+  function openWhatsapp(message: string) {
+    window.open(`https://wa.me/5583999645357?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  }
+
+  function toggleFeature(feature: string) {
+    setSelectedFeatures((current) => current.includes(feature) ? current.filter((item) => item !== feature) : [...current, feature]);
+  }
+
+  const customEstimate = Math.max(minimumCustomPrice, Math.ceil((selectedFeatures.length * hourlyRate * (1 + safetyMargin / 100)) / 100) * 100);
+
   return (
     <div className="site-shell services-page">
       {/* Navegação da página comercial e acesso direto ao WhatsApp. */}
@@ -122,7 +159,6 @@ export default function Services() {
         <nav className="nav services-nav">
           <a href="#servicos">Serviços</a>
           <a href="#contratacao">Contratação</a>
-          <a href="#pacotes">Pacotes</a>
           <a href="#processo">Processo</a>
           <a href="/">Portfólio</a>
         </nav>
@@ -140,7 +176,7 @@ export default function Services() {
             <p className="services-hero-copy">Crio sites claros, responsivos e sob medida para você apresentar seu trabalho, conquistar confiança e transformar visitas em oportunidades.</p>
             <div className="hero-actions">
               <a href="#contratacao" className="button primary">Ver formas de contratação <ArrowRight size={16} /></a>
-              <a href="#pacotes" className="button secondary">Conhecer os pacotes <ArrowRight size={16} /></a>
+              <a href="#contratacao" className="button secondary">Conhecer os pacotes <ArrowRight size={16} /></a>
             </div>
           </div>
           <div className="services-hero-note">
@@ -180,15 +216,102 @@ export default function Services() {
 
           <div className="engagement-grid">
             {engagementOptions.map((option) => (
-              <article key={option.title} className={option.featured ? "engagement-card featured" : "engagement-card"}>
+              <button
+                type="button"
+                key={option.title}
+                className={`${option.featured ? "engagement-card featured" : "engagement-card"} ${activeEngagement === option.title ? "active" : ""}`}
+                onClick={() => setActiveEngagement((current) => current === option.title ? null : option.title)}
+                aria-expanded={activeEngagement === option.title}
+              >
                 {option.featured && <span className="price-badge">Mais flexível</span>}
                 <span className="price-label">{option.title}</span>
                 <p>{option.description}</p>
                 <strong>{option.price}</strong>
                 <small>{option.note}</small>
-              </article>
+                <span className="engagement-card-action">{activeEngagement === option.title ? "Fechar detalhes" : "Ver detalhes"} <ChevronDown size={15} /></span>
+              </button>
             ))}
           </div>
+
+          {activeEngagement === "Preço fixo" && (
+            <div className="engagement-panel">
+              <div className="engagement-panel-heading">
+                <span className="section-kicker">Escolha um pacote</span>
+                <h3>Uma opção pronta para cada momento.</h3>
+              </div>
+              <div className="pricing-grid">
+                {plans.map((plan) => (
+                  <article key={plan.name} className={plan.featured ? "price-card featured" : "price-card"}>
+                    {plan.featured && <span className="price-badge">Mais escolhido</span>}
+                    <span className="price-label">{plan.name}</span>
+                    <strong className="price-value">{plan.price}</strong>
+                    <p>{plan.description}</p>
+                    <ul>{plan.items.map((item) => <li key={item}><Check size={15} /> {item}</li>)}</ul>
+                    <button type="button" className="button secondary" onClick={() => openWhatsapp(`Olá, Otávio! Tenho interesse no ${plan.name}, no valor de ${plan.price}. Gostaria de conversar sobre os detalhes.`)}>
+                      Escolher Pacote {plan.name} <ArrowRight size={15} />
+                    </button>
+                  </article>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeEngagement === "Por hora" && (
+            <div className="engagement-panel hourly-panel">
+              <div className="engagement-panel-heading">
+                <span className="section-kicker">Como funciona</span>
+                <h3>Como funciona a cobrança por hora</h3>
+              </div>
+              <strong className="hourly-price">R$ 50 por hora</strong>
+              <p>Indicado para manutenção, correções, ajustes visuais e pequenas melhorias em projetos existentes.</p>
+              <ul className="hourly-list">
+                <li>Correções em sites existentes.</li>
+                <li>Ajustes de layout e responsividade.</li>
+                <li>Manutenção.</li>
+                <li>Pequenas melhorias.</li>
+                <li>Alterações em funcionalidades.</li>
+                <li>Análise de problemas específicos.</li>
+              </ul>
+              <p className="hourly-minimum">Mínimo de contratação: 2 horas por solicitação.</p>
+              <table className="hourly-table">
+                <thead><tr><th>Tempo</th><th>Referência</th></tr></thead>
+                <tbody><tr><td>2 horas</td><td>R$ 100</td></tr><tr><td>4 horas</td><td>R$ 200</td></tr><tr><td>8 horas</td><td>R$ 400</td></tr></tbody>
+              </table>
+              <button type="button" className="button primary" onClick={() => openWhatsapp("Olá, Otávio! Tenho interesse em contratar seu trabalho por hora. Preciso de ajuda com:")}>
+                Solicitar atendimento por hora <MessageSquare size={15} />
+              </button>
+            </div>
+          )}
+
+          {activeEngagement === "Personalizado" && (
+            <div className="engagement-panel custom-builder-panel">
+              <div className="engagement-panel-heading">
+                <span className="section-kicker">Estimativa inicial</span>
+                <h3>Monte uma ideia do seu projeto</h3>
+                <p>Selecione os recursos que você imagina precisar. O resultado é apenas uma estimativa inicial. O orçamento final depende do escopo, prazo e detalhes do projeto.</p>
+              </div>
+              <div className="custom-feature-groups">
+                {customFeatureGroups.map((group) => (
+                  <fieldset key={group.title}>
+                    <legend>{group.title}</legend>
+                    <div className="custom-feature-options">
+                      {group.options.map((feature) => (
+                        <label key={feature} className={selectedFeatures.includes(feature) ? "custom-feature-option selected" : "custom-feature-option"}>
+                          <input type="checkbox" checked={selectedFeatures.includes(feature)} onChange={() => toggleFeature(feature)} />
+                          <span>{feature}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                ))}
+              </div>
+              <div className="custom-estimate">
+                <span>Estimativa inicial</span>
+                <strong>{selectedFeatures.length} recursos selecionados</strong>
+                <b>A partir de R$ {customEstimate.toLocaleString("pt-BR")}</b>
+              </div>
+            </div>
+          )}
 
           <div className="custom-reference-block">
             <p className="custom-reference-note">Os valores abaixo são pontos de partida. O orçamento final depende do escopo, prazo, conteúdo e funcionalidades necessárias.</p>
@@ -217,33 +340,11 @@ export default function Services() {
           <p className="services-cost-note">Custos de domínio, hospedagem, serviços externos e ferramentas de terceiros são pagos separadamente pelo cliente.</p>
         </section>
 
-        {/* Pacotes, valores e itens incluídos em cada opção. */}
-        <section id="pacotes" className="content-section dark-section section services-pricing">
-          <div className="section-header">
-            <div>
-              <span className="section-kicker">03 / Pacotes</span>
-              <h2>Escolha o ponto de partida.</h2>
-            </div>
-          </div>
-          <div className="pricing-grid">
-            {plans.map((plan) => (
-              <article key={plan.name} className={plan.featured ? "price-card featured" : "price-card"}>
-                {plan.featured && <span className="price-badge">Mais escolhido</span>}
-                <span className="price-label">Pacote {plan.name}</span>
-                <strong className="price-value">{plan.price}</strong>
-                <p>{plan.description}</p>
-                <ul>{plan.items.map((item) => <li key={item}><Check size={15} /> {item}</li>)}</ul>
-                <a href={whatsappUrl} target="_blank" rel="noreferrer" className="button secondary">Conversar sobre este pacote <ArrowRight size={15} /></a>
-              </article>
-            ))}
-          </div>
-        </section>
-
         {/* Etapas do trabalho, do primeiro contato à entrega. */}
         <section id="processo" className="content-section section">
           <div className="section-header">
             <div>
-              <span className="section-kicker">04 / Como funciona</span>
+              <span className="section-kicker">03 / Como funciona</span>
               <h2>Do primeiro papo até o site no ar.</h2>
             </div>
           </div>
@@ -262,7 +363,7 @@ export default function Services() {
         <section className="services-faq content-section dark-section section">
           <div className="section-header">
             <div>
-              <span className="section-kicker">05 / Dúvidas</span>
+              <span className="section-kicker">04 / Dúvidas</span>
               <h2>Antes de começar.</h2>
             </div>
           </div>
@@ -280,7 +381,7 @@ export default function Services() {
         <section className="contact-section section services-contact-section">
           <div className="contact-grid">
             <div className="contact-copy">
-              <span className="section-kicker">06 / Fale comigo</span>
+              <span className="section-kicker">05 / Fale comigo</span>
               <h2>Conte o que você precisa.</h2>
               <p>Preencha o formulário com as informações iniciais do projeto. A partir disso, posso entender o contexto e indicar o melhor caminho.</p>
             </div>
