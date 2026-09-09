@@ -3140,3 +3140,91 @@ body::after {
     font-size: clamp(2.6rem, 13vw, 4rem);
   }
 }
+
+/* Ajuste tipográfico: melhora leitura sem perder a linguagem visual da marca. */
+body {
+  font-size: 17px;
+}
+
+.nav a {
+  font-size: 0.92rem;
+}
+
+.header-cta,
+.button,
+.github-link,
+.contact-links a {
+  font-size: 0.92rem;
+}
+
+.eyebrow,
+.section-kicker,
+.mini-label,
+.project-topline,
+.hero-photo-caption small {
+  font-size: 0.82rem;
+}
+
+.hero h1 {
+  font-size: clamp(3.4rem, 7vw, 6.2rem);
+}
+
+.lede {
+  font-size: clamp(1.12rem, 2vw, 1.32rem);
+  line-height: 1.65;
+}
+
+.hero-panel-copy,
+.project-card p,
+.contact-copy p,
+.service-card p,
+.technology-card p,
+.workflow-card p {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.project-card h3,
+.service-card h3,
+.technology-card h3,
+.workflow-card h3 {
+  font-size: 1.25rem;
+}
+
+.project-tags span,
+.project-status,
+.form-note {
+  font-size: 0.82rem;
+}
+
+.contact-form label {
+  font-size: 0.92rem;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  font-size: 1rem;
+}
+
+@media (max-width: 560px) {
+  body {
+    font-size: 16px;
+  }
+
+  .nav a,
+  .header-cta,
+  .button,
+  .github-link,
+  .contact-links a {
+    font-size: 0.95rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.9rem, 14vw, 4.4rem);
+  }
+
+  .lede {
+    font-size: 1.1rem;
+  }
+}
