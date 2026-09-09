@@ -21,6 +21,29 @@ const services = [
   },
 ];
 
+const serviceBenefits = [
+  {
+    title: "Mais confiança para sua marca",
+    text: "Um site profissional organiza suas informações, mostra que seu negócio é real e ajuda o visitante a se sentir seguro para entrar em contato.",
+    icon: CheckCircle2,
+  },
+  {
+    title: "Mais oportunidades de negócio",
+    text: "A estrutura certa apresenta seu trabalho com clareza, destaca seus diferenciais e facilita o próximo passo: pedir um orçamento, agendar ou comprar.",
+    icon: ArrowRight,
+  },
+  {
+    title: "Experiência melhor em qualquer tela",
+    text: "Seu conteúdo funciona bem no celular, tablet e computador, para que você não perca pessoas por causa de uma navegação difícil ou confusa.",
+    icon: Smartphone,
+  },
+  {
+    title: "Uma solução feita para seu momento",
+    text: "Você não precisa contratar algo maior do que precisa. O projeto pode começar simples e evoluir conforme sua marca, público e objetivos crescem.",
+    icon: Sparkles,
+  },
+];
+
 // Formas de contratação para diferentes níveis de escopo e previsibilidade.
 const engagementOptions = [
   {
@@ -307,6 +330,7 @@ Gostaria de explicar melhor o que preciso.`;
         </a>
         <nav id="services-navigation" className={menuOpen ? "nav services-nav open" : "nav services-nav"} aria-label="Navegação de serviços">
           <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a>
+          <a href="#beneficios" onClick={() => setMenuOpen(false)}>Benefícios</a>
           <a href="#contratacao" onClick={() => setMenuOpen(false)}>Contratação</a>
           <a href="#processo" onClick={() => setMenuOpen(false)}>Processo</a>
           <a href="/" onClick={() => setMenuOpen(false)}>Portfólio</a>
@@ -363,11 +387,31 @@ Gostaria de explicar melhor o que preciso.`;
           </div>
         </section>
 
+        {/* Benefícios que traduzem o serviço em valor para o cliente. */}
+        <section id="beneficios" className="content-section section benefits-section">
+          <div className="section-header services-section-header">
+            <div>
+              <span className="section-kicker">02 / Por que ter um site</span>
+              <h2>Não é só sobre estar online. É sobre ajudar seu negócio a avançar.</h2>
+            </div>
+          </div>
+          <p className="benefits-intro">Um site bem pensado trabalha mesmo quando você não está explicando seu negócio pessoalmente. Ele apresenta sua proposta, responde dúvidas iniciais e orienta o visitante para uma ação.</p>
+          <div className="benefits-grid">
+            {serviceBenefits.map(({ title, text, icon: Icon }) => (
+              <article key={title} className="benefit-card">
+                <div className="benefit-icon" aria-hidden="true"><Icon size={19} /></div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
         {/* Formas de contratação e referências para escopos personalizados. */}
         <section id="contratacao" className="content-section section engagement-section">
           <div className="section-header">
             <div>
-              <span className="section-kicker">02 / Formas de contratação</span>
+              <span className="section-kicker">03 / Formas de contratação</span>
               <h2>Um formato adequado para cada tipo de projeto.</h2>
             </div>
           </div>
@@ -426,7 +470,7 @@ Gostaria de explicar melhor o que preciso.`;
         <section id="processo" className="content-section section">
           <div className="section-header">
             <div>
-              <span className="section-kicker">03 / Como funciona</span>
+              <span className="section-kicker">04 / Como funciona</span>
               <h2>Do primeiro papo até o site no ar.</h2>
             </div>
           </div>
@@ -445,7 +489,7 @@ Gostaria de explicar melhor o que preciso.`;
         <section className="services-faq content-section dark-section section">
           <div className="section-header">
             <div>
-              <span className="section-kicker">04 / Dúvidas</span>
+              <span className="section-kicker">05 / Dúvidas</span>
               <h2>Antes de começar.</h2>
             </div>
           </div>
@@ -463,7 +507,7 @@ Gostaria de explicar melhor o que preciso.`;
         <section className="contact-section section services-contact-section">
           <div className="contact-grid">
             <div className="contact-copy services-contact-copy">
-              <span className="section-kicker">05 / Fale comigo</span>
+              <span className="section-kicker">06 / Fale comigo</span>
               <h2>Vamos tirar sua ideia do papel.</h2>
               <p>Você não precisa saber explicar tudo agora. Conte o que já tem em mente e eu ajudo a organizar o próximo passo.</p>
               <div className="services-contact-points">
