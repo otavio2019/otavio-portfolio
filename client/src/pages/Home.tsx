@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowRight, Check, Code2, Github, Globe, Instagram, Mail, Menu, MessageSquare, Server, Smartphone, X } from "lucide-react";
 import { toast } from "sonner";
+import PixelReveal from "@/components/PixelReveal";
 
 // Conteúdo dos serviços apresentados no portfólio técnico.
 const services = [
@@ -93,6 +94,7 @@ export default function Home() {
 
   return (
     <div className="site-shell">
+      <a className="skip-link" href="#main-content">Pular para o conteúdo principal</a>
       {/* Navegação principal e acesso rápido ao contato. */}
       <header className="site-header">
         <a href="#top" className="brand" aria-label="Voltar ao início">
@@ -100,7 +102,7 @@ export default function Home() {
           <span className="brand-name">Otávio Augusto</span>
         </a>
 
-        <nav id="main-navigation" className={open ? "nav open" : "nav"}>
+        <nav id="main-navigation" className={open ? "nav open" : "nav"} aria-label="Navegação principal">
           {[
             ["Início", "top"],
             ["Sobre mim", "sobre"],
@@ -127,11 +129,11 @@ export default function Home() {
           aria-expanded={open}
           aria-controls="main-navigation"
         >
-          {open ? <X size={18} /> : <Menu size={18} />}
+          {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
         </button>
       </header>
 
-      <main>
+      <main id="main-content">
         {/* Apresentação, proposta profissional e resumo de experiência. */}
         <section id="top" className="hero section">
           <div className="hero-copy">
@@ -183,6 +185,7 @@ export default function Home() {
         </section>
 
         {/* Contexto pessoal, formação e forma de trabalhar. */}
+        <PixelReveal className="pixel-section">
         <section id="sobre" className="content-section section">
           <div className="section-header">
             <span className="section-kicker">01 / Sobre</span>
@@ -214,8 +217,10 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </PixelReveal>
 
         {/* Áreas de desenvolvimento e tipos de solução que domino. */}
+        <PixelReveal className="pixel-section">
         <section id="servicos" className="content-section dark-section section">
           <div className="section-header">
             <span className="section-kicker">02 / O que eu desenvolvo</span>
@@ -225,7 +230,7 @@ export default function Home() {
           <div className="services-grid">
             {services.map(({ title, text, icon: Icon }) => (
               <article key={title} className="service-card">
-                <div className="service-icon">
+                <div className="service-icon" aria-hidden="true">
                   <Icon size={20} />
                 </div>
                 <h3>{title}</h3>
@@ -234,7 +239,9 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </PixelReveal>
 
+        <PixelReveal className="pixel-section">
         <section id="tecnologias" className="content-section technology-section section">
           <div className="section-header">
             <div>
@@ -251,8 +258,10 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </PixelReveal>
 
         {/* Projetos selecionados com acesso ao site e ao GitHub. */}
+        <PixelReveal className="pixel-section">
         <section id="projetos" className="content-section section">
           <div className="section-header projects-header">
             <div>
@@ -260,14 +269,14 @@ export default function Home() {
               <h2>Trabalho real, com foco em aprendizado e execução.</h2>
             </div>
             <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer" className="github-link">
-              <Github size={16} /> GitHub
+              <Github size={16} aria-hidden="true" /> GitHub
             </a>
           </div>
 
           <div className="projects-grid">
             {projects.map((project) => (
               <article key={project.title} className="project-card">
-                <div className="project-preview"><img src={project.preview} alt={`Preview visual do projeto ${project.title}`} width="640" height="360" loading="lazy" /></div>
+                <div className="project-preview pixel-project-preview"><span className="pixel-project-overlay" aria-hidden="true" /><img src={project.preview} alt={`Preview visual do projeto ${project.title}`} width="640" height="360" loading="lazy" decoding="async" /></div>
                 <div className="project-topline">
                   <span>{project.type}</span>
                   <Code2 size={16} />
@@ -296,8 +305,10 @@ export default function Home() {
             ))}
           </div>
         </section>
+        </PixelReveal>
 
         {/* Canais para oportunidades, colaborações e conversas profissionais. */}
+        <PixelReveal className="pixel-section">
         <section id="contato" className="contact-section section">
           <div className="contact-grid">
             <div className="contact-copy portfolio-contact-copy">
@@ -308,22 +319,23 @@ export default function Home() {
                 {["Desenvolvimento responsivo", "Comunicação clara", "Foco em aprendizado e qualidade"].map((item) => <span key={item}><Check size={15} /> {item}</span>)}
               </div>
               <div className="contact-links">
-                <a href="mailto:otavioaugusto.contato@gmail.com"><Mail size={16} /> E-mail</a>
-                <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a>
-                <a href="https://www.instagram.com/otavio_cjiii/" target="_blank" rel="noreferrer"><Instagram size={16} /> Instagram</a>
+                <a href="mailto:otavioaugusto.contato@gmail.com"><Mail size={16} aria-hidden="true" /> E-mail</a>
+                <a href="https://github.com/otavio2019" target="_blank" rel="noreferrer"><Github size={16} aria-hidden="true" /> GitHub</a>
+                <a href="https://www.instagram.com/otavio_cjiii/" target="_blank" rel="noreferrer"><Instagram size={16} aria-hidden="true" /> Instagram</a>
               </div>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
               <p className="form-intro">Conte um pouco do que você precisa. Assim consigo entender melhor a conversa e responder de forma mais útil.</p>
-              <label>Nome<input required name="name" placeholder="Seu nome" /></label>
-              <label>E-mail<input required type="email" name="email" placeholder="seu@email.com" /></label>
-              <label>Tipo de contato<select required name="type"><option value="">Selecione</option><option>Projeto</option><option>Oportunidade profissional</option><option>Colaboração</option></select></label>
-              <label>Mensagem<textarea required name="message" rows={4} placeholder="Conte um pouco do que você precisa" /></label>
+              <label htmlFor="home-name">Nome<input id="home-name" required name="name" autoComplete="name" placeholder="Seu nome" /></label>
+              <label htmlFor="home-email">E-mail<input id="home-email" required type="email" name="email" autoComplete="email" placeholder="seu@email.com" /></label>
+              <label htmlFor="home-contact-type">Tipo de contato<select id="home-contact-type" required name="type"><option value="">Selecione</option><option>Projeto</option><option>Oportunidade profissional</option><option>Colaboração</option></select></label>
+              <label htmlFor="home-message">Mensagem<textarea id="home-message" required name="message" rows={4} placeholder="Conte um pouco do que você precisa" /></label>
               <button type="submit" className="button primary submit-button">Enviar pelo WhatsApp <MessageSquare size={15} /></button>
               <small className="form-note">Você será direcionado para o WhatsApp após enviar o formulário.</small>
             </form>
           </div>
         </section>
+        </PixelReveal>
 
         {/* Entrada discreta para a página comercial, sem alterar o foco da Home. */}
         <aside className="home-services-link section">

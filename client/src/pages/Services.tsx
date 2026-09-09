@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Check, CheckCircle2, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2, ChevronDown, Globe, MessageSquare, Smartphone, Sparkles, X } from "lucide-react";
 import { toast } from "sonner";
 
 // Serviços apresentados para quem está conhecendo a página comercial.
@@ -81,6 +81,10 @@ const customFeatures: CustomFeature[] = [
 ];
 
 const customFeatureCategories = Array.from(new Set(customFeatures.map((feature) => feature.category)));
+
+function categoryId(category: string) {
+  return category.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
 
 // Faixas de referência para orientar o primeiro escopo de projetos maiores.
 const customProjectReferences = [
@@ -264,11 +268,12 @@ Gostaria de explicar melhor o que preciso.`;
         </div>
         <div className="custom-feature-groups">
           {customFeatureCategories.map((category) => (
-            <fieldset key={category}>
-              <button type="button" className="custom-category-toggle" aria-expanded={openCategories.includes(category)} aria-controls={`features-${category}`} onClick={() => toggleCategory(category)}>
+              <fieldset key={category}>
+                <legend className="visually-hidden">Funcionalidades de {category}</legend>
+                <button type="button" className="custom-category-toggle" aria-expanded={openCategories.includes(category)} aria-controls={`features-${categoryId(category)}`} onClick={() => toggleCategory(category)}>
                 <span>{category}</span><ChevronDown size={17} aria-hidden="true" />
               </button>
-              {openCategories.includes(category) && <div id={`features-${category}`} className="custom-feature-options">
+                {openCategories.includes(category) && <div id={`features-${categoryId(category)}`} className="custom-feature-options">
                 {customFeatures.filter((feature) => feature.category === category).map((feature) => (
                   <label key={feature.id} className={selectedFeatureIds.includes(feature.id) ? "custom-feature-option selected" : "custom-feature-option"}>
                     <input type="checkbox" checked={selectedFeatureIds.includes(feature.id)} onChange={() => toggleFeature(feature.id)} />
@@ -294,12 +299,13 @@ Gostaria de explicar melhor o que preciso.`;
 
   return (
     <div className="site-shell services-page">
+      <a className="skip-link" href="#services-main-content">Pular para o conteúdo principal</a>
       {/* Navegação da página comercial e acesso direto ao WhatsApp. */}
       <header className="site-header">
         <a href="/" className="brand" aria-label="Voltar ao portfólio">
           <img className="brand-logo" src="/images/logo_otavio_augusto_pixel_01.png" alt="Logo Otávio Augusto" />
         </a>
-        <nav id="services-navigation" className={menuOpen ? "nav services-nav open" : "nav services-nav"}>
+        <nav id="services-navigation" className={menuOpen ? "nav services-nav open" : "nav services-nav"} aria-label="Navegação de serviços">
           <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a>
           <a href="#contratacao" onClick={() => setMenuOpen(false)}>Contratação</a>
           <a href="#processo" onClick={() => setMenuOpen(false)}>Processo</a>
@@ -315,11 +321,11 @@ Gostaria de explicar melhor o que preciso.`;
           aria-expanded={menuOpen}
           aria-controls="services-navigation"
         >
-          {menuOpen ? <ChevronDown size={18} /> : <span aria-hidden="true">+</span>}
+          {menuOpen ? <X size={18} aria-hidden="true" /> : <span aria-hidden="true">+</span>}
         </button>
       </header>
 
-      <main>
+      <main id="services-main-content">
         {/* Apresentação da proposta comercial e do público atendido. */}
         <section className="services-hero section">
           <div>
@@ -476,32 +482,20 @@ Gostaria de explicar melhor o que preciso.`;
                 <h3>Conte um pouco do projeto</h3>
                 <p>Com essas informações, consigo entender melhor sua necessidade e responder de forma mais útil.</p>
               </div>
-              <label>
-                Nome
-                <input required name="name" placeholder="Seu nome" />
-              </label>
+              <label htmlFor="services-name">Nome<input id="services-name" required name="name" autoComplete="name" placeholder="Seu nome" /></label>
 
-              <label>
-                E-mail
-                <input required type="email" name="email" placeholder="seu@email.com" />
-              </label>
+              <label htmlFor="services-email">E-mail<input id="services-email" required type="email" name="email" autoComplete="email" placeholder="seu@email.com" /></label>
 
-              <label>
-                Tipo de projeto
-                <select required name="type">
+              <label htmlFor="services-project-type">Tipo de projeto<select id="services-project-type" required name="type">
                   <option value="">Selecione</option>
                   <option>Site institucional</option>
                   <option>Landing page</option>
                   <option>Portfólio</option>
                   <option>Sistema web</option>
                   <option>Ainda não sei</option>
-                </select>
-              </label>
+                </select></label>
 
-              <label>
-                Mensagem
-                <textarea required name="message" rows={4} placeholder="Conte um pouco do que você precisa" />
-              </label>
+              <label htmlFor="services-message">Mensagem<textarea id="services-message" required name="message" rows={4} placeholder="Conte um pouco do que você precisa" /></label>
 
               <button type="submit" className="button primary submit-button">
                 Enviar pelo WhatsApp
