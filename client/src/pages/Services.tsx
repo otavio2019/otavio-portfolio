@@ -480,13 +480,13 @@ Gostaria de explicar melhor o que preciso.`;
               <div className="services-form-heading">
                 <span className="mini-label">Primeiro contato</span>
                 <h3>Conte um pouco do projeto</h3>
-                <p>Com essas informações, consigo entender melhor sua necessidade e responder de forma mais útil.</p>
+                <p id="services-form-help">Com essas informações, consigo entender melhor sua necessidade e responder de forma mais útil.</p>
               </div>
-              <label htmlFor="services-name">Nome<input id="services-name" required name="name" autoComplete="name" placeholder="Seu nome" /></label>
+              <label htmlFor="services-name">Nome <span aria-hidden="true">*</span><input id="services-name" required name="name" autoComplete="name" placeholder="Seu nome" aria-describedby="services-form-help" /></label>
 
-              <label htmlFor="services-email">E-mail<input id="services-email" required type="email" name="email" autoComplete="email" placeholder="seu@email.com" /></label>
+              <label htmlFor="services-email">E-mail <span aria-hidden="true">*</span><input id="services-email" required type="email" name="email" autoComplete="email" placeholder="seu@email.com" aria-describedby="services-form-help" /></label>
 
-              <label htmlFor="services-project-type">Tipo de projeto<select id="services-project-type" required name="type">
+              <label htmlFor="services-project-type">Tipo de projeto <span aria-hidden="true">*</span><select id="services-project-type" required name="type" aria-describedby="services-form-help">
                   <option value="">Selecione</option>
                   <option>Site institucional</option>
                   <option>Landing page</option>
@@ -495,7 +495,7 @@ Gostaria de explicar melhor o que preciso.`;
                   <option>Ainda não sei</option>
                 </select></label>
 
-              <label htmlFor="services-message">Mensagem<textarea id="services-message" required name="message" rows={4} placeholder="Conte um pouco do que você precisa" /></label>
+              <label htmlFor="services-message">Mensagem <span aria-hidden="true">*</span><textarea id="services-message" required name="message" rows={4} placeholder="Conte um pouco do que você precisa" aria-describedby="services-form-help" /></label>
 
               <button type="submit" className="button primary submit-button">
                 Enviar pelo WhatsApp

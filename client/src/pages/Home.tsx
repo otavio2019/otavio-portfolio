@@ -37,6 +37,8 @@ const projects = [
     site: "https://feiticeiros-homebrew.vercel.app",
     status: "Em desenvolvimento",
     type: "Plataforma web",
+    role: "Produto autoral e implementação frontend",
+    impact: "Organização de conteúdo e navegação para uma experiência digital completa.",
     preview: "/images/homebrew-forge-dashboard-enhanced.png",
   },
   {
@@ -46,6 +48,8 @@ const projects = [
     github: "https://github.com/otavio2019/CITI-DE",
     status: "Projeto publicado",
     type: "Interface web",
+    role: "Repaginação de interface e hierarquia visual",
+    impact: "Conteúdo mais organizado e leitura mais clara para quem acessa a plataforma.",
     preview: "/images/portfolio-visual.svg",
   },
   {
@@ -55,6 +59,8 @@ const projects = [
     github: "https://github.com/otavio2019/Estagio",
     status: "Projeto de estudo",
     type: "Prática e aprendizado",
+    role: "Estudo, experimentação e código aberto",
+    impact: "Aplicação prática de conceitos e registro público da evolução técnica.",
     preview: "/images/portfolio-visual.svg",
   },
 ];
@@ -283,6 +289,7 @@ export default function Home() {
                 </div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
+                <p className="project-impact"><strong>Meu papel:</strong> {project.role}<br /><strong>Foco:</strong> {project.impact}</p>
                 <span className="project-status">{project.status}</span>
                 <div className="project-tags">
                   {project.stack.map((item) => (
@@ -325,11 +332,11 @@ export default function Home() {
               </div>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit}>
-              <p className="form-intro">Conte um pouco do que você precisa. Assim consigo entender melhor a conversa e responder de forma mais útil.</p>
-              <label htmlFor="home-name">Nome<input id="home-name" required name="name" autoComplete="name" placeholder="Seu nome" /></label>
-              <label htmlFor="home-email">E-mail<input id="home-email" required type="email" name="email" autoComplete="email" placeholder="seu@email.com" /></label>
-              <label htmlFor="home-contact-type">Tipo de contato<select id="home-contact-type" required name="type"><option value="">Selecione</option><option>Projeto</option><option>Oportunidade profissional</option><option>Colaboração</option></select></label>
-              <label htmlFor="home-message">Mensagem<textarea id="home-message" required name="message" rows={4} placeholder="Conte um pouco do que você precisa" /></label>
+              <p id="home-form-help" className="form-intro">Conte um pouco do que você precisa. Assim consigo entender melhor a conversa e responder de forma mais útil.</p>
+              <label htmlFor="home-name">Nome <span aria-hidden="true">*</span><input id="home-name" required name="name" autoComplete="name" placeholder="Seu nome" aria-describedby="home-form-help" /></label>
+              <label htmlFor="home-email">E-mail <span aria-hidden="true">*</span><input id="home-email" required type="email" name="email" autoComplete="email" placeholder="seu@email.com" aria-describedby="home-form-help" /></label>
+              <label htmlFor="home-contact-type">Tipo de contato <span aria-hidden="true">*</span><select id="home-contact-type" required name="type" aria-describedby="home-form-help"><option value="">Selecione</option><option>Projeto</option><option>Oportunidade profissional</option><option>Colaboração</option></select></label>
+              <label htmlFor="home-message">Mensagem <span aria-hidden="true">*</span><textarea id="home-message" required name="message" rows={4} placeholder="Conte um pouco do que você precisa" aria-describedby="home-form-help" /></label>
               <button type="submit" className="button primary submit-button">Enviar pelo WhatsApp <MessageSquare size={15} /></button>
               <small className="form-note">Você será direcionado para o WhatsApp após enviar o formulário.</small>
             </form>

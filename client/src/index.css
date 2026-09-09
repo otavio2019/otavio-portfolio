@@ -601,6 +601,17 @@ h2 span {
   line-height: 1.8;
 }
 
+.project-impact {
+  padding-top: 10px;
+  color: #d4d1df !important;
+  font-size: 0.9rem;
+  line-height: 1.65 !important;
+}
+
+.project-impact strong {
+  color: var(--primary);
+}
+
 .project-tags {
   display: flex;
   flex-wrap: wrap;
@@ -736,6 +747,10 @@ h2 span {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.contact-form label > span {
+  color: var(--primary);
 }
 
 .contact-form input,
@@ -1312,6 +1327,10 @@ h2 span {
     font-size: 1.65rem;
   }
 
+  .project-impact {
+    font-size: 0.84rem;
+  }
+
   .project-link-label {
     width: 100%;
   }
@@ -1323,10 +1342,15 @@ h2 span {
   .fixed-project h3 {
     font-size: 1.35rem;
   }
-
   .code-card pre {
     padding: 12px;
     font-size: 0.72rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-preview img {
+    transform: scale(1.04);
   }
 }
 
@@ -2436,9 +2460,11 @@ h2 span {
   transition: transform 220ms ease, opacity 220ms ease;
 }
 
-.project-card:hover .project-preview img {
-  opacity: 1;
-  transform: scale(1.04);
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-preview img {
+    opacity: 1;
+    transform: scale(1.04);
+  }
 }
 
 .project-status {
