@@ -2989,3 +2989,154 @@ select {
     min-width: 300px;
   }
 }
+
+/* Ajuste de clareza visual: mantém a identidade, reduz ruído e prioriza conteúdo. */
+body {
+  background-image:
+    radial-gradient(circle at 8% 0%, rgba(57, 216, 255, 0.12), transparent 28%),
+    radial-gradient(circle at 92% 12%, rgba(155, 69, 255, 0.1), transparent 24%),
+    linear-gradient(135deg, var(--bg) 0%, var(--bg-strong) 58%, #10091f 100%);
+  background-size: auto;
+}
+
+body::after {
+  display: none;
+}
+
+.site-header {
+  border-color: rgba(57, 216, 255, 0.45);
+  border-radius: 14px;
+  box-shadow: 0 14px 32px rgba(3, 7, 18, 0.32);
+}
+
+.nav a,
+.header-cta,
+.button,
+.eyebrow,
+.section-kicker,
+.mini-label,
+.project-topline,
+.contact-form label,
+.hero-photo-caption small {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.nav a,
+.header-cta,
+.button,
+.eyebrow,
+.section-kicker,
+.mini-label,
+.project-topline,
+.hero-photo-caption small {
+  text-transform: none;
+}
+
+.header-cta,
+.button,
+.github-link,
+.contact-links a {
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.header-cta:hover,
+.button:hover {
+  box-shadow: 0 10px 22px rgba(57, 216, 255, 0.16);
+}
+
+.button.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  color: #04111c;
+}
+
+.hero {
+  min-height: 0;
+  padding-top: 92px;
+  padding-bottom: 84px;
+}
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(3rem, 6.5vw, 5.8rem);
+  line-height: 0.96;
+  text-transform: none;
+  letter-spacing: -0.055em;
+}
+
+.lede {
+  max-width: 650px;
+  font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+}
+
+.hero-photo-card,
+.hero-art,
+.project-card,
+.contact-form,
+.service-card,
+.technology-card,
+.workflow-card,
+.price-card {
+  border-radius: 18px;
+  box-shadow: 0 18px 36px rgba(3, 7, 18, 0.24);
+}
+
+.hero-photo-card {
+  border-color: rgba(57, 216, 255, 0.58);
+  box-shadow: 8px 8px 0 rgba(155, 69, 255, 0.2), 0 18px 36px rgba(3, 7, 18, 0.24);
+}
+
+.project-card,
+.service-card,
+.technology-card,
+.workflow-card,
+.price-card,
+.contact-form {
+  background-image: none;
+}
+
+.project-card::before,
+.project-card::after,
+.service-card::before,
+.service-card::after,
+.technology-card::before,
+.technology-card::after,
+.workflow-card::before,
+.workflow-card::after,
+.price-card::before,
+.price-card::after,
+.contact-form::before,
+.contact-form::after,
+.button::before,
+.header-cta::before {
+  display: none;
+}
+
+.project-preview {
+  border-radius: 12px;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(57, 216, 255, 0.58);
+  box-shadow: 0 20px 40px rgba(3, 7, 18, 0.36);
+}
+
+@media (max-width: 560px) {
+  .site-header,
+  .hero,
+  .content-section,
+  .site-footer {
+    width: calc(100% - 24px);
+  }
+
+  .hero {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+  }
+}

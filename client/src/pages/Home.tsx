@@ -30,7 +30,7 @@ const services = [
 const projects = [
   {
     title: "feiticeiros homebrew",
-    description: "Plataforma autoral para organizar ideias, experiências e estrutura de produto em uma base moderna.",
+    description: "Plataforma web autoral para organizar conteúdo e transformar uma ideia em uma experiência digital completa.",
     stack: ["React", "TypeScript", "Express"],
     github: "https://github.com/otavio2019/feiticeiros-homebrew",
     site: "https://feiticeiros-homebrew.vercel.app",
@@ -40,7 +40,7 @@ const projects = [
   },
   {
     title: "CITI-DE",
-    description: "Projeto de repaginação com foco em visual, organização e melhor experiência do usuário.",
+    description: "Repaginação de interface com foco em hierarquia visual, organização do conteúdo e melhor experiência de uso.",
     stack: ["Frontend", "UI", "Design System"],
     github: "https://github.com/otavio2019/CITI-DE",
     status: "Projeto publicado",
@@ -49,7 +49,7 @@ const projects = [
   },
   {
     title: "Estágio",
-    description: "Repositório de estudo e prática com foco em aprender e aplicar conceitos em projetos reais.",
+    description: "Repositório de prática para aprender, testar soluções e aplicar conceitos de desenvolvimento em projetos reais.",
     stack: ["Python", "Open Source", "Aprendizado"],
     github: "https://github.com/otavio2019/Estagio",
     status: "Projeto de estudo",
@@ -136,20 +136,20 @@ export default function Home() {
         <section id="top" className="hero section">
           <div className="hero-copy">
             <p className="eyebrow">
-              <span className="dot" /> disponível para projetos
+              <span className="dot" /> disponível para projetos e oportunidades júnior
             </p>
 
             <h1>
-              Desenvolvimento web <span>sob medida</span>
+              Sites e sistemas <span>que funcionam</span>
             </h1>
 
             <p className="lede">
-              Desenvolvo sites, interfaces e aplicações web com React, TypeScript e foco em clareza, responsividade e boa experiência de uso.
+              Crio sites, interfaces e aplicações web claros, responsivos e feitos para resolver problemas reais — do primeiro rascunho à publicação.
             </p>
 
             <div className="hero-actions">
               <a href="#projetos" className="button primary">
-                Ver projetos
+                Conhecer meu trabalho
               </a>
               <a href="#contato" className="button secondary">
                 Falar comigo
