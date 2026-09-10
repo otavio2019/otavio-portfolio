@@ -5,10 +5,11 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Home from "./pages/Home";
 import Library from "./pages/Library";
+import Resume from "./pages/Resume";
 import Services from "./pages/Services";
 
 function Router() {
-  return <Switch><Route path="/" component={Home} /><Route path="/servicos" component={Services} /><Route path="/biblioteca" component={Library} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
+  return <Switch><Route path="/" component={Home} /><Route path="/servicos" component={Services} /><Route path="/biblioteca" component={Library} /><Route path="/curriculo" component={Resume} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
 }
 
 export default function App() {

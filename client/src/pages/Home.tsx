@@ -124,6 +124,7 @@ export default function Home() {
               {label}
             </a>
           ))}
+          <a href="/curriculo" onClick={() => setOpen(false)}>Currículo</a>
         </nav>
 
         <a href="#contato" className="header-cta">
