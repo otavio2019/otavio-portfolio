@@ -276,6 +276,9 @@ export function ProjectsSection() {
           >
             <Github size={16} aria-hidden="true" /> GitHub
           </a>
+          <a href="/biblioteca" className="github-link">
+            <ArrowRight size={16} aria-hidden="true" /> Ver todos os projetos
+          </a>
         </div>
         <div className="projects-grid">
           {projects.map(project => (
