@@ -3962,6 +3962,29 @@ body {
   font-size: 0.94rem;
 }
 
+.resume-course-list h3 {
+  margin: 18px 0 9px;
+  color: var(--text);
+  font-size: 0.98rem;
+}
+
+.resume-course-list h3:first-child {
+  margin-top: 0;
+}
+
+.resume-course-list ul {
+  display: grid;
+  gap: 9px;
+  padding-left: 19px;
+  color: #d1cedb;
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+
+.resume-course-list li::marker {
+  color: var(--primary);
+}
+
 .resume-skills {
   display: flex;
   flex-wrap: wrap;
@@ -4108,6 +4131,14 @@ body {
     border-color: #94a3b8;
     background: #f1f5f9;
     color: #1e293b;
+  }
+
+  .resume-course-list h3 {
+    color: #111827;
+  }
+
+  .resume-course-list ul {
+    color: #374151;
   }
 
   .resume-item {
