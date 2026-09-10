@@ -7,17 +7,20 @@ interface Props {
 
 interface State {
   hasError: boolean;
-  error: Error | null;
 }
 
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+  static getDerivedStateFromError(): State {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error("Erro não tratado na interface", error, errorInfo);
   }
 
   render() {
@@ -31,12 +34,6 @@ class ErrorBoundary extends Component<Props, State> {
             />
 
             <h2>Ocorreu um erro inesperado.</h2>
-
-            <div className="error-details">
-              <pre>
-                {this.state.error?.stack}
-              </pre>
-            </div>
 
             <button
               onClick={() => window.location.reload()}
