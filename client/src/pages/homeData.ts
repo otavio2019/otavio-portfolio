@@ -69,6 +69,7 @@ export const projects: Project[] = [
       "Repaginação de interface com foco em hierarquia visual, organização do conteúdo e melhor experiência de uso.",
     stack: ["Frontend", "UI", "Design System"],
     github: "https://github.com/otavio2019/CITI-DE",
+    site: "https://citi-de.vercel.app/",
     status: "Projeto publicado",
     type: "Interface web",
     role: "Repaginação de interface e hierarquia visual",
