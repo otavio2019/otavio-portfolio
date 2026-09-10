@@ -39,6 +39,7 @@ const projects = [
     type: "Plataforma web",
     role: "Produto autoral e implementação frontend",
     impact: "Organização de conteúdo e navegação para uma experiência digital completa.",
+    library: undefined,
     preview: "/images/homebrew-forge-dashboard-enhanced.png",
   },
   {
@@ -50,17 +51,19 @@ const projects = [
     type: "Interface web",
     role: "Repaginação de interface e hierarquia visual",
     impact: "Conteúdo mais organizado e leitura mais clara para quem acessa a plataforma.",
+    library: undefined,
     preview: "/images/portfolio-visual.svg",
   },
   {
-    title: "Estágio",
-    description: "Repositório de prática para aprender, testar soluções e aplicar conceitos de desenvolvimento em projetos reais.",
-    stack: ["Python", "Open Source", "Aprendizado"],
-    github: "https://github.com/otavio2019/Estagio",
-    status: "Projeto de estudo",
-    type: "Prática e aprendizado",
-    role: "Estudo, experimentação e código aberto",
-    impact: "Aplicação prática de conceitos e registro público da evolução técnica.",
+    title: "Biblioteca",
+    description: "Outros repositórios, estudos e experiências para conhecer melhor minha evolução como desenvolvedor.",
+    stack: ["Projetos", "Estudos", "GitHub"],
+    github: "https://github.com/otavio2019",
+    library: "/biblioteca",
+    status: "Ver outros projetos",
+    type: "Projetos e estudos",
+    role: "Organização e evolução contínua",
+    impact: "Um espaço para reunir trabalhos que não cabem na seleção principal do portfólio.",
     preview: "/images/portfolio-visual.svg",
   },
 ];
@@ -305,6 +308,11 @@ export default function Home() {
                   {project.github && (
                     <a href={project.github} target="_blank" rel="noreferrer" className="project-link-label">
                       <Github size={14} /> Ver GitHub <ArrowRight size={13} />
+                    </a>
+                  )}
+                  {project.library && (
+                    <a href={project.library} className="project-link-label">
+                      <ArrowRight size={14} /> Abrir biblioteca <ArrowRight size={13} />
                     </a>
                   )}
                 </div>

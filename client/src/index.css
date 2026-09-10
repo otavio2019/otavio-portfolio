@@ -3645,3 +3645,163 @@ body {
     box-shadow: 0 10px 24px rgba(3, 7, 18, 0.2);
   }
 }
+
+/* Página Biblioteca: catálogo leve para projetos além da seleção principal. */
+.library-page .library-nav {
+  margin-left: auto;
+}
+
+.library-hero {
+  min-height: 520px;
+  padding-top: 130px;
+  padding-bottom: 96px;
+}
+
+.library-hero h1 {
+  max-width: 820px;
+  margin-top: 18px;
+  font-size: clamp(3.2rem, 7vw, 6.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.library-hero-copy {
+  max-width: 680px;
+  margin: 26px 0 30px;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.7;
+}
+
+.library-list-section {
+  border-top: 1px solid rgba(57, 216, 255, 0.18);
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.library-card {
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(9, 13, 22, 0.98));
+  box-shadow: 0 18px 36px rgba(3, 7, 18, 0.24);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.library-card:hover,
+.library-card:focus-within {
+  transform: translateY(-5px);
+  border-color: rgba(57, 216, 255, 0.58);
+  box-shadow: 0 20px 40px rgba(3, 7, 18, 0.36);
+}
+
+.library-card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.library-card-topline svg {
+  color: var(--primary);
+}
+
+.library-card h3 {
+  margin-top: 24px;
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+}
+
+.library-card p {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.library-card .project-status {
+  margin-top: 20px;
+}
+
+.library-card .project-links {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+@media (max-width: 880px) {
+  .library-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .library-page .site-header {
+    width: calc(100% - 20px);
+    margin-top: 10px;
+    padding: 8px 12px;
+  }
+
+  .library-page .site-header .brand-logo {
+    width: 118px;
+    height: 44px;
+  }
+
+  .library-page .library-nav {
+    display: none;
+  }
+
+  .library-hero {
+    min-height: 0;
+    padding-top: 72px;
+    padding-bottom: 58px;
+  }
+
+  .library-hero h1 {
+    font-size: clamp(2.65rem, 13vw, 4rem);
+  }
+
+  .library-hero-copy {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .library-hero .button {
+    width: 100%;
+  }
+
+  .library-list-section {
+    width: calc(100% - 20px);
+    padding-top: 52px;
+  }
+
+  .library-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .library-card {
+    min-height: 0;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(3, 7, 18, 0.2);
+  }
+
+  .library-card h3 {
+    font-size: 1.65rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .library-card:hover {
+    transform: none;
+    box-shadow: 0 10px 24px rgba(3, 7, 18, 0.2);
+  }
+}
