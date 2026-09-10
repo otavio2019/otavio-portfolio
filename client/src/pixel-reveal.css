@@ -21,7 +21,7 @@
   grid-template-rows: repeat(14, 1fr);
   pointer-events: none;
   overflow: hidden;
-  background: #39d8ff;
+  background: transparent;
 }
 
 .pixel-cell {
@@ -52,6 +52,10 @@
 .pixel-reveal.is-visible .pixel-cell {
   opacity: 0;
   transform: scale(0.72);
+}
+
+.pixel-reveal.is-visible .pixel-reveal-layer {
+  background: transparent;
 }
 
 .pixel-project-preview {
