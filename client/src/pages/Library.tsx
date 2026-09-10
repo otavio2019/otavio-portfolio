@@ -8,6 +8,7 @@ const libraryProjects = [
     stack: ["Frontend", "UI", "Design"],
     status: "Projeto publicado",
     github: "https://github.com/otavio2019/CITI-DE",
+    preview: "/images/portfolio-visual.svg",
   },
   {
     title: "Ficha-F-M",
@@ -16,6 +17,25 @@ const libraryProjects = [
     stack: ["Web", "Prática", "GitHub"],
     status: "Em evolução",
     github: "https://github.com/otavio2019/Ficha-F-M",
+    preview: "/images/portfolio-visual.svg",
+  },
+  {
+    title: "Gurps Ficha System",
+    description: "Sistema de gerenciamento de fichas para GURPS 4ª Edição, com organização de atributos e informações de personagem.",
+    category: "Sistema web",
+    stack: ["Next.js", "TypeScript", "Supabase"],
+    status: "Em desenvolvimento",
+    github: "https://github.com/otavio2019/Gurps-Ficha-System",
+    preview: "/images/gurps-ficha-preview.svg",
+  },
+  {
+    title: "declara-o",
+    description: "Aplicação para organizar declarações e registrar informações de forma simples, com espaço para evoluir a experiência do usuário.",
+    category: "Aplicação web",
+    stack: ["Next.js", "Supabase", "TypeScript"],
+    status: "Em desenvolvimento",
+    github: "https://github.com/otavio2019/declara-o",
+    preview: "/images/declara-coracao.png",
   },
   {
     title: "Otávio Portfolio",
@@ -64,6 +84,7 @@ export default function Library() {
           <div className="library-grid">
             {libraryProjects.map((project) => (
               <article key={project.title} className="library-card">
+                <div className="library-card-preview"><img src={project.preview} alt={`Preview do projeto ${project.title}`} loading="lazy" decoding="async" /></div>
                 <div className="library-card-topline"><span>{project.category}</span><Code2 size={17} aria-hidden="true" /></div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
