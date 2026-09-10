@@ -9,6 +9,7 @@ const libraryProjects = [
     status: "Projeto publicado",
     github: "https://github.com/otavio2019/CITI-DE",
     preview: "/images/portfolio-visual.svg",
+    site: "https://citi-de.vercel.app/",
   },
   {
     title: "Ficha-F-M",
