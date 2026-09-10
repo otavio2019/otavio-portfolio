@@ -8,6 +8,7 @@ import {
   Mail,
   Menu,
   MessageSquare,
+  Phone,
   X,
 } from "lucide-react";
 import {
@@ -368,8 +369,11 @@ export function ContactSection({ onSubmit }: ContactProps) {
               ))}
             </div>
             <div className="contact-links">
-              <a href="mailto:otavioaugusto.contato@gmail.com">
+              <a href="mailto:otavioaugusto0172@gmail.com">
                 <Mail size={16} aria-hidden="true" /> E-mail
+              </a>
+              <a href="https://wa.me/5583999645357" target="_blank" rel="noreferrer">
+                <Phone size={16} aria-hidden="true" /> WhatsApp
               </a>
               <a
                 href="https://github.com/otavio2019"

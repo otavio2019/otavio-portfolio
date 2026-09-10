@@ -77,25 +77,25 @@ export const projects: Project[] = [
     preview: "/images/portfolio-visual.svg",
   },
   {
-    title: "Biblioteca",
+    title: "declara-o",
     description:
-      "Outros repositórios, estudos e experiências para conhecer melhor minha evolução como desenvolvedor.",
-    stack: ["Projetos", "Estudos", "GitHub"],
-    github: "https://github.com/otavio2019",
-    library: "/biblioteca",
-    status: "Ver outros projetos",
-    type: "Projetos e estudos",
-    role: "Organização e evolução contínua",
+      "Aplicação web para organizar declarações e registrar informações de forma simples, com espaço para evoluir a experiência do usuário.",
+    stack: ["Next.js", "Supabase", "TypeScript"],
+    github: "https://github.com/otavio2019/declara-o",
+    site: "https://declara-o-gilt.vercel.app/",
+    status: "Em desenvolvimento",
+    type: "Aplicação web",
+    role: "Desenvolvimento de aplicação e organização de fluxos",
     impact:
-      "Um espaço para reunir trabalhos que não cabem na seleção principal do portfólio.",
-    preview: "/images/portfolio-visual.svg",
+      "Registro de informações em uma experiência simples e objetiva.",
+    preview: "/images/declara-coracao.png",
   },
 ];
 
 // Indicadores rápidos exibidos na apresentação inicial.
 export const stats = [
   { value: "+3", label: "anos de estudo e prática" },
-  { value: "14", label: "repositórios públicos" },
+  { value: "13", label: "repositórios públicos" },
   { value: "100%", label: "foco em qualidade e clareza" },
 ];
 
