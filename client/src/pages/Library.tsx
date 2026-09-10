@@ -36,6 +36,7 @@ const libraryProjects = [
     status: "Em desenvolvimento",
     github: "https://github.com/otavio2019/declara-o",
     preview: "/images/declara-coracao.png",
+    site: "https://declara-o-gilt.vercel.app/",
   },
   {
     title: "Otávio Portfolio",
