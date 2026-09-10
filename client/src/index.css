@@ -3495,6 +3495,18 @@ body {
     gap: 12px;
   }
 
+  .services-page #servicos {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    border-top: 1px solid rgba(57, 216, 255, 0.18);
+    border-bottom: 1px solid rgba(155, 69, 255, 0.18);
+    background: rgba(12, 11, 20, 0.34);
+  }
+
+  .services-page #servicos .services-grid {
+    gap: 10px;
+  }
+
   .services-page .service-card,
   .services-page .benefit-card,
   .services-page .workflow-card {
@@ -3509,6 +3521,29 @@ body {
     width: 40px;
     height: 40px;
     margin-bottom: 16px;
+  }
+
+  .services-page #servicos .service-card {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: start;
+    padding: 16px;
+  }
+
+  .services-page #servicos .service-icon {
+    grid-row: 1 / span 2;
+    margin: 0;
+  }
+
+  .services-page #servicos .service-card h3 {
+    align-self: center;
+    margin: 0;
+  }
+
+  .services-page #servicos .service-card p {
+    grid-column: 2;
+    margin-top: 6px;
   }
 
   .services-page .service-card h3,
