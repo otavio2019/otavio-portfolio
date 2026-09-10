@@ -237,8 +237,8 @@ export function TechnologiesSection() {
       >
         <div className="section-header">
           <div>
-            <span className="section-kicker">03 / Tecnologias</span>
-            <h2>Ferramentas para transformar ideia em produto.</h2>
+            <span className="section-kicker">03 / Tecnologias que uso</span>
+            <h2>As ferramentas que uso para transformar ideias em produtos.</h2>
           </div>
         </div>
         <div className="technology-grid">

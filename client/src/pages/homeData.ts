@@ -105,9 +105,9 @@ export const technologyGroups = [
   { title: "Frontend", items: ["React", "TypeScript", "Vite", "Tailwind"] },
   {
     title: "Backend e dados",
-    items: ["Node.js", "Express", "Python", "MySQL"],
+    items: ["Node.js", "Express", "Python", "MySQL", "Supabase"],
   },
-  { title: "Ferramentas", items: ["GitHub", "Git", "Vercel"] },
+  { title: "Ferramentas e deploy", items: ["GitHub", "Git", "Vercel", "Cloudflare"] },
 ];
 
 // Links exibidos na navegação interna da Home.
