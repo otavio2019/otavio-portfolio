@@ -123,7 +123,7 @@ export function HomeHero() {
       <div className="hero-panel">
         <div className="hero-photo-card">
           <img
-            src="/images/Foto-Otavio.jpeg"
+            src="/images/Foto_Otavio.jpeg"
             alt="Otávio Augusto, desenvolvedor web"
             width="640"
             height="800"
