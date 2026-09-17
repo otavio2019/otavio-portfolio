@@ -2758,6 +2758,10 @@ h2 span {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .services-page .benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .site-shell:not(.services-page) .hero {
     padding-top: 76px;
   }
@@ -2767,6 +2771,10 @@ h2 span {
   .site-shell:not(.services-page) .hero {
     padding-top: 62px;
     padding-bottom: 62px;
+  }
+
+  .services-page .benefits-grid {
+    grid-template-columns: 1fr;
   }
 
   .site-shell:not(.services-page) .hero h1 {
@@ -3516,6 +3524,14 @@ body {
     box-shadow: 0 10px 24px rgba(3, 7, 18, 0.2);
   }
 
+  .services-page .benefit-card {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: start;
+    padding: 16px;
+  }
+
   .services-page .service-icon,
   .services-page .benefit-icon {
     width: 40px;
@@ -3542,6 +3558,21 @@ body {
   }
 
   .services-page #servicos .service-card p {
+    grid-column: 2;
+    margin-top: 6px;
+  }
+
+  .services-page .benefit-card .benefit-icon {
+    grid-row: 1 / span 2;
+    margin: 0;
+  }
+
+  .services-page .benefit-card h3 {
+    align-self: center;
+    margin: 0;
+  }
+
+  .services-page .benefit-card p {
     grid-column: 2;
     margin-top: 6px;
   }
