@@ -8,7 +8,7 @@ const libraryProjects = [
     stack: ["Frontend", "UI", "Design"],
     status: "Projeto publicado",
     github: "https://github.com/otavio2019/CITI-DE",
-    preview: "/images/portfolio-visual.svg",
+    preview: "/images/citi-de-preview.png",
     site: "https://citi-de.vercel.app/",
   },
   {
@@ -27,7 +27,7 @@ const libraryProjects = [
     stack: ["Next.js", "TypeScript", "Supabase", "UI","Power BI", "E-commerce"],
     status: "Pronto",
     github: "https://github.com/otavio2019/LojaTech.git",
-    preview: "/images/loja-tech-preview.svg",
+    preview: "/images/loja-tech-preview.png",
     site: "https://lojateachpowerbi.vercel.app",
   },
   {

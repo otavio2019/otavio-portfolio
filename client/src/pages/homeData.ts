@@ -75,7 +75,7 @@ export const projects: Project[] = [
     role: "Repaginação de interface e hierarquia visual",
     impact:
       "Conteúdo mais organizado e leitura mais clara para quem acessa a plataforma.",
-    preview: "/images/portfolio-visual.svg",
+    preview: "/images/citi-de-preview.png",
   },
   {
     title: "declara-o",
