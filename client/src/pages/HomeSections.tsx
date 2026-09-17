@@ -283,6 +283,17 @@ export function ProjectsSection() {
         <div className="projects-grid">
           {projects.map(project => (
             <article key={project.title} className="project-card">
+              <div className="project-preview pixel-project-preview">
+                <span className="pixel-project-overlay" aria-hidden="true" />
+                <img
+                  src={project.preview}
+                  alt={`Preview visual do projeto ${project.title}`}
+                  width="640"
+                  height="360"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
               <div className="project-topline">
                 <span>{project.type}</span>
                 <Code2 size={16} />
