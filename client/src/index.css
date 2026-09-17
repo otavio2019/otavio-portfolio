@@ -3716,7 +3716,7 @@ body {
 
 .library-card {
   display: flex;
-  min-height: 320px;
+  min-height: 640px;
   flex-direction: column;
   padding: 24px;
   border: 1px solid var(--line);
@@ -3727,7 +3727,7 @@ body {
 }
 
 .library-card-preview {
-  height: 150px;
+  height: 184px;
   margin: -24px -24px 22px;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
@@ -3771,16 +3771,24 @@ body {
   margin-top: 24px;
   font-size: 2rem;
   letter-spacing: -0.05em;
+  text-transform: uppercase;
 }
-
 .library-card p {
   margin-top: 10px;
   color: var(--muted);
   line-height: 1.7;
 }
-
-.library-card .project-status {
+.library-card .project-impact {
   margin-top: 20px;
+  padding-top: 0;
+  color: #d4d1df;
+  line-height: 1.65;
+}
+.library-card .project-impact strong {
+  color: var(--primary);
+}
+.library-card .project-status {
+  margin-top: 22px;
 }
 
 .library-card .project-links {

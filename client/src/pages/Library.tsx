@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, Code2, Github } from "lucide-react";
+import { ArrowLeft, ArrowRight, Code2, Github, Globe } from "lucide-react";
 
 const libraryProjects = [
   {
@@ -7,6 +7,8 @@ const libraryProjects = [
     category: "Interface web",
     stack: ["Frontend", "UI", "Design"],
     status: "Projeto publicado",
+    role: "Repaginação de interface e hierarquia visual",
+    impact: "Conteúdo mais organizado e leitura mais clara para quem acessa a plataforma.",
     github: "https://github.com/otavio2019/CITI-DE",
     preview: "/images/citi-de-preview.png",
     site: "https://citi-de.vercel.app/",
@@ -17,6 +19,8 @@ const libraryProjects = [
     category: "Projeto de estudo",
     stack: ["Web", "Prática", "GitHub"],
     status: "Em evolução",
+    role: "Exploração de uma solução web e organização da experiência",
+    impact: "Registro da evolução do desenvolvimento em uma aplicação prática.",
     github: "https://github.com/otavio2019/Ficha-F-M",
     preview: "/images/portfolio-visual.svg",
   },
@@ -26,6 +30,8 @@ const libraryProjects = [
     category: "Sistema web",
     stack: ["Next.js", "TypeScript", "Supabase", "UI","Power BI", "E-commerce"],
     status: "Pronto",
+    role: "Desenvolvimento de sistema e organização de produtos",
+    impact: "Experiência de loja com catálogo, dados e acompanhamento da operação.",
     github: "https://github.com/otavio2019/LojaTech.git",
     preview: "/images/loja-tech-preview.png",
     site: "https://lojateachpowerbi.vercel.app",
@@ -36,6 +42,8 @@ const libraryProjects = [
     category: "Aplicação web",
     stack: ["Next.js", "Supabase", "TypeScript"],
     status: "Pronto",
+    role: "Desenvolvimento de aplicação e organização de fluxos",
+    impact: "Registro de informações em uma experiência simples e objetiva.",
     github: "https://github.com/otavio2019/declara-o",
     preview: "/images/declara-coracao.png",
     site: "https://declara-o-gilt.vercel.app/",
@@ -46,6 +54,9 @@ const libraryProjects = [
     category: "Portfólio",
     stack: ["React", "TypeScript", "Cloudflare"],
     status: "Publicado",
+    role: "Produto autoral e implementação frontend",
+    impact: "Apresentação de projetos, serviços e evolução profissional.",
+    preview: "/images/portfolio-visual.svg",
     github: "https://github.com/otavio2019/otavio-portfolio",
     site: "/",
   },
@@ -91,13 +102,14 @@ export default function Library() {
                 <div className="library-card-topline"><span>{project.category}</span><Code2 size={17} aria-hidden="true" /></div>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
+                <p className="project-impact"><strong>Meu papel:</strong> {project.role}<br /><strong>Foco:</strong> {project.impact}</p>
                 <span className="project-status">{project.status}</span>
                 <div className="project-tags">
                   {project.stack.map((item) => <span key={item}>{item}</span>)}
                 </div>
                 <div className="project-links">
-                  <a href={project.github} target="_blank" rel="noreferrer" className="project-link-label"><Github size={14} /> Ver GitHub <ArrowUpRight size={13} /></a>
-                  {project.site && <a href={project.site} className="project-link-label"><ArrowUpRight size={14} /> Ver projeto</a>}
+                  {project.site && <a href={project.site} target={project.site.startsWith("http") ? "_blank" : undefined} rel={project.site.startsWith("http") ? "noreferrer" : undefined} className="project-link-label"><Globe size={14} /> Ver site <ArrowRight size={13} /></a>}
+                  <a href={project.github} target="_blank" rel="noreferrer" className="project-link-label"><Github size={14} /> Ver GitHub <ArrowRight size={13} /></a>
                 </div>
               </article>
             ))}
