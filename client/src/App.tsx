@@ -8,10 +8,30 @@ import Library from "./pages/Library";
 import Resume from "./pages/Resume";
 import Services from "./pages/Services";
 
+const routes = [
+  { path: "/", component: Home },
+  { path: "/servicos", component: Services },
+  { path: "/biblioteca", component: Library },
+  { path: "/curriculo", component: Resume },
+  { path: "/404", component: NotFound },
+] as const;
+
 function Router() {
-  return <Switch><Route path="/" component={Home} /><Route path="/servicos" component={Services} /><Route path="/biblioteca" component={Library} /><Route path="/curriculo" component={Resume} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
+  return (
+    <Switch>
+      {routes.map(({ path, component: Component }) => (
+        <Route key={path} path={path} component={Component} />
+      ))}
+      <Route component={NotFound} />
+    </Switch>
+  );
 }
 
 export default function App() {
-  return <ErrorBoundary><Toaster /><Router /></ErrorBoundary>;
+  return (
+    <ErrorBoundary>
+      <Toaster />
+      <Router />
+    </ErrorBoundary>
+  );
 }

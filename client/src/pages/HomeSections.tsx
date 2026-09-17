@@ -20,6 +20,19 @@ import {
 } from "./homeData";
 import PixelReveal from "@/components/PixelReveal";
 
+const aboutHighlights = [
+  "React e TypeScript",
+  "Interfaces responsivas",
+  "Código organizado",
+  "Estudo e prática",
+];
+
+const contactHighlights = [
+  "Desenvolvimento responsivo",
+  "Comunicação clara",
+  "Foco em aprendizado e qualidade",
+];
+
 interface HeaderProps {
   isMenuOpen: boolean;
   onMenuToggle: () => void;
@@ -28,6 +41,32 @@ interface HeaderProps {
 
 interface ContactProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+interface SectionHeaderProps {
+  kicker: string;
+  title: string;
+  align?: "left" | "split";
+}
+
+function SectionHeader({ kicker, title, align = "left" }: SectionHeaderProps) {
+  if (align === "split") {
+    return (
+      <div className="section-header projects-header">
+        <div>
+          <span className="section-kicker">{kicker}</span>
+          <h2>{title}</h2>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="section-header">
+      <span className="section-kicker">{kicker}</span>
+      <h2>{title}</h2>
+    </div>
+  );
 }
 
 // Cabeçalho fixo com navegação por âncoras e menu responsivo.
@@ -155,10 +194,7 @@ export function AboutSection() {
   return (
     <PixelReveal className="pixel-section">
       <section id="sobre" className="content-section section">
-        <div className="section-header">
-          <span className="section-kicker">01 / Sobre</span>
-          <h2>Um profissional em evolução, com visão para produto e código.</h2>
-        </div>
+        <SectionHeader kicker="01 / Sobre" title="Um profissional em evolução, com visão para produto e código." />
         <div className="about-grid">
           <div>
             <div className="about-highlight">
@@ -170,12 +206,7 @@ export function AboutSection() {
               claras, responsivas e funcionais.
             </p>
             <div className="about-points">
-              {[
-                "React e TypeScript",
-                "Interfaces responsivas",
-                "Código organizado",
-                "Estudo e prática",
-              ].map(point => (
+              {aboutHighlights.map(point => (
                 <span key={point}>
                   <Check size={15} /> {point}
                 </span>
@@ -207,10 +238,10 @@ export function ServicesSection() {
   return (
     <PixelReveal className="pixel-section">
       <section id="servicos" className="content-section dark-section section">
-        <div className="section-header">
-          <span className="section-kicker">02 / O que eu desenvolvo</span>
-          <h2>Interfaces e experiências digitais com clareza.</h2>
-        </div>
+        <SectionHeader
+          kicker="02 / O que eu desenvolvo"
+          title="Interfaces e experiências digitais com clareza."
+        />
         <div className="services-grid">
           {services.map(({ title, text, icon: Icon }) => (
             <article key={title} className="service-card">
@@ -235,12 +266,10 @@ export function TechnologiesSection() {
         id="tecnologias"
         className="content-section technology-section section"
       >
-        <div className="section-header">
-          <div>
-            <span className="section-kicker">03 / Tecnologias que uso</span>
-            <h2>As ferramentas que uso para transformar ideias em produtos.</h2>
-          </div>
-        </div>
+        <SectionHeader
+          kicker="03 / Tecnologias que uso"
+          title="As ferramentas que uso para transformar ideias em produtos."
+        />
         <div className="technology-grid">
           {technologyGroups.map(group => (
             <article key={group.title} className="technology-card">
@@ -361,11 +390,7 @@ export function ContactSection({ onSubmit }: ContactProps) {
               colaborações.
             </p>
             <div className="contact-trust-list">
-              {[
-                "Desenvolvimento responsivo",
-                "Comunicação clara",
-                "Foco em aprendizado e qualidade",
-              ].map(item => (
+              {contactHighlights.map(item => (
                 <span key={item}>
                   <Check size={15} /> {item}
                 </span>
